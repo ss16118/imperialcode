@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'imperialcode.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydatabase', #to be changed
+        'NAME': 'postgres', 
         'USER': 'g1927140_u',
         'PASSWORD': 'zGpqzMXl37',
         'HOST': 'db.doc.ic.ac.uk',
