@@ -1,8 +1,13 @@
 stages:
-    - build
     - test
     - deploy
 
+job 0:
+    stage: test
+    script: 
+        - apt-get install -y python-dev python-pip
+        - pip install -r requirements.txt
+        - python manage.py test
 
 job 0:
     stage: deploy
