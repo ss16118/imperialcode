@@ -1,0 +1,10 @@
+stages:
+    - build
+    - test
+    - deploy
+
+
+job 0:
+    stage: deploy
+    script: 
+        - python imperialcode/manage.py runserver
