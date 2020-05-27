@@ -5,9 +5,9 @@ stages:
 job 0:
     stage: test
     script: 
-        - apt-get install -y python-dev python-pip
+        - apt-get install -y python3 python3-pip
         - pip install -r requirements.txt
-        - python manage.py test
+        - python3 manage.py test
 
 job 0:
     stage: deploy
