@@ -1,1 +1,1 @@
-web: gunicorn imperialcode:application --preload -b 0.0.0.0:5000
+web: gunicorn imperialcode.wsgi:application --preload -b 0.0.0.0:5000
