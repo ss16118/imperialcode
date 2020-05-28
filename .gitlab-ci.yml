@@ -22,4 +22,7 @@ deploy:
   image: ruby:2.5
   script:
     - gem install dpl
+    - kill $(lsof -t -i:8080) || true
+    - export PORT=8080
+    - python3 imperialcode/manage.py 0.0.0.0:8080 &> /dev/null 2> /dev/null & disown
     - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_KEY
