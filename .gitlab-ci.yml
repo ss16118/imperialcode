@@ -21,6 +21,8 @@ deploy:
     - master
   image: ruby:2.5
   script:
+    - pip install gunicorn
+    - pip install django-heroku
     - gem install dpl
     - kill $(lsof -t -i:8080) || true
     - export PORT=8080
