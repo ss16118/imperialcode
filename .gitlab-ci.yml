@@ -5,7 +5,7 @@ stages:
 job 0:
     stage: test
     tags:
-        - runner
+        - test-runner
     script: 
         - apt-get update
         - apt-get install -y python3 python3-pip
