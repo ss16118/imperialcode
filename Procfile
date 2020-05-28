@@ -1,1 +1,1 @@
-web: gunicorn imperialcode.wsgi --log-file -
+web: gunicorn imperialcode.wsgi:application --log-file -
