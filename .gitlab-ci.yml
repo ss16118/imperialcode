@@ -7,11 +7,11 @@ test:
     tags:
         - test-runner
     script:
-        - pip3 install gunicorn
-        - pip3 install django-heroku
-        - pip3 install django
-        - pip3 install psycopg2-binary
-        - pip3 install dj_database_url
+        - pip install django
+        - pip install psycopg2-binary
+        - pip install gunicorn
+        - pip install dj_database_url
+        - pip install django-heroku
         - python3 imperialcode/manage.py test
 
 
@@ -23,8 +23,8 @@ deploy:
     - master
   image: ruby:2.5
   script:
-    - pip3 install gunicorn
-    - pip3 install django-heroku
+    - pip install gunicorn
+    - pip install django-heroku
     - gem install dpl
     - kill $(lsof -t -i:8080) || true
     - export PORT=8080
