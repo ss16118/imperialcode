@@ -7,6 +7,7 @@ job 0:
     tags:
         - test-runner
     script: 
+        - pip3 install django
         - python3 imperialcode/manage.py test
 
 job 1:
