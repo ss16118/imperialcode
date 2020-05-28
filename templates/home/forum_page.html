@@ -1,0 +1,707 @@
+﻿<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <title>Forum Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/forum_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
+    <script src={% static "resources/scripts/axure/globals.js" %}></script>
+    <script src={% static "resources/scripts/axutils.js" %}></script>
+    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
+    <script src={% static "resources/scripts/axure/doc.js" %}></script>
+    <script src={% static "resources/scripts/messagecenter.js" %}></script>
+    <script src={% static "resources/scripts/axure/events.js" %}></script>
+    <script src={% static "resources/scripts/axure/recording.js" %}></script>
+    <script src={% static "resources/scripts/axure/action.js" %}></script>
+    <script src={% static "resources/scripts/axure/expr.js" %}></script>
+    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
+    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
+    <script src={% static "resources/scripts/axure/model.js" %}></script>
+    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
+    <script src={% static "resources/scripts/axure/sto.js" %}></script>
+    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/variables.js" %}></script>
+    <script src={% static "resources/scripts/axure/drag.js" %}></script>
+    <script src={% static "resources/scripts/axure/move.js" %}></script>
+    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
+    <script src={% static "resources/scripts/axure/style.js" %}></script>
+    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
+    <script src={% static "resources/scripts/axure/tree.js" %}></script>
+    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
+    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
+    <script src={% static "resources/scripts/axure/math.js" %}></script>
+    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "data/document.js" %}></script>
+    <script src={% static "files/forum_page/data.js" %}></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
+      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
+      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Navigation Bar) -->
+
+      <!-- Unnamed (Dynamic Panel) -->
+      <div id="u404" class="ax_default">
+        <div id="u404_state0" class="panel_state" data-label="Default" style="">
+          <div id="u404_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u405" class="ax_default box_2">
+              <div id="u405_div" class=""></div>
+              <div id="u405_text" class="text " style="display:none; visibility: hidden">
+                <p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Image) -->
+            <div id="u406" class="ax_default image">
+              <img id="u406_img" class="img " src={% static "images/index/u14.png" %}/>
+              <div id="u406_text" class="text " style="display:none; visibility: hidden">
+                <p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u407" class="ax_default button">
+              <div id="u407_div" class=""></div>
+              <div id="u407_text" class="text ">
+                <p><span>💬 Forum</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u408" class="ax_default button">
+              <div id="u408_div" class=""></div>
+              <div id="u408_text" class="text ">
+                <p><span>📝Past Papers</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            <div id="u409" class="ax_default button">
+              <img id="u409_img" class="img " src={% static "images/index/u17.svg" %}/>
+              <div id="u409_text" class="text ">
+                <p><span>👤 Me</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u410" class="ax_default button">
+              <div id="u410_div" class=""></div>
+              <div id="u410_text" class="text ">
+                <p><span>✎ Problems</span></p>
+              </div>
+            </div>
+
+            <!-- Notification panel (Dynamic Panel) -->
+            <div id="u411" class="ax_default" data-label="Notification panel">
+              <div id="u411_state0" class="panel_state" data-label="Default" style="">
+                <div id="u411_state0_content" class="panel_state_content">
+
+                  <!-- Unnamed (Shape) -->
+                  <div id="u412" class="ax_default button">
+                    <img id="u412_img" class="img " src={% static "images/index/u20.svg" %}/>
+                    <div id="u412_text" class="text ">
+                      <p><span>🔔</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="u411_state1" class="panel_state" data-label="Click" style="visibility: hidden;">
+                <div id="u411_state1_content" class="panel_state_content">
+
+                  <!-- Unnamed (Rectangle) -->
+                  <div id="u413" class="ax_default box_1">
+                    <img id="u413_img" class="img " src={% static "images/index/u21.svg" %}/>
+                    <div id="u413_text" class="text " style="display:none; visibility: hidden">
+                      <p></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (Shape) -->
+                  <div id="u414" class="ax_default button">
+                    <img id="u414_img" class="img " src={% static "images/index/u20.svg" %}/>
+                    <div id="u414_text" class="text ">
+                      <p><span>🔔</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (Group) -->
+            <div id="u415" class="ax_default ax_default_hidden" style="display:none; visibility: hidden" data-left="822" data-top="60" data-width="300" data-height="176">
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u416" class="ax_default box_1">
+                <div id="u416_div" class=""></div>
+                <div id="u416_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u417" class="ax_default button">
+                <div id="u417_div" class=""></div>
+                <div id="u417_text" class="text ">
+                  <p><span>You have completed 'Java Turtle Interpreter'!</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u418" class="ax_default button">
+                <div id="u418_div" class=""></div>
+                <div id="u418_text" class="text ">
+                  <p><span>You have completed 'Haskell Constant Propagation'!</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u419" class="ax_default button">
+                <div id="u419_div" class=""></div>
+                <div id="u419_text" class="text ">
+                  <p><span>See all notifications</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="u403" style="display:none; visibility:hidden;"></div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u420" class="ax_default box_2">
+        <div id="u420_div" class=""></div>
+        <div id="u420_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u421" class="ax_default box_3">
+        <div id="u421_div" class=""></div>
+        <div id="u421_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u422" class="ax_default" data-left="110" data-top="187" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u423" class="ax_default box_1">
+          <div id="u423_div" class=""></div>
+          <div id="u423_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u424" class="ax_default heading_1">
+          <div id="u424_div" class=""></div>
+          <div id="u424_text" class="text ">
+            <p><span>Post Title 1</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u425" class="ax_default paragraph">
+          <div id="u425_div" class=""></div>
+          <div id="u425_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u426" class="ax_default heading_1">
+          <div id="u426_div" class=""></div>
+          <div id="u426_text" class="text ">
+            <p><span>▲ 43</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u427" class="ax_default heading_1">
+          <div id="u427_div" class=""></div>
+          <div id="u427_text" class="text ">
+            <p><span>🗨 13</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u428" class="ax_default heading_1">
+          <div id="u428_div" class=""></div>
+          <div id="u428_text" class="text ">
+            <p><span>👁 242</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u429" class="ax_default heading_1">
+        <div id="u429_div" class=""></div>
+        <div id="u429_text" class="text ">
+          <p><span>Forum Posts</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Text Field) -->
+      <div id="u430" class="ax_default text_field">
+        <div id="u430_div" class=""></div>
+        <input id="u430_input" type="search" value="" class="u430_input"/>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u431" class="ax_default button">
+        <img id="u431_img" class="img " src={% static "images/forum_page/u431.svg" %}/>
+        <div id="u431_text" class="text ">
+          <p><span>Search</span></p>
+        </div>
+      </div>
+
+      <!-- New post (Shape) -->
+      <div id="u432" class="ax_default button" data-label="New post">
+        <img id="u432_img" class="img " src={% static "images/forum_page/new_post_u432.svg" %}/>
+        <div id="u432_text" class="text ">
+          <p><span>+ New Post</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u433" class="ax_default" data-left="110" data-top="272" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u434" class="ax_default box_1">
+          <div id="u434_div" class=""></div>
+          <div id="u434_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u435" class="ax_default heading_1">
+          <div id="u435_div" class=""></div>
+          <div id="u435_text" class="text ">
+            <p><span>Post Title 2</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u436" class="ax_default paragraph">
+          <div id="u436_div" class=""></div>
+          <div id="u436_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u437" class="ax_default heading_1">
+          <div id="u437_div" class=""></div>
+          <div id="u437_text" class="text ">
+            <p><span>▲ 42</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u438" class="ax_default heading_1">
+          <div id="u438_div" class=""></div>
+          <div id="u438_text" class="text ">
+            <p><span>🗨 33</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u439" class="ax_default heading_1">
+          <div id="u439_div" class=""></div>
+          <div id="u439_text" class="text ">
+            <p><span>👁 678</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u440" class="ax_default" data-left="110" data-top="357" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u441" class="ax_default box_1">
+          <div id="u441_div" class=""></div>
+          <div id="u441_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u442" class="ax_default heading_1">
+          <div id="u442_div" class=""></div>
+          <div id="u442_text" class="text ">
+            <p><span>Post Title 3</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u443" class="ax_default paragraph">
+          <div id="u443_div" class=""></div>
+          <div id="u443_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u444" class="ax_default heading_1">
+          <div id="u444_div" class=""></div>
+          <div id="u444_text" class="text ">
+            <p><span>▲ 33</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u445" class="ax_default heading_1">
+          <div id="u445_div" class=""></div>
+          <div id="u445_text" class="text ">
+            <p><span>🗨 3</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u446" class="ax_default heading_1">
+          <div id="u446_div" class=""></div>
+          <div id="u446_text" class="text ">
+            <p><span>👁 45</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u447" class="ax_default" data-left="110" data-top="442" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u448" class="ax_default box_1">
+          <div id="u448_div" class=""></div>
+          <div id="u448_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u449" class="ax_default heading_1">
+          <div id="u449_div" class=""></div>
+          <div id="u449_text" class="text ">
+            <p><span>Post Title 4</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u450" class="ax_default paragraph">
+          <div id="u450_div" class=""></div>
+          <div id="u450_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u451" class="ax_default heading_1">
+          <div id="u451_div" class=""></div>
+          <div id="u451_text" class="text ">
+            <p><span>▲ 5</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u452" class="ax_default heading_1">
+          <div id="u452_div" class=""></div>
+          <div id="u452_text" class="text ">
+            <p><span>🗨 5</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u453" class="ax_default heading_1">
+          <div id="u453_div" class=""></div>
+          <div id="u453_text" class="text ">
+            <p><span>👁 35</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u454" class="ax_default" data-left="110" data-top="527" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u455" class="ax_default box_1">
+          <div id="u455_div" class=""></div>
+          <div id="u455_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u456" class="ax_default heading_1">
+          <div id="u456_div" class=""></div>
+          <div id="u456_text" class="text ">
+            <p><span>Post Title 5</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u457" class="ax_default paragraph">
+          <div id="u457_div" class=""></div>
+          <div id="u457_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u458" class="ax_default heading_1">
+          <div id="u458_div" class=""></div>
+          <div id="u458_text" class="text ">
+            <p><span>▲ 21</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u459" class="ax_default heading_1">
+          <div id="u459_div" class=""></div>
+          <div id="u459_text" class="text ">
+            <p><span>🗨 17</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u460" class="ax_default heading_1">
+          <div id="u460_div" class=""></div>
+          <div id="u460_text" class="text ">
+            <p><span>👁 123</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u461" class="ax_default" data-left="110" data-top="612" data-width="1155" data-height="75">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u462" class="ax_default box_1">
+          <div id="u462_div" class=""></div>
+          <div id="u462_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u463" class="ax_default heading_1">
+          <div id="u463_div" class=""></div>
+          <div id="u463_text" class="text ">
+            <p><span>Post Title 6</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u464" class="ax_default paragraph">
+          <div id="u464_div" class=""></div>
+          <div id="u464_text" class="text ">
+            <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u465" class="ax_default heading_1">
+          <div id="u465_div" class=""></div>
+          <div id="u465_text" class="text ">
+            <p><span>▲ 27</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u466" class="ax_default heading_1">
+          <div id="u466_div" class=""></div>
+          <div id="u466_text" class="text ">
+            <p><span>🗨 8</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u467" class="ax_default heading_1">
+          <div id="u467_div" class=""></div>
+          <div id="u467_text" class="text ">
+            <p><span>👁 93</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u468" class="ax_default button selected" selectiongroup="Post order">
+        <img id="u468_img" class="img " src={% static "images/index/u37.svg" %}/>
+        <div id="u468_text" class="text ">
+          <p><span>Trending</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u469" class="ax_default button" selectiongroup="Post order">
+        <img id="u469_img" class="img " src={% static "images/forum_page/u469.svg" %}/>
+        <div id="u469_text" class="text ">
+          <p><span>Newest to oldest</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u470" class="ax_default button" selectiongroup="Post order">
+        <img id="u470_img" class="img " src={% static "images/forum_page/u470.svg" %}/>
+        <div id="u470_text" class="text ">
+          <p><span>Most upvotes</span></p>
+        </div>
+      </div>
+
+      <!-- New post panel (Dynamic Panel) -->
+      <div id="u471" class="ax_default ax_default_hidden" data-label="New post panel" style="display:none; visibility: hidden">
+        <div id="u471_state0" class="panel_state" data-label="Default" style="">
+          <div id="u471_state0_content" class="panel_state_content">
+
+            <!-- New post group (Group) -->
+            <div id="u472" class="ax_default" data-label="New post group" data-left="0" data-top="288" data-width="1536" data-height="394">
+
+              <!-- Panel (Rectangle) -->
+              <div id="u473" class="ax_default box_1" data-label="Panel">
+                <div id="u473_div" class=""></div>
+                <div id="u473_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u474" class="ax_default button">
+                <div id="u474_div" class=""></div>
+                <div id="u474_text" class="text ">
+                  <p><span>⮝</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u475" class="ax_default button">
+                <div id="u475_div" class=""></div>
+                <div id="u475_text" class="text ">
+                  <p><span>Close</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u476" class="ax_default button">
+                <div id="u476_div" class=""></div>
+                <div id="u476_text" class="text ">
+                  <p><span>✉ Post</span></p>
+                </div>
+              </div>
+
+              <!-- Post title field (Text Field) -->
+              <div id="u477" class="ax_default text_field" data-label="Post title field">
+                <div id="u477_div" class=""></div>
+                <input id="u477_input" type="text" value="" class="u477_input"/>
+              </div>
+
+              <!-- Unnamed (Image) -->
+              <div id="u478" class="ax_default image">
+                <img id="u478_img" class="img " src={% static "images/forum_page/u478.PNG" %}/>
+                <div id="u478_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Text Area) -->
+              <div id="u479" class="ax_default text_area">
+                <div id="u479_div" class=""></div>
+                <textarea id="u479_input" class="u479_input"></textarea>
+              </div>
+
+              <!-- Unnamed (Line) -->
+              <div id="u480" class="ax_default line">
+                <img id="u480_img" class="img " src={% static "images/forum_page/u480.svg" %}/>
+                <div id="u480_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u471_state1" class="panel_state" data-label="Full screen" style="visibility: hidden;">
+          <div id="u471_state1_content" class="panel_state_content">
+
+            <!-- New post group (Group) -->
+            <div id="u481" class="ax_default" data-label="New post group" data-left="0" data-top="10" data-width="1536" data-height="672">
+
+              <!-- Panel (Rectangle) -->
+              <div id="u482" class="ax_default box_1" data-label="Panel">
+                <div id="u482_div" class=""></div>
+                <div id="u482_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u483" class="ax_default button">
+                <div id="u483_div" class=""></div>
+                <div id="u483_text" class="text ">
+                  <p><span>⮟</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u484" class="ax_default button">
+                <div id="u484_div" class=""></div>
+                <div id="u484_text" class="text ">
+                  <p><span>Close</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u485" class="ax_default button">
+                <div id="u485_div" class=""></div>
+                <div id="u485_text" class="text ">
+                  <p><span>✉ Post</span></p>
+                </div>
+              </div>
+
+              <!-- Post title field (Text Field) -->
+              <div id="u486" class="ax_default text_field" data-label="Post title field">
+                <div id="u486_div" class=""></div>
+                <input id="u486_input" type="text" value="" class="u486_input"/>
+              </div>
+
+              <!-- Unnamed (Image) -->
+              <div id="u487" class="ax_default image">
+                <img id="u487_img" class="img " src={% static "images/forum_page/u478.PNG" %}/>
+                <div id="u487_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Text Area) -->
+              <div id="u488" class="ax_default text_area">
+                <div id="u488_div" class=""></div>
+                <textarea id="u488_input" class="u488_input"></textarea>
+              </div>
+
+              <!-- Unnamed (Line) -->
+              <div id="u489" class="ax_default line">
+                <img id="u489_img" class="img " src={% static "images/forum_page/u480.svg" %}/>
+                <div id="u489_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  </body>
+</html>

@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <title>Question Solving Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/question_solving_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
+    <script src={% static "resources/scripts/axure/globals.js" %}></script>
+    <script src={% static "resources/scripts/axutils.js" %}></script>
+    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
+    <script src={% static "resources/scripts/axure/doc.js" %}></script>
+    <script src={% static "resources/scripts/messagecenter.js" %}></script>
+    <script src={% static "resources/scripts/axure/events.js" %}></script>
+    <script src={% static "resources/scripts/axure/recording.js" %}></script>
+    <script src={% static "resources/scripts/axure/action.js" %}></script>
+    <script src={% static "resources/scripts/axure/expr.js" %}></script>
+    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
+    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
+    <script src={% static "resources/scripts/axure/model.js" %}></script>
+    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
+    <script src={% static "resources/scripts/axure/sto.js" %}></script>
+    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/variables.js" %}></script>
+    <script src={% static "resources/scripts/axure/drag.js" %}></script>
+    <script src={% static "resources/scripts/axure/move.js" %}></script>
+    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
+    <script src={% static "resources/scripts/axure/style.js" %}></script>
+    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
+    <script src={% static "resources/scripts/axure/tree.js" %}></script>
+    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
+    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
+    <script src={% static "resources/scripts/axure/math.js" %}></script>
+    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "data/document.js" %}></script>
+    <script src={% static "files/question_solving_page/data.js" %}></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
+      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
+      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Primary (Group) -->
+      <div id="u265" class="ax_default" data-label="Primary" data-left="0" data-top="0" data-width="1536" data-height="718">
+
+        <!-- Disabler (Rectangle) -->
+        <div id="u266" class="ax_default box_1" data-label="Disabler">
+          <div id="u266_div" class=""></div>
+          <div id="u266_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Code solving area (Dynamic Panel) -->
+        <div id="u267" class="ax_default" data-label="Code solving area">
+          <div id="u267_state0" class="panel_state" data-label="Default" style="">
+            <div id="u267_state0_content" class="panel_state_content">
+
+              <!-- Console panel (Group) -->
+              <div id="u268" class="ax_default" data-label="Console panel" data-left="713" data-top="374" data-width="574" data-height="208">
+
+                <!-- Unnamed (Shape) -->
+                <div id="u269" class="ax_default button selected" selectiongroup="Tab control">
+                  <img id="u269_img" class="img " src={% static "images/question_solving_page/u269_selected.svg" %}/>
+                  <div id="u269_text" class="text ">
+                    <p><span>Testcase</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u270" class="ax_default button" selectiongroup="Tab control">
+                  <div id="u270_div" class=""></div>
+                  <div id="u270_text" class="text ">
+                    <p><span>Console</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Dynamic Panel) -->
+                <div id="u271" class="ax_default">
+                  <div id="u271_state0" class="panel_state" data-label="State1" style="">
+                    <div id="u271_state0_content" class="panel_state_content">
+
+                      <!-- Unnamed (Group) -->
+                      <div id="u272" class="ax_default" data-left="0" data-top="0" data-width="574" data-height="190">
+
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u273" class="ax_default box_1">
+                          <div id="u273_div" class=""></div>
+                          <div id="u273_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                          </div>
+                        </div>
+
+                        <!-- Unnamed (Text Area) -->
+                        <div id="u274" class="ax_default text_area">
+                          <div id="u274_div" class=""></div>
+                          <textarea id="u274_input" class="u274_input">Test cases</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="u271_state1" class="panel_state" data-label="State2" style="visibility: hidden;">
+                    <div id="u271_state1_content" class="panel_state_content">
+
+                      <!-- Unnamed (Group) -->
+                      <div id="u275" class="ax_default" data-left="0" data-top="0" data-width="574" data-height="190">
+
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u276" class="ax_default box_1">
+                          <div id="u276_div" class=""></div>
+                          <div id="u276_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                          </div>
+                        </div>
+
+                        <!-- Unnamed (Text Area) -->
+                        <div id="u277" class="ax_default text_area">
+                          <div id="u277_div" class=""></div>
+                          <textarea id="u277_input" class="u277_input">GHCi, version 8.0.2: http://www.haskell.org/ghc/&nbsp; :? for help
+Prelude&gt;</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Code edit area (Text Area) -->
+              <div id="u278" class="ax_default text_area" data-label="Code edit area">
+                <div id="u278_div" class=""></div>
+                <textarea id="u278_input" class="u278_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
+-- Pre: The item being looked up has a unique binding in the list
+lookUp 
+&nbsp; = undefined</textarea>
+              </div>
+
+              <!-- Spec (Inline Frame) -->
+              <div id="u279" class="ax_default" data-label="Spec">
+                <iframe id="u279_input" data-label="Spec" scrolling="auto" frameborder="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>
+
+              <!-- Single question (Text Area) -->
+              <div id="u280" class="ax_default text_area disabled" data-label="Single question">
+                <div id="u280_div" class="disabled"></div>
+                <textarea id="u280_input" class="u280_input" disabled>1. Define a function lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b that will look up an item in
+a list of (item, value) pairs. For example,
+
+*SAT&gt; lookUp 3 [(2,1),(3,8)]
+8
+
+A precondition is that the item being looked up has a unique binding in the list.
+[1 Mark]
+</textarea>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u281" class="ax_default box_2">
+                <div id="u281_div" class=""></div>
+                <div id="u281_text" class="text ">
+                  <p><span>⯇</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u282" class="ax_default button">
+                <div id="u282_div" class=""></div>
+                <div id="u282_text" class="text ">
+                  <p><span>Hide console ⯆</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="u267_state1" class="panel_state" data-label="Hide console" style="visibility: hidden;">
+            <div id="u267_state1_content" class="panel_state_content">
+
+              <!-- Code edit area (Text Area) -->
+              <div id="u283" class="ax_default text_area" data-label="Code edit area">
+                <div id="u283_div" class=""></div>
+                <textarea id="u283_input" class="u283_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
+-- Pre: The item being looked up has a unique binding in the list
+lookUp 
+&nbsp; = undefined</textarea>
+              </div>
+
+              <!-- Spec (Inline Frame) -->
+              <div id="u284" class="ax_default" data-label="Spec">
+                <iframe id="u284_input" data-label="Spec" scrolling="auto" frameborder="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>
+
+              <!-- Single question (Text Area) -->
+              <div id="u285" class="ax_default text_area disabled" data-label="Single question">
+                <div id="u285_div" class="disabled"></div>
+                <textarea id="u285_input" class="u285_input" disabled>1. Define a function lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b that will look up an item in
+a list of (item, value) pairs. For example,
+
+*SAT&gt; lookUp 3 [(2,1),(3,8)]
+8
+
+A precondition is that the item being looked up has a unique binding in the list.
+[1 Mark]
+</textarea>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u286" class="ax_default box_2">
+                <div id="u286_div" class=""></div>
+                <div id="u286_text" class="text ">
+                  <p><span>⯇</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u287" class="ax_default button">
+                <div id="u287_div" class=""></div>
+                <div id="u287_text" class="text ">
+                  <p><span>Hide console ⯅</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="u267_state2" class="panel_state" data-label="Full screen" style="visibility: hidden;">
+            <div id="u267_state2_content" class="panel_state_content">
+
+              <!-- Code edit area (Text Area) -->
+              <div id="u288" class="ax_default text_area" data-label="Code edit area">
+                <div id="u288_div" class=""></div>
+                <textarea id="u288_input" class="u288_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
+-- Pre: The item being looked up has a unique binding in the list
+lookUp 
+&nbsp; = undefined</textarea>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u289" class="ax_default box_2">
+                <div id="u289_div" class=""></div>
+                <div id="u289_text" class="text ">
+                  <p><span>⯈</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u290" class="ax_default button">
+                <div id="u290_div" class=""></div>
+                <div id="u290_text" class="text ">
+                  <p><span>Hide console ⯅</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="u267_state3" class="panel_state" data-label="Hide spec" style="visibility: hidden;">
+            <div id="u267_state3_content" class="panel_state_content">
+
+              <!-- Console panel (Group) -->
+              <div id="u291" class="ax_default" data-label="Console panel" data-left="19" data-top="374" data-width="1268" data-height="208">
+
+                <!-- Unnamed (Shape) -->
+                <div id="u292" class="ax_default button selected" selectiongroup="Tab control">
+                  <img id="u292_img" class="img " src={% static "images/question_solving_page/u292_selected.svg" %}/>
+                  <div id="u292_text" class="text ">
+                    <p><span>Testcase</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u293" class="ax_default button" selectiongroup="Tab control">
+                  <div id="u293_div" class=""></div>
+                  <div id="u293_text" class="text ">
+                    <p><span>Console</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Dynamic Panel) -->
+                <div id="u294" class="ax_default">
+                  <div id="u294_state0" class="panel_state" data-label="Testcase" style="">
+                    <div id="u294_state0_content" class="panel_state_content">
+
+                      <!-- Unnamed (Group) -->
+                      <div id="u295" class="ax_default" data-left="0" data-top="0" data-width="1278" data-height="190">
+
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u296" class="ax_default box_1">
+                          <div id="u296_div" class=""></div>
+                          <div id="u296_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                          </div>
+                        </div>
+
+                        <!-- Unnamed (Text Area) -->
+                        <div id="u297" class="ax_default text_area">
+                          <div id="u297_div" class=""></div>
+                          <textarea id="u297_input" class="u297_input">Test cases</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="u294_state1" class="panel_state" data-label="Console" style="visibility: hidden;">
+                    <div id="u294_state1_content" class="panel_state_content">
+
+                      <!-- Unnamed (Group) -->
+                      <div id="u298" class="ax_default" data-left="0" data-top="0" data-width="1268" data-height="190">
+
+                        <!-- Unnamed (Rectangle) -->
+                        <div id="u299" class="ax_default box_1">
+                          <div id="u299_div" class=""></div>
+                          <div id="u299_text" class="text " style="display:none; visibility: hidden">
+                            <p></p>
+                          </div>
+                        </div>
+
+                        <!-- Unnamed (Text Area) -->
+                        <div id="u300" class="ax_default text_area">
+                          <div id="u300_div" class=""></div>
+                          <textarea id="u300_input" class="u300_input">GHCi, version 8.0.2: http://www.haskell.org/ghc/&nbsp; :? for help
+Prelude&gt;</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Code edit area (Text Area) -->
+              <div id="u301" class="ax_default text_area" data-label="Code edit area">
+                <div id="u301_div" class=""></div>
+                <textarea id="u301_input" class="u301_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
+-- Pre: The item being looked up has a unique binding in the list
+lookUp 
+&nbsp; = undefined</textarea>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u302" class="ax_default box_2">
+                <div id="u302_div" class=""></div>
+                <div id="u302_text" class="text ">
+                  <p><span>⯈</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u303" class="ax_default button">
+                <div id="u303_div" class=""></div>
+                <div id="u303_text" class="text ">
+                  <p><span>Hide console ⯆</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons (Group) -->
+        <div id="u304" class="ax_default" data-label="Buttons" data-left="900" data-top="672" data-width="463" data-height="40">
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u305" class="ax_default button">
+            <div id="u305_div" class=""></div>
+            <div id="u305_text" class="text ">
+              <p style="font-size:12px;"><span>Next </span><span style="font-size:15px;">»</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u306" class="ax_default button">
+            <div id="u306_div" class=""></div>
+            <div id="u306_text" class="text ">
+              <p style="font-size:12px;"><span style="font-size:15px;">«</span><span> Prev</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u307" class="ax_default button">
+            <div id="u307_div" class=""></div>
+            <div id="u307_text" class="text ">
+              <p><span>💬 Discuss</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u308" class="ax_default button">
+            <div id="u308_div" class=""></div>
+            <div id="u308_text" class="text ">
+              <p><span>Test</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u309" class="ax_default button">
+            <div id="u309_div" class=""></div>
+            <div id="u309_text" class="text ">
+              <p><span>Run</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Rectangle) -->
+          <div id="u310" class="ax_default button">
+            <div id="u310_div" class=""></div>
+            <div id="u310_text" class="text ">
+              <p><span>☰ Subquestions</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Unnamed (Navigation Bar) -->
+
+        <!-- Unnamed (Dynamic Panel) -->
+        <div id="u312" class="ax_default">
+          <div id="u312_state0" class="panel_state" data-label="Default" style="">
+            <div id="u312_state0_content" class="panel_state_content">
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u313" class="ax_default box_2">
+                <div id="u313_div" class=""></div>
+                <div id="u313_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Image) -->
+              <div id="u314" class="ax_default image">
+                <img id="u314_img" class="img " src={% static "images/index/u14.png" %}/>
+                <div id="u314_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u315" class="ax_default button">
+                <div id="u315_div" class=""></div>
+                <div id="u315_text" class="text ">
+                  <p><span>💬 Forum</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u316" class="ax_default button">
+                <div id="u316_div" class=""></div>
+                <div id="u316_text" class="text ">
+                  <p><span>📝Past Papers</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Shape) -->
+              <div id="u317" class="ax_default button">
+                <img id="u317_img" class="img " src={% static "images/index/u17.svg" %}/>
+                <div id="u317_text" class="text ">
+                  <p><span>👤 Me</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u318" class="ax_default button">
+                <div id="u318_div" class=""></div>
+                <div id="u318_text" class="text ">
+                  <p><span>✎ Problems</span></p>
+                </div>
+              </div>
+
+              <!-- Notification panel (Dynamic Panel) -->
+              <div id="u319" class="ax_default" data-label="Notification panel">
+                <div id="u319_state0" class="panel_state" data-label="Default" style="">
+                  <div id="u319_state0_content" class="panel_state_content">
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u320" class="ax_default button">
+                      <img id="u320_img" class="img " src={% static "images/index/u20.svg" %}/>
+                      <div id="u320_text" class="text ">
+                        <p><span>🔔</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="u319_state1" class="panel_state" data-label="Click" style="visibility: hidden;">
+                  <div id="u319_state1_content" class="panel_state_content">
+
+                    <!-- Unnamed (Rectangle) -->
+                    <div id="u321" class="ax_default box_1">
+                      <img id="u321_img" class="img " src={% static "images/index/u21.svg" %}/>
+                      <div id="u321_text" class="text " style="display:none; visibility: hidden">
+                        <p></p>
+                      </div>
+                    </div>
+
+                    <!-- Unnamed (Shape) -->
+                    <div id="u322" class="ax_default button">
+                      <img id="u322_img" class="img " src={% static "images/index/u20.svg" %}/>
+                      <div id="u322_text" class="text ">
+                        <p><span>🔔</span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Unnamed (Group) -->
+              <div id="u323" class="ax_default ax_default_hidden" style="display:none; visibility: hidden" data-left="822" data-top="60" data-width="300" data-height="176">
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u324" class="ax_default box_1">
+                  <div id="u324_div" class=""></div>
+                  <div id="u324_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u325" class="ax_default button">
+                  <div id="u325_div" class=""></div>
+                  <div id="u325_text" class="text ">
+                    <p><span>You have completed 'Java Turtle Interpreter'!</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u326" class="ax_default button">
+                  <div id="u326_div" class=""></div>
+                  <div id="u326_text" class="text ">
+                    <p><span>You have completed 'Haskell Constant Propagation'!</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (Rectangle) -->
+                <div id="u327" class="ax_default button">
+                  <div id="u327_div" class=""></div>
+                  <div id="u327_text" class="text ">
+                    <p><span>See all notifications</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u311" style="display:none; visibility:hidden;"></div>
+      </div>
+
+      <!-- Subquestions panel (Group) -->
+      <div id="u328" class="ax_default ax_default_hidden" data-label="Subquestions panel" style="display:none; visibility: hidden" data-left="0" data-top="0" data-width="535" data-height="718">
+
+        <!-- panel (Rectangle) -->
+        <div id="u329" class="ax_default box_1" data-label="panel">
+          <div id="u329_div" class=""></div>
+          <div id="u329_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u330" class="ax_default heading_1">
+          <div id="u330_div" class=""></div>
+          <div id="u330_text" class="text ">
+            <p><span>SAT Solving</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u331" class="ax_default heading_1">
+          <div id="u331_div" class=""></div>
+          <div id="u331_text" class="text ">
+            <p><span>Part I: Utilties</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u332" class="ax_default heading_1">
+          <div id="u332_div" class=""></div>
+          <div id="u332_text" class="text ">
+            <p><span>Part II: Norm Forms</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u333" class="ax_default heading_3 selected" selectiongroup="Subquestions items">
+          <div id="u333_div" class="selected"></div>
+          <div id="u333_text" class="text ">
+            <p><span>Question 1</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u334" class="ax_default heading_1">
+          <div id="u334_div" class=""></div>
+          <div id="u334_text" class="text ">
+            <p><span>Part III: The DP Algorithms</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u335" class="ax_default heading_1" selectiongroup="Subquestions items">
+          <div id="u335_div" class=""></div>
+          <div id="u335_text" class="text ">
+            <p><span>Part IV: Bonus</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u336" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u336_div" class=""></div>
+          <div id="u336_text" class="text ">
+            <p><span>Question 2</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u337" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u337_div" class=""></div>
+          <div id="u337_text" class="text ">
+            <p><span>Question 3</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u338" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u338_div" class=""></div>
+          <div id="u338_text" class="text ">
+            <p><span>Question 1</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u339" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u339_div" class=""></div>
+          <div id="u339_text" class="text ">
+            <p><span>Question 2</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u340" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u340_div" class=""></div>
+          <div id="u340_text" class="text ">
+            <p><span>Question 3</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u341" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u341_div" class=""></div>
+          <div id="u341_text" class="text ">
+            <p><span>Question 1</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u342" class="ax_default heading_3" selectiongroup="Subquestions items">
+          <div id="u342_div" class=""></div>
+          <div id="u342_text" class="text ">
+            <p><span>Question 2</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  </body>
+</html>
