@@ -10,7 +10,6 @@
   line-height:normal;
   text-transform:none;
 }
-
 .box_1 {
 }
 .box_2 {
@@ -18,6 +17,8 @@
 .box_3 {
 }
 .ellipse {
+}
+.shape {
 }
 .image {
 }
@@ -94,6 +95,11 @@
 }
 .radio_button {
   text-align:left;
+}
+.tree_node {
+  text-align:left;
+}
+.table_cell {
 }
 .menu_item {
 }

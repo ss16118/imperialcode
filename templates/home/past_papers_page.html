@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <title>Past Papers Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/past_papers_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
+    <script src={% static "resources/scripts/axure/globals.js" %}></script>
+    <script src={% static "resources/scripts/axutils.js" %}></script>
+    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
+    <script src={% static "resources/scripts/axure/doc.js" %}></script>
+    <script src={% static "resources/scripts/messagecenter.js" %}></script>
+    <script src={% static "resources/scripts/axure/events.js" %}></script>
+    <script src={% static "resources/scripts/axure/recording.js" %}></script>
+    <script src={% static "resources/scripts/axure/action.js" %}></script>
+    <script src={% static "resources/scripts/axure/expr.js" %}></script>
+    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
+    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
+    <script src={% static "resources/scripts/axure/model.js" %}></script>
+    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
+    <script src={% static "resources/scripts/axure/sto.js" %}></script>
+    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/variables.js" %}></script>
+    <script src={% static "resources/scripts/axure/drag.js" %}></script>
+    <script src={% static "resources/scripts/axure/move.js" %}></script>
+    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
+    <script src={% static "resources/scripts/axure/style.js" %}></script>
+    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
+    <script src={% static "resources/scripts/axure/tree.js" %}></script>
+    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
+    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
+    <script src={% static "resources/scripts/axure/math.js" %}></script>
+    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "data/document.js" %}></script>
+    <script src={% static "files/past_papers_page/data.js" %}></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
+      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
+      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u166" class="ax_default box_2">
+        <div id="u166_div" class=""></div>
+        <div id="u166_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Navigation Bar) -->
+
+      <!-- Unnamed (Dynamic Panel) -->
+      <div id="u168" class="ax_default">
+        <div id="u168_state0" class="panel_state" data-label="Default" style="">
+          <div id="u168_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u169" class="ax_default box_2">
+              <div id="u169_div" class=""></div>
+              <div id="u169_text" class="text " style="display:none; visibility: hidden">
+                <p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Image) -->
+            <div id="u170" class="ax_default image">
+              <img id="u170_img" class="img " src={% static "images/index/u14.png" %}/>
+              <div id="u170_text" class="text " style="display:none; visibility: hidden">
+                <p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u171" class="ax_default button">
+              <div id="u171_div" class=""></div>
+              <div id="u171_text" class="text ">
+                <p><span>💬 Forum</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u172" class="ax_default button">
+              <div id="u172_div" class=""></div>
+              <div id="u172_text" class="text ">
+                <p><span>📝Past Papers</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Shape) -->
+            <div id="u173" class="ax_default button">
+              <img id="u173_img" class="img " src={% static "images/index/u17.svg" %}/>
+              <div id="u173_text" class="text ">
+                <p><span>👤 Me</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (Rectangle) -->
+            <div id="u174" class="ax_default button">
+              <div id="u174_div" class=""></div>
+              <div id="u174_text" class="text ">
+                <p><span>✎ Problems</span></p>
+              </div>
+            </div>
+
+            <!-- Notification panel (Dynamic Panel) -->
+            <div id="u175" class="ax_default" data-label="Notification panel">
+              <div id="u175_state0" class="panel_state" data-label="Default" style="">
+                <div id="u175_state0_content" class="panel_state_content">
+
+                  <!-- Unnamed (Shape) -->
+                  <div id="u176" class="ax_default button">
+                    <img id="u176_img" class="img " src={% static "images/index/u20.svg" %}/>
+                    <div id="u176_text" class="text ">
+                      <p><span>🔔</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="u175_state1" class="panel_state" data-label="Click" style="visibility: hidden;">
+                <div id="u175_state1_content" class="panel_state_content">
+
+                  <!-- Unnamed (Rectangle) -->
+                  <div id="u177" class="ax_default box_1">
+                    <img id="u177_img" class="img " src={% static "images/index/u21.svg" %}/>
+                    <div id="u177_text" class="text " style="display:none; visibility: hidden">
+                      <p></p>
+                    </div>
+                  </div>
+
+                  <!-- Unnamed (Shape) -->
+                  <div id="u178" class="ax_default button">
+                    <img id="u178_img" class="img " src={% static "images/index/u20.svg" %}/>
+                    <div id="u178_text" class="text ">
+                      <p><span>🔔</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (Group) -->
+            <div id="u179" class="ax_default ax_default_hidden" style="display:none; visibility: hidden" data-left="822" data-top="60" data-width="300" data-height="176">
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u180" class="ax_default box_1">
+                <div id="u180_div" class=""></div>
+                <div id="u180_text" class="text " style="display:none; visibility: hidden">
+                  <p></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u181" class="ax_default button">
+                <div id="u181_div" class=""></div>
+                <div id="u181_text" class="text ">
+                  <p><span>You have completed 'Java Turtle Interpreter'!</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u182" class="ax_default button">
+                <div id="u182_div" class=""></div>
+                <div id="u182_text" class="text ">
+                  <p><span>You have completed 'Haskell Constant Propagation'!</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (Rectangle) -->
+              <div id="u183" class="ax_default button">
+                <div id="u183_div" class=""></div>
+                <div id="u183_text" class="text ">
+                  <p><span>See all notifications</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="u167" style="display:none; visibility:hidden;"></div>
+
+      <!-- Language filter (Droplist) -->
+      <div id="u184" class="ax_default droplist" data-label="Language filter">
+        <div id="u184_div" class=""></div>
+        <select id="u184_input" class="u184_input">
+          <option class="u184_input_option" selected value="All">All</option>
+          <option class="u184_input_option" value="Haskell">Haskell</option>
+          <option class="u184_input_option" value="Java">Java</option>
+          <option class="u184_input_option" value="C">C</option>
+          <option class="u184_input_option" value="SQL">SQL</option>
+        </select>
+      </div>
+
+      <!-- Year filter (Droplist) -->
+      <div id="u185" class="ax_default droplist" data-label="Year filter">
+        <div id="u185_div" class=""></div>
+        <select id="u185_input" class="u185_input">
+          <option class="u185_input_option" value="All">All</option>
+          <option class="u185_input_option" value="2020">2020</option>
+          <option class="u185_input_option" value="2019">2019</option>
+          <option class="u185_input_option" value="2018">2018</option>
+          <option class="u185_input_option" value="2017">2017</option>
+          <option class="u185_input_option" value="2016">2016</option>
+          <option class="u185_input_option" value="2015">2015</option>
+        </select>
+      </div>
+
+      <!-- Unnamed (Text Field) -->
+      <div id="u186" class="ax_default text_field">
+        <div id="u186_div" class=""></div>
+        <input id="u186_input" type="search" value="" class="u186_input"/>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u187" class="ax_default heading_1">
+        <div id="u187_div" class=""></div>
+        <div id="u187_text" class="text ">
+          <p><span>Past Papers</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u188" class="ax_default label">
+        <div id="u188_div" class=""></div>
+        <div id="u188_text" class="text ">
+          <p><span>Language</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u189" class="ax_default label">
+        <div id="u189_div" class=""></div>
+        <div id="u189_text" class="text ">
+          <p><span>Year</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u190" class="ax_default label">
+        <div id="u190_div" class=""></div>
+        <div id="u190_text" class="text ">
+          <p><span>Difficulty</span></p>
+        </div>
+      </div>
+
+      <!-- Difficulty filter (Droplist) -->
+      <div id="u191" class="ax_default droplist" data-label="Difficulty filter">
+        <div id="u191_div" class=""></div>
+        <select id="u191_input" class="u191_input">
+          <option class="u191_input_option" value="All">All</option>
+          <option class="u191_input_option" value="★★★">★★★</option>
+          <option class="u191_input_option" value="★★">★★</option>
+          <option class="u191_input_option" value="★">★</option>
+        </select>
+      </div>
+
+      <!-- Unnamed (List Box) -->
+      <div id="u192" class="ax_default list_box">
+        <div id="u192_div" class=""></div>
+        <select id="u192_input" size="2" class="u192_input">
+          <option class="u192_input_option" value="SAT Solving">SAT Solving</option>
+          <option class="u192_input_option" value="Constant Propagation">Constant Propagation</option>
+          <option class="u192_input_option" value="Decision Trees">Decision Trees</option>
+          <option class="u192_input_option" value="XML and XSL Transformations">XML and XSL Transformations</option>
+          <option class="u192_input_option" value="Functions, Procedures and Memoisation">Functions, Procedures and Memoisation</option>
+          <option class="u192_input_option" value="Regular Expressions and Finite Automata">Regular Expressions and Finite Automata</option>
+          <option class="u192_input_option" value="Bionmial Heaps">Bionmial Heaps</option>
+          <option class="u192_input_option" value="Labelled Transition Systems">Labelled Transition Systems</option>
+          <option class="u192_input_option" value="Polymorphic Type Inference">Polymorphic Type Inference</option>
+          <option class="u192_input_option" value="Suffix Trees">Suffix Trees</option>
+          <option class="u192_input_option" value="Binary Decision Diagrams">Binary Decision Diagrams</option>
+        </select>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u193" class="ax_default box_1">
+        <div id="u193_div" class=""></div>
+        <div id="u193_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u194" class="ax_default button">
+        <div id="u194_div" class=""></div>
+        <div id="u194_text" class="text ">
+          <p><span>Start</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u195" class="ax_default heading_1">
+        <div id="u195_div" class=""></div>
+        <div id="u195_text" class="text ">
+          <p><span>SAT Solving</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Text Area) -->
+      <div id="u196" class="ax_default text_area disabled">
+        <div id="u196_div" class="disabled"></div>
+        <textarea id="u196_input" class="u196_input" disabled>The focus of this exercise was the Davis–Putnam (DP) algorithm for SAT solving. This is an extremely simple but extraordinarily effective algorithm for turning the NP-complete boolean satisfiability problem into a computationally tractable problem for many practical examples. The exercise is quite closely aligned to the earlier exercise on Binary Decision Diagrams (2009), but the approach is very different. The structure of the DP algorithm also has some similarity to that covered in the constant folding exercise (2018). Students were advised to revise for the test using these two exercises in particular and I think this prepared them well.
+The solution to the DP algorithms falls out beautifully in Haskell. The final parts of the exercise, in particular, have a number of extremely elegant solutions using list comprehensions and Haskell’s higher-order list processing functions. Some of the more delightful solutions involve multiple passes over the formula in question, but I was not concerned here with efficiency, other that ensuring that the solution has the right asymptotic complexity.
+When marking the submissions I decided to revise the original marking scheme, as it was clear that relatively few students had made it through to the end in the time available. I therefore turned the final question, which is essentially a pretty-printer for DP solutions, into a bonus question and moved some marks around to shrink the total from its original 30 to 25. The specification here reflects the revised marking scheme and I think it worked well: the average mark was around 71% and eight students out of 204 achieved the maximum mark of 25. The only other changes I have made are to function names and the name of the DP algorithm itself, which I originally presented as a sub-algorithm of DPLL (see below).
+The main problem was the enormous number of submissions that made use of length to check for null and singleton lists. Students are constantly reminded never to use length in this way, yet the vast majority did so here. The lecturer clearly has some work to do! If you are reading this and are at all tempted to write, e.g. filter ((==1) . length) to extract unit clauses, please don’t!&nbsp; A surprising number of students also forgot to invoke toCNF, or rather its helper function, in the arguments to Or.
+I was very pleased with Parts III and IV. Students seemed to understand the algorithm, even though some struggled to express it correctly in Haskell in the time available. The last three questions spread the class nicely and yielded some extremely beautiful solutions, in some cases every bit as good as the specimen solution that I had prepared for marking.
+Many thanks to Qianyi Shu, who provided me with a Haskell implementation of DPLL. This convinced me that the problem was doable in the time available.</textarea>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u197" class="ax_default heading_1">
+        <div id="u197_div" class=""></div>
+        <div id="u197_text" class="text ">
+          <p><span>2019</span></p>
+        </div>
+      </div>
+
+      <!-- Status filter (Droplist) -->
+      <div id="u198" class="ax_default droplist" data-label="Status filter">
+        <div id="u198_div" class=""></div>
+        <select id="u198_input" class="u198_input">
+          <option class="u198_input_option" value="All">All</option>
+          <option class="u198_input_option" value="Todo">Todo</option>
+          <option class="u198_input_option" value="Solved">Solved</option>
+          <option class="u198_input_option" value="In Progress">In Progress</option>
+        </select>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u199" class="ax_default label">
+        <div id="u199_div" class=""></div>
+        <div id="u199_text" class="text ">
+          <p><span>Status</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u200" class="ax_default button">
+        <img id="u200_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
+        <div id="u200_text" class="text ">
+          <p><span>Search</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u201" class="ax_default button">
+        <img id="u201_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
+        <div id="u201_text" class="text ">
+          <p><span>Clear Filter</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u202" class="ax_default heading_1">
+        <div id="u202_div" class=""></div>
+        <div id="u202_text" class="text ">
+          <p><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;">Difficulty: </span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;font-style:normal;">★</span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;"> </span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u203" class="ax_default image">
+        <img id="u203_img" class="img " src={% static "images/past_papers_page/u203.png" %}/>
+        <div id="u203_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u204" class="ax_default heading_1">
+        <div id="u204_div" class=""></div>
+        <div id="u204_text" class="text ">
+          <p><span>Completion: </span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u205" class="ax_default box_1">
+        <div id="u205_div" class=""></div>
+        <div id="u205_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u206" class="ax_default image">
+        <img id="u206_img" class="img " src={% static "images/past_papers_page/u206.png" %}/>
+        <div id="u206_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u207" class="ax_default image">
+        <img id="u207_img" class="img " src={% static "images/past_papers_page/u207.png" %}/>
+        <div id="u207_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u208" class="ax_default heading_1">
+        <div id="u208_div" class=""></div>
+        <div id="u208_text" class="text ">
+          <p><span>32</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u209" class="ax_default image">
+        <img id="u209_img" class="img " src={% static "images/past_papers_page/u209.png" %}/>
+        <div id="u209_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u210" class="ax_default heading_1">
+        <div id="u210_div" class=""></div>
+        <div id="u210_text" class="text ">
+          <p><span>23</span></p>
+        </div>
+      </div>
+    </div>
+    <script src="resources/scripts/axure/ios.js"></script>
+  </body>
+</html>
