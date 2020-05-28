@@ -2,20 +2,24 @@ stages:
     - test
     - deploy
 
-job 0:
-    stage: test
-    tags:
-        - test-runner
-    script: 
-        - pip3 install django
-        - pip3 install psycopg2-binary
-        - python3 imperialcode/manage.py test
+test:
+  stage: test
+  script:
+  # this configures Django application to use attached postgres database that is run on `postgres` host
+#  - export DATABASE_URL=postgres://postgres:@postgres:5432/imperialcode
+  - apt-get update -qy
+  - apt-get install -y python-dev python-pip
+  - pip install -r requirements.txt
+  - python manage.py test
 
-job 1:
-    stage: deploy
-    script: 
-        - kill $(lsof -t -i:5000) || true
-        - export PORT=5000
-        - python3 imperialcode/manage.py runserver 0.0.0.0:5000 &> /dev/null 2> /dev/null & disown
-        - gem install dpl
-        - dpl --provider=heroku --app=hs5718-imperial-code --api-key= $HEROKU_API_KEY
+deploy:
+  stage: deploy
+  variables:
+    HEROKU_APP: django
+  only:
+    - master
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_KEY
