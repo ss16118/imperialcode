@@ -1,28 +1,12 @@
-# pull official base image
-FROM python:3.7-alpine
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
+FROM python:3
 ENV PYTHONUNBUFFERED 1
-ENV DEBUG 0
-
-# install psycopg2
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add postgresql-dev \
-    && pip install psycopg2 \
-    && apk del build-deps
-
-# install dependencies
-COPY ./requirements.txt .
+RUN mkdir /code && \
+    apt-get install -y ruby && \
+    apt install libpq-dev python3-dev
+WORKDIR /code
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
+COPY . /code/
 
-# copy project
-COPY . .
-
-# add and run as non-root user
-RUN adduser -D myuser
-USER myuser
-
-# run gunicorn
-CMD gunicorn imperialcode.wsgi:application --bind 0.0.0.0:5000
+EXPOSE $PORT
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
