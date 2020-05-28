@@ -8,6 +8,7 @@ job 0:
         - test-runner
     script: 
         - pip3 install django
+        - pip3 install psycopg2
         - python3 imperialcode/manage.py test
 
 job 1:
