@@ -1,1 +1,1 @@
-web: gunicorn imperialcode.wsgi:application --log-file -
+web: gunicorn imperialcode.wsgi:application -b 0.0.0.0:5000
