@@ -15,3 +15,4 @@ job 1:
     stage: deploy
     script: 
         - python3 imperialcode/manage.py runserver
+        - dpl --provider=heroku --app=hs5718-imperial-code --api-key= $HEROKU_API_KEY
