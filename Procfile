@@ -1,1 +1,1 @@
-web: gunicorn imperialcode.wsgi -b 0.0.0.0:5000
+web: gunicorn imperialcode.wsgi:application -b 0.0.0.0:5000
