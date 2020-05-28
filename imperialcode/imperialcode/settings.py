@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 import mimetypes
 
@@ -140,6 +141,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-import django_heroku
 # Activate Django-Heroku.
 django_heroku.settings(locals())
