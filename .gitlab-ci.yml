@@ -7,7 +7,7 @@ job 0:
     tags:
         - test-runner
     script: 
-        - python3 manage.py test
+        - python3 imperialcode/manage.py test
 
 job 1:
     stage: deploy
