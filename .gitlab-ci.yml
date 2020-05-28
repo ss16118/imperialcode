@@ -16,7 +16,7 @@ test:
 deploy:
   stage: deploy
   variables:
-    HEROKU_APP: django
+    HEROKU_APP: imperialcode
   only:
     - master
   image: ruby:2.5
