@@ -1,1 +1,1 @@
-web: python3 imperialcode/manage.py runserver 0.0.0.0:443
+web: python3 imperialcode/manage.py runserver 0.0.0.0:8080
