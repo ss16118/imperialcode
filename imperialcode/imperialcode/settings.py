@@ -29,7 +29,7 @@ SECRET_KEY = '1%q&8f1#!7j#e0hroe@h*182*fu$%_x&w&$cs@y4g6z)pub*@c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['imperialcode.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
