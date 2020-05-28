@@ -11,13 +11,15 @@ test:
         - pip3 install psycopg2-binary
         - pip3 install gunicorn
         - pip3 install dj_database_url
-        - apt install libpq-dev python3-dev
+        - sudo apt install libpq-dev python3-dev
         - pip3 install django-heroku
         - python3 imperialcode/manage.py test
 
 
 deploy:
   stage: deploy
+  tags:
+    - test-runner
   variables:
     HEROKU_APP: imperialcode
   only:
