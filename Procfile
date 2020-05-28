@@ -1,1 +1,1 @@
-web: gunicorn imperialcode.wsgi:application -b 0.0.0.0:5000
+worker: gunicorn imperialcode.wsgi:application -b 0.0.0.0:5000
