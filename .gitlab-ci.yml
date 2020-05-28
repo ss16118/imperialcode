@@ -12,7 +12,7 @@ test:
         - pip3 install gunicorn
         - pip3 install dj_database_url
         - pip3 install django-heroku
-        - python3 imperialcode/manage.py test
+        - python3 manage.py test
 
 
 deploy:
