@@ -19,6 +19,7 @@ deploy:
     HEROKU_APP: django
   only:
     - master
+  image: ruby:2.5
   script:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_KEY
