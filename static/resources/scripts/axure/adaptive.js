@@ -535,8 +535,8 @@
                 if (!MOBILE_DEVICE) {
                     _addNiceScroll($('html'), { emulatetouch: true, horizrailenabled: false }, true);
                     $('html').addClass('mobileFrameCursor');
-                    $('html').css('cursor', 'url(resources/css/images/touch.cur), auto');
-                    $('html').css('cursor', 'url(resources/css/images/touch.svg) 32 32, auto');
+                    $('html').css('cursor', 'url(static/resources/css/images/touch.cur), auto');
+                    $('html').css('cursor', 'url(static/resources/css/images/touch.svg) 32 32, auto');
                     $('html').css('overflow-x', 'hidden');
 
                     if (IE) {
