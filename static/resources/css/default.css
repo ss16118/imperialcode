@@ -927,7 +927,6 @@ div.mobileText, span.mobileText {
 
 .circleBackground {
     border-radius: 50%;
-    behavior: url(PIE.htc);
     margin: auto;
     box-shadow: 3px 3px 3px 0 rgba(55, 55, 55, 0.5);
 }

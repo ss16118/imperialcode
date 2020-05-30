@@ -8,7 +8,5 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 
-RUN python manage.py collectstatic --noinput
-
 EXPOSE $PORT
 CMD gunicorn --bind 0.0.0.0:$PORT wsgi
