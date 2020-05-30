@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'imperialcode.herokuapp.com']
 
 
 # Logging
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -61,6 +62,7 @@ LOGGING = {
         },
     },
 }
+'''
 
 # Application definition
 
