@@ -21,8 +21,7 @@ urlpatterns = [
                   url(r'^start_with_pages', views.start_with_pages),
                   url(r'^expand', views.expand),
                   url(r'^Other', views.Other),
-                  url(r'^reload', views.reload)
-
+                  url(r'^reload', views.reload),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'
