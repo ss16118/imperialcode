@@ -3,6 +3,12 @@
   {% load static %}
   <head>
     <title>Question Solving Page</title>
+    <!-- Codemirror -->
+    <script src={% static "codemirror/lib/codemirror.js" %}></script>
+    <link rel="stylesheet" href={% static "codemirror/lib/codemirror.css" %}>
+    <link rel="stylesheet" href={% static "codemirror/theme/dracula.css" %}>
+    <script src={% static "codemirror/mode/haskell/haskell.js" %}></script>
+    <!-- Codemirror -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
@@ -39,7 +45,7 @@
     <script src={% static "resources/scripts/axure/math.js" %}></script>
     <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
     <script src={% static "data/document.js" %}></script>
-    <script src={% static "files/question_solving_page/data.js" %}></script>
+    <script type="text/javascript" src={% static "files/question_solving_page/data.js" %}></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
       $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
@@ -136,11 +142,19 @@ Prelude&gt;</textarea>
 
               <!-- Code edit area (Text Area) -->
               <div id="u278" class="ax_default text_area" data-label="Code edit area">
-                <div id="u278_div" class=""></div>
-                <textarea id="u278_input" class="u278_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
+                <div id="u278_div"></div>
+                <textarea id="u278_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
 -- Pre: The item being looked up has a unique binding in the list
-lookUp 
+lookUp
 &nbsp; = undefined</textarea>
+                  <script>
+                      let editor = CodeMirror.fromTextArea(document.getElementById("u278_input"), {
+                          theme: "dracula",
+                          lineNumbers: true
+                      });
+                      editor.setSize("574", "357");
+                      editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
+                  </script>
               </div>
 
               <!-- Spec (Inline Frame) -->
@@ -171,11 +185,8 @@ A precondition is that the item being looked up has a unique binding in the list
               </div>
 
               <!-- Unnamed (Rectangle) -->
-              <div id="u282" class="ax_default button">
-                <div id="u282_div" class=""></div>
-                <div id="u282_text" class="text ">
-                  <p><span>Hide console ⯆</span></p>
-                </div>
+              <div id="u282" class="ax_default button" onclick="hideConsoleOnClick()">
+                <div id="u282_text" class="text ">Hide console ⯆</div>
               </div>
             </div>
           </div>

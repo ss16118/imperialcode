@@ -1,4 +1,5 @@
-﻿$axure.loadCurrentPage(
+﻿/*
+$axure.loadCurrentPage(
     (function () {
         var _ = function () {
             var r = {}, a = arguments;
@@ -198,3 +199,20 @@
             ou = "u342";
         return _creator();
     })());
+*/
+
+function hideConsoleOnClick() {
+    let hidden = document.getElementById("u282_text").innerHTML.localeCompare("Hide console ⯅") == 0;
+
+    let editor = $('.CodeMirror')[0].CodeMirror;
+    console.log(hidden);
+    if (hidden) {
+        editor.setSize("574", "357");
+        document.getElementById("u282_text").innerHTML = "Hide console ⯆";
+    } else {
+        editor.setSize("574", "581");
+        document.getElementById("u282_text").innerHTML = "Hide console ⯅";
+    }
+
+    editor.refresh();
+}
