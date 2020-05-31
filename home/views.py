@@ -1,5 +1,8 @@
 from django.shortcuts import render
+import logging
 
+# logger = logging.getLogger(__name__)
+# logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
 
 def landing(request):
     return render(request, "home/landing_page.html")
