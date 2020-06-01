@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'home',
     'gunicorn',
     'forum',
-    'account',
+    # 'account',
 ]
 
 MIDDLEWARE = [
