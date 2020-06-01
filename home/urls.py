@@ -3,8 +3,8 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
-urlpatterns = [
-                  url(r'^$', views.landing),
+urlpatterns = [   
+                  url(r'^sign_up/',views.sign_up),
                   url(r'^landing_page', views.landing),
                   url(r'^all_problems_page', views.all_problems_page),
                   url(r'^forum_page', views.forum_page),
@@ -22,6 +22,7 @@ urlpatterns = [
                   url(r'^expand', views.expand),
                   url(r'^Other', views.Other),
                   url(r'^reload', views.reload),
+                  url(r'^$', views.landing),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'
