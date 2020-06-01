@@ -3082,6 +3082,20 @@
   height:718px;
   display:flex;
   color:#FFFFFF;
+  -webkit-animation-name: subquestion_animation;
+  -webkit-animation-duration: 0.4s;
+  animation-name: subquestion_animation;
+  animation-duration: 0.4s
+}
+/* Add Animation */
+@-webkit-keyframes subquestion_animation {
+  from {left:-300px; opacity:0}
+  to {right:0; opacity:1}
+}
+
+@keyframes subquestion_animation {
+  from {left:-300px; opacity:0}
+  to {right:0; opacity:1}
 }
 #u329 .text {
   position:absolute;
