@@ -5,6 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
                   url(r'^$', views.landing),
+                  url(r'^sign_up',views.sign_up),
                   url(r'^landing_page', views.landing),
                   url(r'^all_problems_page', views.all_problems_page),
                   url(r'^forum_page', views.forum_page),

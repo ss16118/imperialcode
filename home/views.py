@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import logging
+from .models import User
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
@@ -7,6 +8,27 @@ import logging
 
 def landing(request):
     return render(request, "home/landing_page.html")
+
+def sign_up(request):
+    if request.method == "POST":
+        uname = request.POST ["username"]
+        pw = request.POST ["password"]
+        cpw = request.POST ["confirmpassword"]
+        if pw != cpw:
+            message = "inconsistent password"
+        else:
+            newuser=User(username=uname)
+            newuser.save()
+            try:
+                user=Authuser.objects.create_user(str(id),password=pw)
+                user.save()
+                return redirect("/")
+            except:
+                message = "invalid"
+    else:
+        message = ""
+    context={"msg":message}
+    return render(request, "home/signup_page.html",context)
 
 
 def all_problems_page(request):
