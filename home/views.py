@@ -9,7 +9,8 @@ from django.contrib.auth.models import User as Authuser
 
 
 def landing(request):
-    print (request.method)
+    if request.user.is_authenticated:
+        return redirect("../index")
     if request.method == "POST":
         uname = request.POST['u4_input']
         pw = request.POST['u5_input']
@@ -20,6 +21,8 @@ def landing(request):
     return render(request, "home/landing_page.html")
 
 def sign_up(request):
+    if request.user.is_authenticated:
+        return redirect("../index")
     if request.method == "POST":
         uname = request.POST ["username"]
         pw = request.POST ["password"]
