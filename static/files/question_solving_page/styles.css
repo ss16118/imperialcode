@@ -34,7 +34,7 @@
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
-  border-width:1px;
+  border-width:0px;
   border-style:solid;
   border-color:rgba(121, 121, 121, 1);
   border-radius:0px;
@@ -114,6 +114,29 @@
   width:104px;
   height:18px;
 }
+#u269_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:104px;
+  height:18px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:5px;
+  border-bottom-right-radius:0px;
+  border-bottom-left-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
 #u269 {
   border-width:0px;
   position:absolute;
@@ -126,6 +149,19 @@
   font-weight:300;
   font-style:normal;
 }
+#u269:hover {
+  border-width:0px;
+  position:absolute;
+  left:713px;
+  top:374px;
+  width:104px;
+  height:18px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  cursor:pointer;
+  font-style:normal;
+}
 #u269 .text {
   position:absolute;
   align-self:center;
@@ -133,9 +169,30 @@
   box-sizing:border-box;
   width:100%;
 }
-#u269_img.selected {
+#u269_div.selected {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:104px;
+  height:18px;
+  background:inherit;
+  background-color:rgba(242, 242, 242, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:5px;
+  border-bottom-right-radius:0px;
+  border-bottom-left-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
 }
-#u269.selected {
+#u269_img.selected {
 }
 #u269_text {
   border-width:0px;
@@ -177,6 +234,19 @@
   font-weight:300;
   font-style:normal;
 }
+#u270:hover {
+  border-width:0px;
+  position:absolute;
+  left:817px;
+  top:374px;
+  width:104px;
+  height:18px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  cursor:pointer;
+  font-style:normal;
+}
 #u270 .text {
   position:absolute;
   align-self:center;
@@ -206,8 +276,6 @@
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-}
-#u270.selected {
 }
 #u270_text {
   border-width:0px;
@@ -340,11 +408,11 @@
 #u274 {
   border-width:0px;
   position:absolute;
-  left:0px;
-  top:0px;
+  left:713px;
+  top:392px;
   width:574px;
   height:190px;
-  display:flex;
+  display:none;
   font-family:'Consolas', sans-serif;
   font-weight:400;
   font-style:normal;
@@ -475,11 +543,11 @@
 #u277 {
   border-width:0px;
   position:absolute;
-  left:0px;
-  top:0px;
+  left:713px;
+  top:392px;
   width:574px;
   height:190px;
-  display:flex;
+  display:none;
   font-family:'Consolas', sans-serif;
   font-weight:400;
   font-style:normal;
@@ -653,6 +721,7 @@
   width:14px;
   height:631px;
   display:flex;
+  background-color:rgba(215, 215, 215, 1);
 }
 #u281 .text {
   position:absolute;
@@ -661,8 +730,7 @@
   box-sizing:border-box;
   width:100%;
 }
-#u281_div.mouseOver {
-  border-width:0px;
+#u281:hover {
   position:absolute;
   left:0px;
   top:0px;
@@ -675,6 +743,7 @@
   -moz-box-shadow:none;
   -webkit-box-shadow:none;
   box-shadow:none;
+  cursor:pointer;
 }
 #u281.mouseOver {
 }
@@ -742,6 +811,7 @@
   font-style:normal;
   font-size:12px;
   color:#027DB4;
+  cursor:pointer;
 }
 #u282.mouseOver {
 }
@@ -2265,7 +2335,26 @@
   font-size:12px;
   color:#027DB4;
 }
-#u310.mouseOver {
+#u310:hover {
+  border-width:0px;
+  position:absolute;
+  left:900px;
+  top:672px;
+  width:100px;
+  height:40px;
+  background:inherit;
+  background-color:rgba(129, 211, 248, 0);
+  border:none;
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
+  font-weight:700;
+  font-style:normal;
+  font-size:12px;
+  color:#027DB4;
+  cursor:pointer;
 }
 #u310_text {
   border-width:0px;
@@ -3050,8 +3139,9 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:0px;
-  height:0px;
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,0.3);
 }
 #u329_div {
   border-width:0px;
@@ -3059,7 +3149,7 @@
   left:0px;
   top:0px;
   width:535px;
-  height:718px;
+  height:100vh;
   background:inherit;
   background-color:rgba(51, 51, 51, 1);
   box-sizing:border-box;
@@ -3078,7 +3168,7 @@
   left:0px;
   top:0px;
   width:535px;
-  height:718px;
+  height:100vh;
   display:flex;
   color:#FFFFFF;
 }

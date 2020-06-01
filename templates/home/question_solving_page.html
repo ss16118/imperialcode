@@ -75,71 +75,38 @@
               <div id="u268" class="ax_default" data-label="Console panel" data-left="713" data-top="374" data-width="574" data-height="208">
 
                 <!-- Unnamed (Shape) -->
-                <div id="u269" class="ax_default button selected" selectiongroup="Tab control">
-                  <img id="u269_img" class="img " src={% static "images/question_solving_page/u269_selected.svg" %}/>
+                <div id="u269" class="ax_default button selected" onclick="testcaseConsoleOnclick()">
+                  <div id="u269_div"></div>
                   <div id="u269_text" class="text ">
                     <p><span>Testcase</span></p>
                   </div>
                 </div>
 
                 <!-- Unnamed (Rectangle) -->
-                <div id="u270" class="ax_default button" selectiongroup="Tab control">
+                <div id="u270" class="ax_default button" onclick="outputConsoleOnclick()">
                   <div id="u270_div" class=""></div>
                   <div id="u270_text" class="text ">
-                    <p><span>Console</span></p>
+                    <p><span>Output</span></p>
                   </div>
                 </div>
+                <!---------------- Tab contents ---------------->
+                <!-- Unnamed (Text Area) -->
+                <div id="u274" class="ax_default text_area">
+                  <div id="u274_div" class=""></div>
+                  <textarea id="u274_input" class="u274_input">Test cases</textarea>
+                </div>
 
-                <!-- Unnamed (Dynamic Panel) -->
-                <div id="u271" class="ax_default">
-                  <div id="u271_state0" class="panel_state" data-label="State1" style="">
-                    <div id="u271_state0_content" class="panel_state_content">
-
-                      <!-- Unnamed (Group) -->
-                      <div id="u272" class="ax_default" data-left="0" data-top="0" data-width="574" data-height="190">
-
-                        <!-- Unnamed (Rectangle) -->
-                        <div id="u273" class="ax_default box_1">
-                          <div id="u273_div" class=""></div>
-                          <div id="u273_text" class="text " style="display:none; visibility: hidden">
-                            <p></p>
-                          </div>
-                        </div>
-
-                        <!-- Unnamed (Text Area) -->
-                        <div id="u274" class="ax_default text_area">
-                          <div id="u274_div" class=""></div>
-                          <textarea id="u274_input" class="u274_input">Test cases</textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="u271_state1" class="panel_state" data-label="State2" style="visibility: hidden;">
-                    <div id="u271_state1_content" class="panel_state_content">
-
-                      <!-- Unnamed (Group) -->
-                      <div id="u275" class="ax_default" data-left="0" data-top="0" data-width="574" data-height="190">
-
-                        <!-- Unnamed (Rectangle) -->
-                        <div id="u276" class="ax_default box_1">
-                          <div id="u276_div" class=""></div>
-                          <div id="u276_text" class="text " style="display:none; visibility: hidden">
-                            <p></p>
-                          </div>
-                        </div>
-
-                        <!-- Unnamed (Text Area) -->
-                        <div id="u277" class="ax_default text_area">
-                          <div id="u277_div" class=""></div>
-                          <textarea id="u277_input" class="u277_input">GHCi, version 8.0.2: http://www.haskell.org/ghc/&nbsp; :? for help
+                <!-- Unnamed (Text Area) -->
+                <div id="u277" class="ax_default text_area">
+                  <div id="u277_div" class=""></div>
+                  <textarea id="u277_input" class="u277_input">GHCi, version 8.0.2: http://www.haskell.org/ghc/&nbsp; :? for help
 Prelude&gt;</textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
-
+              <script>
+                /* Select the testcase panel by default */
+                document.getElementById("u269").click();
+              </script>
               <!-- Code edit area (Text Area) -->
               <div id="u278" class="ax_default text_area" data-label="Code edit area">
                 <div id="u278_div"></div>
@@ -152,7 +119,7 @@ lookUp
                           theme: "dracula",
                           lineNumbers: true
                       });
-                      editor.setSize("574", "357");
+                      editor.setSize("1268", "357");
                       editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
                   </script>
               </div>
@@ -177,11 +144,8 @@ A precondition is that the item being looked up has a unique binding in the list
               </div>
 
               <!-- Unnamed (Rectangle) -->
-              <div id="u281" class="ax_default box_2">
-                <div id="u281_div" class=""></div>
-                <div id="u281_text" class="text ">
-                  <p><span>⯇</span></p>
-                </div>
+              <div id="u281" class="ax_default box_2" onclick="hideSpecOnClick()">
+                <div id="u281_text" class="text ">⯇</div>
               </div>
 
               <!-- Unnamed (Rectangle) -->
@@ -190,179 +154,6 @@ A precondition is that the item being looked up has a unique binding in the list
               </div>
             </div>
           </div>
-          <div id="u267_state1" class="panel_state" data-label="Hide console" style="visibility: hidden;">
-            <div id="u267_state1_content" class="panel_state_content">
-
-              <!-- Code edit area (Text Area) -->
-              <div id="u283" class="ax_default text_area" data-label="Code edit area">
-                <div id="u283_div" class=""></div>
-                <textarea id="u283_input" class="u283_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
--- Pre: The item being looked up has a unique binding in the list
-lookUp 
-&nbsp; = undefined</textarea>
-              </div>
-
-              <!-- Spec (Inline Frame) -->
-              <div id="u284" class="ax_default" data-label="Spec">
-                <iframe id="u284_input" data-label="Spec" scrolling="auto" frameborder="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-              </div>
-
-              <!-- Single question (Text Area) -->
-              <div id="u285" class="ax_default text_area disabled" data-label="Single question">
-                <div id="u285_div" class="disabled"></div>
-                <textarea id="u285_input" class="u285_input" disabled>1. Define a function lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b that will look up an item in
-a list of (item, value) pairs. For example,
-
-*SAT&gt; lookUp 3 [(2,1),(3,8)]
-8
-
-A precondition is that the item being looked up has a unique binding in the list.
-[1 Mark]
-</textarea>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u286" class="ax_default box_2">
-                <div id="u286_div" class=""></div>
-                <div id="u286_text" class="text ">
-                  <p><span>⯇</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u287" class="ax_default button">
-                <div id="u287_div" class=""></div>
-                <div id="u287_text" class="text ">
-                  <p><span>Hide console ⯅</span></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="u267_state2" class="panel_state" data-label="Full screen" style="visibility: hidden;">
-            <div id="u267_state2_content" class="panel_state_content">
-
-              <!-- Code edit area (Text Area) -->
-              <div id="u288" class="ax_default text_area" data-label="Code edit area">
-                <div id="u288_div" class=""></div>
-                <textarea id="u288_input" class="u288_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
--- Pre: The item being looked up has a unique binding in the list
-lookUp 
-&nbsp; = undefined</textarea>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u289" class="ax_default box_2">
-                <div id="u289_div" class=""></div>
-                <div id="u289_text" class="text ">
-                  <p><span>⯈</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u290" class="ax_default button">
-                <div id="u290_div" class=""></div>
-                <div id="u290_text" class="text ">
-                  <p><span>Hide console ⯅</span></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="u267_state3" class="panel_state" data-label="Hide spec" style="visibility: hidden;">
-            <div id="u267_state3_content" class="panel_state_content">
-
-              <!-- Console panel (Group) -->
-              <div id="u291" class="ax_default" data-label="Console panel" data-left="19" data-top="374" data-width="1268" data-height="208">
-
-                <!-- Unnamed (Shape) -->
-                <div id="u292" class="ax_default button selected" selectiongroup="Tab control">
-                  <img id="u292_img" class="img " src={% static "images/question_solving_page/u292_selected.svg" %}/>
-                  <div id="u292_text" class="text ">
-                    <p><span>Testcase</span></p>
-                  </div>
-                </div>
-
-                <!-- Unnamed (Rectangle) -->
-                <div id="u293" class="ax_default button" selectiongroup="Tab control">
-                  <div id="u293_div" class=""></div>
-                  <div id="u293_text" class="text ">
-                    <p><span>Console</span></p>
-                  </div>
-                </div>
-
-                <!-- Unnamed (Dynamic Panel) -->
-                <div id="u294" class="ax_default">
-                  <div id="u294_state0" class="panel_state" data-label="Testcase" style="">
-                    <div id="u294_state0_content" class="panel_state_content">
-
-                      <!-- Unnamed (Group) -->
-                      <div id="u295" class="ax_default" data-left="0" data-top="0" data-width="1278" data-height="190">
-
-                        <!-- Unnamed (Rectangle) -->
-                        <div id="u296" class="ax_default box_1">
-                          <div id="u296_div" class=""></div>
-                          <div id="u296_text" class="text " style="display:none; visibility: hidden">
-                            <p></p>
-                          </div>
-                        </div>
-
-                        <!-- Unnamed (Text Area) -->
-                        <div id="u297" class="ax_default text_area">
-                          <div id="u297_div" class=""></div>
-                          <textarea id="u297_input" class="u297_input">Test cases</textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="u294_state1" class="panel_state" data-label="Console" style="visibility: hidden;">
-                    <div id="u294_state1_content" class="panel_state_content">
-
-                      <!-- Unnamed (Group) -->
-                      <div id="u298" class="ax_default" data-left="0" data-top="0" data-width="1268" data-height="190">
-
-                        <!-- Unnamed (Rectangle) -->
-                        <div id="u299" class="ax_default box_1">
-                          <div id="u299_div" class=""></div>
-                          <div id="u299_text" class="text " style="display:none; visibility: hidden">
-                            <p></p>
-                          </div>
-                        </div>
-
-                        <!-- Unnamed (Text Area) -->
-                        <div id="u300" class="ax_default text_area">
-                          <div id="u300_div" class=""></div>
-                          <textarea id="u300_input" class="u300_input">GHCi, version 8.0.2: http://www.haskell.org/ghc/&nbsp; :? for help
-Prelude&gt;</textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Code edit area (Text Area) -->
-              <div id="u301" class="ax_default text_area" data-label="Code edit area">
-                <div id="u301_div" class=""></div>
-                <textarea id="u301_input" class="u301_input">lookUp :: Eq a =&gt; a -&gt; [(a, b)] -&gt; b
--- Pre: The item being looked up has a unique binding in the list
-lookUp
-&nbsp; = undefined</textarea>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u302" class="ax_default box_2">
-                <div id="u302_div" class=""></div>
-                <div id="u302_text" class="text ">
-                  <p><span>⯈</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u303" class="ax_default button">
-                <div id="u303_div" class=""></div>
-                <div id="u303_text" class="text ">
-                  <p><span>Hide console ⯆</span></p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -411,7 +202,7 @@ lookUp
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u310" class="ax_default button">
+          <div id="u310" class="ax_default button" onclick="showSubquestionsOnClick()">
             <div id="u310_div" class=""></div>
             <div id="u310_text" class="text ">
               <p><span>☰ Subquestions</span></p>
