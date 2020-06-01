@@ -8,38 +8,7 @@
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "files/landing_page/styles.css" %} type="text/css" rel="stylesheet"/>
-    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
-    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
-    <script src={% static "resources/scripts/axure/globals.js" %}></script>
-    <script src={% static "resources/scripts/axutils.js" %}></script>
-    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
-    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
-    <script src={% static "resources/scripts/axure/doc.js" %}></script>
-    <script src={% static "resources/scripts/messagecenter.js" %}></script>
-    <script src={% static "resources/scripts/axure/events.js" %}></script>
-    <script src={% static "resources/scripts/axure/recording.js" %}></script>
-    <script src={% static "resources/scripts/axure/action.js" %}></script>
-    <script src={% static "resources/scripts/axure/expr.js" %}></script>
-    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
-    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
-    <script src={% static "resources/scripts/axure/model.js" %}></script>
-    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
-    <script src={% static "resources/scripts/axure/sto.js" %}></script>
-    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
-    <script src={% static "resources/scripts/axure/variables.js" %}></script>
-    <script src={% static "resources/scripts/axure/drag.js" %}></script>
-    <script src={% static "resources/scripts/axure/move.js" %}></script>
-    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
-    <script src={% static "resources/scripts/axure/style.js" %}></script>
-    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
-    <script src={% static "resources/scripts/axure/tree.js" %}></script>
-    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
-    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
-    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
-    <script src={% static "resources/scripts/axure/math.js" %}></script>
-    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
-    <script src={% static "data/document.js" %}></script>
-    <script src={% static "files/landing_page/data.js" %}></script>
+
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
       $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
@@ -81,17 +50,28 @@
         </div>
       </div>
 
+      <form action="." method="POST">
+        {% csrf_token %}
       <!-- Unnamed (Text Field) -->
       <div id="u4" class="ax_default text_field">
         <div id="u4_div" class=""></div>
-        <input id="u4_input" type="text" value="" class="u4_input"/>
+        <input id="u4_input" name ="u4_input" type="text" value="" class="u4_input"/>
       </div>
 
       <!-- Unnamed (Text Field) -->
       <div id="u5" class="ax_default text_field">
         <div id="u5_div" class=""></div>
-        <input id="u5_input" type="password" value="" class="u5_input"/>
+        <input id="u5_input" name ="u5_input" type="password" value="" class="u5_input"/>
       </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u8" class="ax_default primary_button">
+        <img id="u8_img" class="img " src={% static "images/landing_page/u8.svg" %}/>
+        <div id="u8_text" class="text " type="submit">
+          <p><span><input type="submit" value="login" style = "text-align:center;"/></p></span></p>
+        </div>
+      </div>
+    </form>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u6" class="ax_default label">
@@ -109,19 +89,11 @@
         </div>
       </div>
 
-      <!-- Unnamed (Shape) -->
-      <div id="u8" class="ax_default primary_button">
-        <img id="u8_img" class="img " src={% static "images/landing_page/u8.svg" %}/>
-        <div id="u8_text" class="text ">
-          <p><span>Login</span></p>
-        </div>
-      </div>
-
       <!-- Unnamed (Rectangle) -->
       <div id="u9" class="ax_default button">
         <img id="u9_img" class="img " src={% static "images/landing_page/u9.svg" %}/>
         <div id="u9_text" class="text ">
-          <p><span>Sign Up</span></p>
+          <p><span> <a href="sign_up">signup</a> </span></p>
         </div>
       </div>
 

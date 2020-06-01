@@ -1,12 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import logging
-from .models import User
+from django.contrib.auth import authenticate,login as loginuser
+from django.contrib.auth.models import User as Authuser
+
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
 
 
 def landing(request):
+    print (request.method)
+    if request.method == "POST":
+        uname = request.POST['u4_input']
+        pw = request.POST['u5_input']
+        user = authenticate (username=uname,password=pw)
+        if user is not None:
+            loginuser(request,user)
+            return redirect("../index")
     return render(request, "home/landing_page.html")
 
 def sign_up(request):
@@ -16,15 +26,12 @@ def sign_up(request):
         cpw = request.POST ["confirmpassword"]
         if pw != cpw:
             message = "inconsistent password"
-        else:
-            newuser=User(username=uname)
-            newuser.save()
-            try:
-                user=Authuser.objects.create_user(str(id),password=pw)
-                user.save()
-                return redirect("/")
-            except:
-                message = "invalid"
+        try:
+            user=Authuser.objects.create_user(uname,password=pw)
+            user.save()
+            return redirect("/")
+        except:
+            message = "invalid"
     else:
         message = ""
     context={"msg":message}
