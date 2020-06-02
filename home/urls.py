@@ -5,13 +5,12 @@ from django.conf import settings
 
 urlpatterns = [   
                   url(r'^sign_up/',views.sign_up),
-                  url(r'^landing_page', views.landing),
+                  url(r'^landing_page', views.landing, name="landing_page"),
                   url(r'^all_problems_page', views.all_problems_page),
                   url(r'^forum_page', views.forum_page),
                   url(r'^index', views.index),
-                  url(r'^past_papers_page.html/(.*)', views.past_papers_page),
-                  url(r'^past_papers_page/(.*)', views.past_papers_page),
-                  url(r'^past_papers_page', views.past_papers_page),
+                  url(r'^past_papers_page(.html)\?p=(.*)', views.past_papers_page),
+                  url(r'^past_papers_page', views.past_papers_page, name="past_papers_page"),
                   url(r'^problem_creation_page', views.problem_creation_page),
                   url(r'^question_comment_page', views.question_comment_page),
                   url(r'^question_solving_page', views.question_solving_page),

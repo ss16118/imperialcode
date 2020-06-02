@@ -1613,9 +1613,10 @@
   width:177px;
   height:38px;
   display:flex;
-  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-family:'SF Pro Text Display', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
+  font-size:20px;
 }
 #u195 .text {
   position:absolute;
@@ -1715,14 +1716,15 @@
 #u197 {
   border-width:0px;
   position:absolute;
-  left:1280px;
-  top:150px;
+  left:1013px;
+  top:180px;
   width:74px;
-  height:38px;
+  height:20px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
+  font-size:15px;
 }
 #u197 .text {
   position:absolute;

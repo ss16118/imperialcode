@@ -3,6 +3,7 @@
   {% load static %}
   <head>
     <title>Landing Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
@@ -10,9 +11,9 @@
     <link href={% static "files/landing_page/styles.css" %} type="text/css" rel="stylesheet"/>
 
     <script type="text/javascript">
-      $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif' %}; };
-      $axure.utils.getOtherPath = function() { return  'resources/Other.html'; };
-      $axure.utils.getReloadPath = function() { return  'resources/reload.html' ; };
+      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
+      $axure.utils.getOtherPath = function() { return  {% static 'resources/Other.html' %}; };
+      $axure.utils.getReloadPath = function() { return  {% static 'resources/reload.html' %}; };
     </script>
   </head>
   <body>
@@ -50,7 +51,7 @@
         </div>
       </div>
 
-      <form action="." method="POST">
+    <form action="." method="POST">
         {% csrf_token %}
       <!-- Unnamed (Text Field) -->
       <div id="u4" class="ax_default text_field">
@@ -68,7 +69,7 @@
       <div id="u8" class="ax_default primary_button">
         <img id="u8_img" class="img " src={% static "images/landing_page/u8.svg" %}/>
         <div id="u8_text" class="text " type="submit">
-          <p><span><input type="submit" value="login" style = "text-align:center;"/></p></span></p>
+          <p><span><input id='login_submit' type="submit" value="Login" style="text-align:center;"/></span></p>
         </div>
       </div>
     </form>
@@ -90,12 +91,14 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u9" class="ax_default button">
-        <img id="u9_img" class="img " src={% static "images/landing_page/u9.svg" %}/>
-        <div id="u9_text" class="text ">
-          <p><span> <a href="/sign_up">signup</a> </span></p>
+      <a href="sign_up">
+        <div id="u9" class="ax_default button">
+          <img id="u9_img" class="img " src={% static "images/landing_page/u9.svg" %}/>
+          <div id="u9_text" class="text ">
+            <p><span>Sign up</span></p>
+          </div>
         </div>
-      </div>
+      </a>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u10" class="ax_default heading_2">

@@ -55,8 +55,9 @@ def forum_page(request):
 def index(request):
     return render(request, "home/index.html")
 
-@login_required
-def past_papers_page(request, papername=""):
+
+def past_papers_page(request):
+    papername = request.GET.get("p")
     paper_titles = [p.title for p in PastPaper.objects.all()]
     choosen_paper = PastPaper.objects.filter(title=papername)
     if len(choosen_paper) == 0:

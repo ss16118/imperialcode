@@ -468,6 +468,9 @@
   height:26px;
   display:flex;
 }
+#u9:hover {
+  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
+}
 #u9 .text {
   position:absolute;
   align-self:center;
@@ -525,4 +528,16 @@
   border-width:0px;
   white-space:nowrap;
   text-transform:none;
+}
+#login_submit {
+  border:none;
+  width:145px;
+  height:26px;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  background-color:rgba(255,255,255,0);
+}
+#login_submit:hover {
+  cursor:pointer;
+  color:#ffffff;
+  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
 }
