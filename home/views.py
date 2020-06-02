@@ -3,6 +3,7 @@ import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
 from home.models import PastPaper, Question
+from django.contrib.auth.decorators import login_required
 
 
 # logger = logging.getLogger(__name__)
@@ -42,19 +43,19 @@ def sign_up(request):
     context = {"msg": message}
     return render(request, "home/signup_page.html", context)
 
-
+@login_required
 def all_problems_page(request):
     return render(request, "home/all_problems_page.html")
 
-
+@login_required
 def forum_page(request):
     return render(request, "home/forum_page.html")
 
-
+@login_required
 def index(request):
     return render(request, "home/index.html")
 
-
+@login_required
 def past_papers_page(request, papername=""):
     paper_titles = [p.title for p in PastPaper.objects.all()]
     choosen_paper = PastPaper.objects.filter(title=papername)
@@ -75,17 +76,17 @@ def past_papers_page(request, papername=""):
                "difficulty": difficulty, "upvotes": upvotes}
     return render(request, "home/past_papers_page.html", context)
 
-
+@login_required
 def problem_creation_page(request):
     context = {"paper_titles": "", "title": "", "description": "", "year": "", "difficulty": "",
                "upvotes": ""}
     return render(request, "home/problem_creation_page.html", context)
 
-
+@login_required
 def question_comment_page(request):
     return render(request, "home/question_comment_page.html")
 
-
+@login_required
 def question_solving_page(request):
     return render(request, "home/question_solving_page.html")
 
@@ -93,11 +94,11 @@ def question_solving_page(request):
 def signup_page(request):
     return render(request, "home/signup_page.html")
 
-
+@login_required
 def single_post_page(request):
     return render(request, "home/single_post_page.html")
 
-
+@login_required
 def user_info_page(request):
     return render(request, "home/user_info_page.html")
 
@@ -109,7 +110,7 @@ def start(request):
 def start_c_1(request):
     return render(request, "home/start_c_1.html")
 
-
+@login_required
 def start_with_pages(request):
     return render(request, "home/start_with_pages.html")
 
