@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>forum_form</title>
+</head>
+<body>
+{% block title %} Create Forums{% endblock %}
+
+{% block content %}
+<h2>Add Forum</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="button">Submit</button>
+</form>
+
+{% endblock%}
+</body>
+</html>

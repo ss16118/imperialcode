@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import Forum, Comment, PastPaper, Question
+from forum.models import Post, Comment, PastPaper, Question
 
 
 # logger = logging.getLogger(__name__)
