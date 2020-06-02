@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 import logging
-from django.contrib.auth import authenticate,login as loginuser
+from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
 from home.models import Forum, Comment, PastPaper, Question
-
 
 
 # logger = logging.getLogger(__name__)
@@ -16,34 +15,35 @@ def landing(request):
     if request.method == "POST":
         uname = request.POST['u4_input']
         pw = request.POST['u5_input']
-        user = authenticate (username=uname,password=pw)
+        user = authenticate(username=uname, password=pw)
         if user is not None:
-            loginuser(request,user)
+            loginuser(request, user)
             return redirect("../index")
     return render(request, "home/landing_page.html")
+
 
 def sign_up(request):
     if request.user.is_authenticated:
         return redirect("../index")
     if request.method == "POST":
-        uname = request.POST ["username"]
-        pw = request.POST ["password"]
-        cpw = request.POST ["confirmpassword"]
+        uname = request.POST["username"]
+        pw = request.POST["password"]
+        cpw = request.POST["confirmpassword"]
         if pw != cpw:
             message = "inconsistent password"
         try:
-            user=Authuser.objects.create_user(uname,password=pw)
+            user = Authuser.objects.create_user(uname, password=pw)
             user.save()
             return redirect("/")
         except:
             message = "invalid"
     else:
         message = ""
-    context={"msg":message}
-    return render(request, "home/signup_page.html",context)
+    context = {"msg": message}
+    return render(request, "home/signup_page.html", context)
 
 
-def all_problems_page(request):    
+def all_problems_page(request):
     return render(request, "home/all_problems_page.html")
 
 
@@ -54,27 +54,31 @@ def forum_page(request):
 def index(request):
     return render(request, "home/index.html")
 
-def past_papers_page(request, papername = ""):
+
+def past_papers_page(request, papername=""):
     paper_titles = [p.title for p in PastPaper.objects.all()]
-    choosen_paper = PastPaper.objects.filter(title = papername)
+    choosen_paper = PastPaper.objects.filter(title=papername)
     if len(choosen_paper) == 0:
         title = ""
         description = ""
         year = 0
         difficulty = 0
         upvotes = 0
-    else :
+    else:
         paper = choosen_paper[0]
         title = paper.title
         description = paper.desc
         year = paper.year
         difficulty = paper.difficulty
         upvotes = paper.upvotes
-    context = {"paper_titles":paper_titles, "title":title, "description": description, "year": year,  "difficulty": difficulty, "upvotes":upvotes}
+    context = {"paper_titles": paper_titles, "title": title, "description": description, "year": year,
+               "difficulty": difficulty, "upvotes": upvotes}
     return render(request, "home/past_papers_page.html", context)
 
+
 def problem_creation_page(request):
-    context = {"paper_titles":paper_titles, "title":"", "description": "", "year": "", "difficulty": "", "upvotes":""}
+    context = {"paper_titles": paper_titles, "title": "", "description": "", "year": "", "difficulty": "",
+               "upvotes": ""}
     return render(request, "home/problem_creation_page.html", context)
 
 
