@@ -30,18 +30,3 @@ class Comment(models.Model):
     desc = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-class PastPaper(models.Model):
-    title = models.CharField(max_length=100)
-    language = models.CharField(max_length=32)
-    spec_path = models.CharField(max_length=32)
-    desc = models.TextField(default="")
-    year = models.PositiveIntegerField()
-    difficulty = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    upvotes = models.IntegerField()
-
-
-class Question(models.Model):
-    question_desc = models.TextField()
-    question_code = models.TextField()
-    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
