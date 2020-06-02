@@ -74,7 +74,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'gunicorn',
     'forum',
 ]
 
@@ -119,7 +118,7 @@ WSGI_APPLICATION = 'imperialcode.wsgi.application'
 #     }
 # }
 
-if 'DATABASE_URL' in os.environ and False:
+if 'DATABASE_URL' in os.environ or True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
