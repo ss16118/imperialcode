@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <title>Landing Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/landing_page/styles.css" %} type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif' %}; };
+      $axure.utils.getOtherPath = function() { return  'resources/Other.html'; };
+      $axure.utils.getReloadPath = function() { return  'resources/reload.html' ; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Image) -->
+      <div id="u0" class="ax_default image">
+        <img id="u0_img" class="img " src={% static "images/landing_page/u0.png" %}/>
+        <div id="u0_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u1" class="ax_default box_1">
+        <div id="u1_div" class=""></div>
+        <div id="u1_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u2" class="ax_default image">
+        <img id="u2_img" class="img " src={% static "images/landing_page/u2.png" %}/>
+        <div id="u2_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u3" class="ax_default heading_1">
+        <div id="u3_div" class=""></div>
+        <div id="u3_text" class="text ">
+          <p><span>ImperialCode Login</span></p>
+        </div>
+      </div>
+
+
+
+
+
+<!--<form method="post" action="{% url 'login' %}">-->
+<!--    {% csrf_token %}-->
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <td>{{ form.username.label_tag }}</td>-->
+<!--        <td>{{ form.username }}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>{{ form.password.label_tag }}</td>-->
+<!--        <td>{{ form.password }}</td>-->
+<!--      </tr>-->
+<!--    </table>-->
+<!--    <input type="submit" value="login" />-->
+<!--    <input type="hidden" name="next" value="{{ next }}" />-->
+<!--  </form>-->
+
+
+
+
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+      <!-- Unnamed (Text Field) -->
+      <div id="u4" class="ax_default text_field">
+        <table>
+      <tr>
+        <td>{{ form.username }}</td>
+      </tr>
+    </table>
+      </div>
+
+      <!-- Unnamed (Text Field) -->
+      <div id="u5" class="ax_default text_field">
+         <table>
+      <tr>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u8" class="ax_default primary_button">
+        <img id="u8_img" class="img " src={% static "images/landing_page/u8.svg" %}/>
+        <div id="u8_text" class="text " type="submit">
+          <p><span><input type="submit" value="login" style = "text-align:center;"/></p></span></p>
+        </div>
+      </div>
+    </form>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u6" class="ax_default label">
+        <div id="u6_div" class=""></div>
+        <div id="u6_text" class="text ">
+          <p><span>Password</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u7" class="ax_default label">
+        <div id="u7_div" class=""></div>
+        <div id="u7_text" class="text ">
+          <p><span>Username</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u9" class="ax_default button">
+        <img id="u9_img" class="img " src={% static "images/landing_page/u9.svg" %}/>
+        <div id="u9_text" class="text ">
+          <p><span> <a href="sign_up">signup</a> </span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u10" class="ax_default heading_2">
+        <div id="u10_div" class=""></div>
+        <div id="u10_text" class="text ">
+          <p><span>A coding practice platform for Imperial students</span></p>
+        </div>
+      </div>
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  </body>
+</html>
