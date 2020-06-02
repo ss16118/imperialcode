@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate,login as loginuser
 from django.contrib.auth.models import User as Authuser
+from home.models import Forum, Comment, PastPaper, Question
+
 
 
 # logger = logging.getLogger(__name__)
@@ -41,7 +43,7 @@ def sign_up(request):
     return render(request, "home/signup_page.html",context)
 
 
-def all_problems_page(request):
+def all_problems_page(request):    
     return render(request, "home/all_problems_page.html")
 
 
@@ -52,13 +54,28 @@ def forum_page(request):
 def index(request):
     return render(request, "home/index.html")
 
-
-def past_papers_page(request):
-    return render(request, "home/past_papers_page.html")
-
+def past_papers_page(request, papername = ""):
+    paper_titles = [p.title for p in PastPaper.objects.all()]
+    choosen_paper = PastPaper.objects.filter(title = papername)
+    if len(choosen_paper) == 0:
+        title = ""
+        description = ""
+        year = 0
+        difficulty = 0
+        upvotes = 0
+    else :
+        paper = choosen_paper[0]
+        title = paper.title
+        description = paper.desc
+        year = paper.year
+        difficulty = paper.difficulty
+        upvotes = paper.upvotes
+    context = {"paper_titles":paper_titles, "title":title, "description": description, "year": year,  "difficulty": difficulty, "upvotes":upvotes}
+    return render(request, "home/past_papers_page.html", context)
 
 def problem_creation_page(request):
-    return render(request, "home/problem_creation_page.html")
+    context = {"paper_titles":paper_titles, "title":"", "description": "", "year": "", "difficulty": "", "upvotes":""}
+    return render(request, "home/problem_creation_page.html", context)
 
 
 def question_comment_page(request):

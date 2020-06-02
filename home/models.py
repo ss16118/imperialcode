@@ -22,6 +22,8 @@ class PastPaper(models.Model):
     title = models.CharField(max_length=100)
     language = models.CharField(max_length=32)
     spec_path = models.CharField(max_length=32)
+    desc = models.TextField()
+    year = models.IntegerField() 
     difficulty = models.IntegerField() 
     upvotes = models.IntegerField()
 

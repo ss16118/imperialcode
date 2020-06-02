@@ -139,17 +139,15 @@
       <div id="u192" class="ax_default list_box">
         <div id="u192_div" class=""></div>
         <select id="u192_input" size="2" class="u192_input">
-          <option class="u192_input_option" value="SAT Solving">SAT Solving</option>
-          <option class="u192_input_option" value="Constant Propagation">Constant Propagation</option>
-          <option class="u192_input_option" value="Decision Trees">Decision Trees</option>
-          <option class="u192_input_option" value="XML and XSL Transformations">XML and XSL Transformations</option>
-          <option class="u192_input_option" value="Functions, Procedures and Memoisation">Functions, Procedures and Memoisation</option>
-          <option class="u192_input_option" value="Regular Expressions and Finite Automata">Regular Expressions and Finite Automata</option>
-          <option class="u192_input_option" value="Bionmial Heaps">Bionmial Heaps</option>
-          <option class="u192_input_option" value="Labelled Transition Systems">Labelled Transition Systems</option>
-          <option class="u192_input_option" value="Polymorphic Type Inference">Polymorphic Type Inference</option>
-          <option class="u192_input_option" value="Suffix Trees">Suffix Trees</option>
-          <option class="u192_input_option" value="Binary Decision Diagrams">Binary Decision Diagrams</option>
+          <!-- should be dynamic -->
+
+          {%for paper_title in paper_titles %}
+
+          <option class="u192_input_option" value={{paper_title}}>{{paper_title}}</option>
+
+          {% endfor %}
+
+          <!-- should be dynamic -->
         </select>
       </div>
 
@@ -168,33 +166,33 @@
           <p><span>Start</span></p>
         </div>
       </div>
+      
+      <!-- this should be dynamic  -->
 
       <!-- Unnamed (Rectangle) -->
       <div id="u195" class="ax_default heading_1">
         <div id="u195_div" class=""></div>
         <div id="u195_text" class="text ">
-          <p><span>SAT Solving</span></p>
+          <p><span>{{title}}</span></p>
         </div>
       </div>
 
       <!-- Unnamed (Text Area) -->
       <div id="u196" class="ax_default text_area disabled">
         <div id="u196_div" class="disabled"></div>
-        <textarea id="u196_input" class="u196_input" disabled>The focus of this exercise was the Davis–Putnam (DP) algorithm for SAT solving. This is an extremely simple but extraordinarily effective algorithm for turning the NP-complete boolean satisfiability problem into a computationally tractable problem for many practical examples. The exercise is quite closely aligned to the earlier exercise on Binary Decision Diagrams (2009), but the approach is very different. The structure of the DP algorithm also has some similarity to that covered in the constant folding exercise (2018). Students were advised to revise for the test using these two exercises in particular and I think this prepared them well.
-The solution to the DP algorithms falls out beautifully in Haskell. The final parts of the exercise, in particular, have a number of extremely elegant solutions using list comprehensions and Haskell’s higher-order list processing functions. Some of the more delightful solutions involve multiple passes over the formula in question, but I was not concerned here with efficiency, other that ensuring that the solution has the right asymptotic complexity.
-When marking the submissions I decided to revise the original marking scheme, as it was clear that relatively few students had made it through to the end in the time available. I therefore turned the final question, which is essentially a pretty-printer for DP solutions, into a bonus question and moved some marks around to shrink the total from its original 30 to 25. The specification here reflects the revised marking scheme and I think it worked well: the average mark was around 71% and eight students out of 204 achieved the maximum mark of 25. The only other changes I have made are to function names and the name of the DP algorithm itself, which I originally presented as a sub-algorithm of DPLL (see below).
-The main problem was the enormous number of submissions that made use of length to check for null and singleton lists. Students are constantly reminded never to use length in this way, yet the vast majority did so here. The lecturer clearly has some work to do! If you are reading this and are at all tempted to write, e.g. filter ((==1) . length) to extract unit clauses, please don’t!&nbsp; A surprising number of students also forgot to invoke toCNF, or rather its helper function, in the arguments to Or.
-I was very pleased with Parts III and IV. Students seemed to understand the algorithm, even though some struggled to express it correctly in Haskell in the time available. The last three questions spread the class nicely and yielded some extremely beautiful solutions, in some cases every bit as good as the specimen solution that I had prepared for marking.
-Many thanks to Qianyi Shu, who provided me with a Haskell implementation of DPLL. This convinced me that the problem was doable in the time available.</textarea>
+        <textarea id="u196_input" class="u196_input" disabled>{{description}}</textarea>
       </div>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u197" class="ax_default heading_1">
         <div id="u197_div" class=""></div>
         <div id="u197_text" class="text ">
-          <p><span>2019</span></p>
+          <p><span>{{year}}</span></p>
         </div>
       </div>
+
+      <!-- this should be dynamic -->
+
 
       <!-- Status filter (Droplist) -->
       <div id="u198" class="ax_default droplist" data-label="Status filter">
@@ -283,7 +281,7 @@ Many thanks to Qianyi Shu, who provided me with a Haskell implementation of DPLL
       <div id="u208" class="ax_default heading_1">
         <div id="u208_div" class=""></div>
         <div id="u208_text" class="text ">
-          <p><span>32</span></p>
+          <p><span>{{up}}</span></p>
         </div>
       </div>
 
