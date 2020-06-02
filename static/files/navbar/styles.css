@@ -709,3 +709,58 @@ html, body {
   word-wrap:break-word;
   text-transform:none;
 }
+#nav_logout_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:142px;
+  height:35px;
+  background:inherit;
+  background-color:rgba(242, 242, 242, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(242, 242, 242, 1);
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:20px;
+  color:#000000;
+}
+#nav_logout {
+  border-width:0px;
+  position:absolute;
+  left:1200px;
+  top:7px;
+  width:142px;
+  height:35px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:18px;
+  color:#000000;
+}
+#nav_logout_text {
+  position:absolute;
+  align-self:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
+}
+#nav_logout:hover {
+  cursor:pointer;
+  color:rgba(121, 121, 121, 1);
+}
+#nav_logout .text {
+  position:absolute;
+  align-self:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
+}
