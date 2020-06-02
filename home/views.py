@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from forum.models import Post, Comment, PastPaper, Question
+from home.models import PastPaper, Question
 
 
 # logger = logging.getLogger(__name__)
@@ -77,7 +77,7 @@ def past_papers_page(request, papername=""):
 
 
 def problem_creation_page(request):
-    context = {"paper_titles": paper_titles, "title": "", "description": "", "year": "", "difficulty": "",
+    context = {"paper_titles": "", "title": "", "description": "", "year": "", "difficulty": "",
                "upvotes": ""}
     return render(request, "home/problem_creation_page.html", context)
 
