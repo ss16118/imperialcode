@@ -138,12 +138,12 @@
       <!-- Unnamed (List Box) -->
       <div id="u192" class="ax_default list_box">
         <div id="u192_div" class=""></div>
-        <select id="u192_input" size="2" class="u192_input">
+        <select id="u192_input" size="2" class="u192_input" onchange="window.location.href=this.value">
           <!-- should be dynamic -->
 
           {%for paper_title in paper_titles %}
 
-          <option class="u192_input_option" value={{paper_title}} href = "/{{paper_title}}">{{paper_title}}</option>
+          <option class="u192_input_option" value="/past_papers_page.html/{{paper_title}}">{{paper_title}}</option>
 
           {% endfor %}
 
@@ -179,15 +179,18 @@
 
       <!-- Unnamed (Text Area) -->
       <div id="u196" class="ax_default text_area disabled">
-        <div id="u196_div" class="disabled"></div>
-        <textarea id="u196_input" class="u196_input" disabled>{{description}}</textarea>
+        <div id="u196_div" class="disabled"></div>        <textarea id="u196_input" class="u196_input" disabled>{{description}}</textarea>
       </div>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u197" class="ax_default heading_1">
         <div id="u197_div" class=""></div>
         <div id="u197_text" class="text ">
-          <p><span>{{year}}</span></p>
+          <p><span>
+              {% if not year == 0 %}
+                  {{year}}
+              {% endif %}
+          </span></p>
         </div>
       </div>
 
