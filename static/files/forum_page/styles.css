@@ -1348,6 +1348,10 @@
   font-style:normal;
   color:#000000;
 }
+#u432:hover {
+  cursor:pointer;
+  background-color:#7F7F7F;
+}
 #u432 .text {
   position:absolute;
   align-self:center;
@@ -2892,6 +2896,7 @@
   width:1536px;
   height:682px;
   visibility:hidden;
+  z-score:1500;
 }
 #u471_state0 {
   border-width:0px;
@@ -2992,13 +2997,30 @@
   position:absolute;
   left:1216px;
   top:288px;
-  width:80px;
+  width:80px !important;
   height:35px;
   display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
   font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
   font-weight:700;
   font-style:normal;
   color:#AAAAAA;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  border:none;
+  border-radius:5px;
+  border-bottom-right-radius:0px;
+  border-bottom-left-radius:0px;
+  -moz-box-shadow:-5px -5px 5px rgba(0, 0, 0, 0.349019607843137);
+  -webkit-box-shadow:-5px -5px 5px rgba(0, 0, 0, 0.349019607843137);
+  box-shadow:-5px -5px 5px rgba(0, 0, 0, 0.349019607843137);
+}
+#u474:hover {
+  cursor:pointer;
 }
 #u474 .text {
   position:absolute;
@@ -3076,7 +3098,10 @@
   font-style:normal;
   font-size:15px;
 }
-#u475.mouseOver {
+#u475:hover {
+  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
+  background-color:rgba(242, 242, 242, 1);
+  cursor:pointer;
 }
 #u475_text {
   border-width:0px;

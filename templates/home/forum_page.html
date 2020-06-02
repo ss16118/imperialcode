@@ -3,6 +3,7 @@
   {% load static %}
   <head>
     <title>Forum Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
@@ -143,7 +144,7 @@
       </div>
 
       <!-- New post (Shape) -->
-      <div id="u432" class="ax_default button" data-label="New post">
+      <div id="u432" class="ax_default button" data-label="New post" onclick="addNewPostButtonOnClick()">
         <img id="u432_img" class="img " src={% static "images/forum_page/new_post_u432.svg" %}/>
         <div id="u432_text" class="text ">
           <p><span>+ New Post</span></p>
@@ -434,13 +435,14 @@
         </div>
       </div>
 
-      <!-- New post panel (Dynamic Panel) -->
+      <!-- New Post Form -->
       <div id="u471" class="ax_default ax_default_hidden" data-label="New post panel" style="display:none; visibility: hidden">
         <div id="u471_state0" class="panel_state" data-label="Default" style="">
           <div id="u471_state0_content" class="panel_state_content">
 
             <!-- New post group (Group) -->
-            <div id="u472" class="ax_default" data-label="New post group" data-left="0" data-top="288" data-width="1536" data-height="394">
+            <div id="u472" class="ax_default" data-label="New post group" data-left="0" data-top="288"
+                 data-width="1536" data-height="394">
 
               <!-- Panel (Rectangle) -->
               <div id="u473" class="ax_default box_1" data-label="Panel">
@@ -451,15 +453,12 @@
               </div>
 
               <!-- Unnamed (Rectangle) -->
-              <div id="u474" class="ax_default button">
-                <div id="u474_div" class=""></div>
-                <div id="u474_text" class="text ">
-                  <p><span>⮝</span></p>
-                </div>
+              <div id="u474" class="ax_default button" onclick="expandNewPostButtonOnClick()">
+                <p><span>⮝</span></p>
               </div>
 
               <!-- Unnamed (Rectangle) -->
-              <div id="u475" class="ax_default button">
+              <div id="u475" class="ax_default button" onclick="closeButtonOnClick()">
                 <div id="u475_div" class=""></div>
                 <div id="u475_text" class="text ">
                   <p><span>Close</span></p>
@@ -498,74 +497,6 @@
               <div id="u480" class="ax_default line">
                 <img id="u480_img" class="img " src={% static "images/forum_page/u480.svg" %}/>
                 <div id="u480_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="u471_state1" class="panel_state" data-label="Full screen" style="visibility: hidden;">
-          <div id="u471_state1_content" class="panel_state_content">
-
-            <!-- New post group (Group) -->
-            <div id="u481" class="ax_default" data-label="New post group" data-left="0" data-top="10" data-width="1536" data-height="672">
-
-              <!-- Panel (Rectangle) -->
-              <div id="u482" class="ax_default box_1" data-label="Panel">
-                <div id="u482_div" class=""></div>
-                <div id="u482_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u483" class="ax_default button">
-                <div id="u483_div" class=""></div>
-                <div id="u483_text" class="text ">
-                  <p><span>⮟</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u484" class="ax_default button">
-                <div id="u484_div" class=""></div>
-                <div id="u484_text" class="text ">
-                  <p><span>Close</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u485" class="ax_default button">
-                <div id="u485_div" class=""></div>
-                <div id="u485_text" class="text ">
-                  <p><span>✉ Post</span></p>
-                </div>
-              </div>
-
-              <!-- Post title field (Text Field) -->
-              <div id="u486" class="ax_default text_field" data-label="Post title field">
-                <div id="u486_div" class=""></div>
-                <input id="u486_input" type="text" value="" class="u486_input"/>
-              </div>
-
-              <!-- Unnamed (Image) -->
-              <div id="u487" class="ax_default image">
-                <img id="u487_img" class="img " src={% static "images/forum_page/u478.PNG" %}/>
-                <div id="u487_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Text Area) -->
-              <div id="u488" class="ax_default text_area">
-                <div id="u488_div" class=""></div>
-                <textarea id="u488_input" class="u488_input"></textarea>
-              </div>
-
-              <!-- Unnamed (Line) -->
-              <div id="u489" class="ax_default line">
-                <img id="u489_img" class="img " src={% static "images/forum_page/u480.svg" %}/>
-                <div id="u489_text" class="text " style="display:none; visibility: hidden">
                   <p></p>
                 </div>
               </div>
