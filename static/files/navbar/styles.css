@@ -34,7 +34,7 @@ html, body {
   left:0px;
   top:0px;
   width:1536px;
-  height:60px;
+  height:50px;
   background:inherit;
   background-color:rgba(242, 242, 242, 1);
   border:none;
@@ -49,7 +49,7 @@ html, body {
   left:0px;
   top:0px;
   width:1536px;
-  height:60px;
+  height:50px;
   display:flex;
 }
 #u13 .text {
@@ -77,7 +77,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:78px;
-  top:12px;
+  top:6px;
   width:230px;
   height:35px;
   display:flex;
@@ -126,14 +126,14 @@ html, body {
   border-width:0px;
   position:absolute;
   left:424px;
-  top:12px;
+  top:7px;
   width:123px;
   height:35px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:20px;
+  font-size:18px;
   color:#000000;
 }
 #u15 .text {
@@ -144,26 +144,6 @@ html, body {
   width:100%;
 }
 #u15:hover {
-  border-width:0px;
-  position:absolute;
-  left:424px;
-  top:12px;
-  width:123px;
-  height:35px;
-  background:inherit;
-  background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(242, 242, 242, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
-  font-weight:300;
-  font-style:normal;
-  font-size:20px;
   color:rgba(121, 121, 121, 1);
 }
 #u15.mouseOver {
@@ -200,14 +180,14 @@ html, body {
   border-width:0px;
   position:absolute;
   left:547px;
-  top:12px;
+  top:7px;
   width:142px;
   height:35px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:20px;
+  font-size:18px;
   color:#000000;
 }
 #u16 .text {
@@ -218,26 +198,6 @@ html, body {
   width:100%;
 }
 #u16:hover {
-  border-width:0px;
-  position:absolute;
-  left:547px;
-  top:12px;
-  width:142px;
-  height:35px;
-  background:inherit;
-  background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(242, 242, 242, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
-  font-weight:300;
-  font-style:normal;
-  font-size:20px;
   color:rgba(121, 121, 121, 1);
 }
 #u16.mouseOver {
@@ -259,14 +219,14 @@ html, body {
   border-width:0px;
   position:absolute;
   left:1000px;
-  top:12px;
+  top:7px;
   width:97px;
   height:35px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:20px;
+  font-size:18px;
   color:#000000;
 }
 #u17 .text {
@@ -277,17 +237,6 @@ html, body {
   width:100%;
 }
 #u17:hover {
-  border-width:0px;
-  position:absolute;
-  left:1000px;
-  top:12px;
-  width:97px;
-  height:35px;
-  display:flex;
-  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
-  font-weight:300;
-  font-style:normal;
-  font-size:20px;
   color:rgba(121, 121, 121, 1);
 }
 #u17.mouseOver {
@@ -324,14 +273,14 @@ html, body {
   border-width:0px;
   position:absolute;
   left:689px;
-  top:12px;
+  top:7px;
   width:142px;
   height:35px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:20px;
+  font-size:18px;
   color:#000000;
 }
 #u18 .text {
@@ -342,26 +291,6 @@ html, body {
   width:100%;
 }
 #u18:hover {
-  border-width:0px;
-  position:absolute;
-  left:689px;
-  top:12px;
-  width:142px;
-  height:35px;
-  background:inherit;
-  background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(242, 242, 242, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
-  font-weight:300;
-  font-style:normal;
-  font-size:20px;
   color:rgba(121, 121, 121, 1);
 }
 #u18.mouseOver {
@@ -374,7 +303,7 @@ html, body {
 #u19 {
   position:absolute;
   left:943px;
-  top:12px;
+  top:7px;
 }
 #u19_state0 {
   position:relative;
@@ -416,7 +345,7 @@ html, body {
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:20px;
+  font-size:18px;
   color:#000000;
 }
 #u20 .text {
@@ -470,7 +399,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:0px;
-  top:38px;
+  top:34px;
   width:57px;
   height:7px;
   display:flex;
@@ -572,7 +501,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:822px;
-  top:60px;
+  top:50px;
   width:300px;
   height:176px;
   display:flex;
@@ -615,7 +544,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:822px;
-  top:60px;
+  top:50px;
   width:300px;
   height:72px;
   display:flex;
@@ -683,7 +612,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:822px;
-  top:132px;
+  top:122px;
   width:300px;
   height:73px;
   display:flex;
@@ -754,7 +683,7 @@ html, body {
   border-width:0px;
   position:absolute;
   left:822px;
-  top:205px;
+  top:195px;
   width:300px;
   height:31px;
   display:flex;

@@ -128,3 +128,15 @@ let resizeTextAreaWidth = function(componentId, newWidth) {
     let componentInput = document.getElementById(componentId + "_input");
     componentInput.style.width = newWidth + "px";
 }
+
+
+function editorSettingsButtonOnClick() {
+    let editorSettingsPanel = document.getElementById("u353");
+    editorSettingsPanel.style.display = "flex";
+    editorSettingsPanel.style.visibility = "visible";
+}
+
+function editorSettingsCancelButtonOnClick() {
+    let editorSettingsPanel = document.getElementById("u353");
+    editorSettingsPanel.style.display = "none";
+}
