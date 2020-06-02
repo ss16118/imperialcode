@@ -9,6 +9,7 @@ urlpatterns = [
                   url(r'^all_problems_page', views.all_problems_page),
                   url(r'^forum_page', views.forum_page),
                   url(r'^index', views.index),
+                  url(r'^past_papers_page.html/(.*)', views.past_papers_page),
                   url(r'^past_papers_page/(.*)', views.past_papers_page),
                   url(r'^past_papers_page', views.past_papers_page),
                   url(r'^problem_creation_page', views.problem_creation_page),
