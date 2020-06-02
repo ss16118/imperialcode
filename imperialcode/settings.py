@@ -119,7 +119,7 @@ WSGI_APPLICATION = 'imperialcode.wsgi.application'
 #     }
 # }
 
-if 'DATABASE_URL' in os.environ:
+if 'DATABASE_URL' in os.environ and False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
