@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput & python manage.py makemigrations & python manage.py migrate & gunicorn imperialcode.wsgi:application -b 0.0.0.0:$PORT
+web: python manage.py collectstatic --noinput & python manage.py flush & python manage.py makemigrations & python manage.py migrate & gunicorn imperialcode.wsgi:application -b 0.0.0.0:$PORT
