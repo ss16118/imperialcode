@@ -15,8 +15,14 @@ class PastPaper(models.Model):
     difficulty = models.IntegerField()
     upvotes = models.IntegerField()
 
+    def __str__(self):
+        return self.title
+
 
 class Question(models.Model):
     question_desc = models.TextField()
     question_code = models.TextField()
     paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.question_desc

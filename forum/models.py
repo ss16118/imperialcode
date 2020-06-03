@@ -15,6 +15,9 @@ class Post(models.Model):
     slug = models.SlugField(unique=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
     # for using slug
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -29,4 +32,7 @@ class Comment(models.Model):
     forum = models.ForeignKey(Post, on_delete=models.CASCADE)
     desc = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.desc
 
