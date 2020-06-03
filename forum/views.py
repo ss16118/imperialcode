@@ -1,20 +1,24 @@
 from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .models import Post
+
+from .form import CommentForm
+from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 @method_decorator(login_required, name='dispatch') # Protected the class, must be logged in to access.
-class ForumListView(ListView):
+class ForumListView(SuccessMessageMixin, ListView):
     model = Post
     context_object_name = "objPosts"
     queryset = Post.objects.order_by('-created_at') # order by creation date
 
-class ForumCreate(CreateView):
+class ForumCreate(SuccessMessageMixin, CreateView):
     model = Post
     fields = ['title', 'desc']
+    success_message = 'Post was successfully created'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -28,10 +32,9 @@ class ForumUserListView(ListView):
 
 class ForumDetailView(DetailView):
     model = Post
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['additional'] = 'ImperialCode® 2020'
+        context['form_comment'] = CommentForm()
         return context
 
 
@@ -50,9 +53,36 @@ class ForumUpdateView(OwnerProtectMixin ,UpdateView):
     template_name = 'forum/post_update_form.html'
 
 @method_decorator(login_required, name='dispatch')
-class ForumDeleteView(OwnerProtectMixin, DeleteView):
+class ForumDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
     model = Post
     success_url = '/forum'
+    success_message = 'Post was successfully deleted'
+
+
+@method_decorator(login_required, name='dispatch')
+class CommentCreateView(SuccessMessageMixin, CreateView):
+    model = Comment
+    fields = ['desc']
+    success_message = 'Comment was successfully posted'
+
+    def form_valid(self, form):
+        _forum = get_object_or_404(Post, id=self.kwargs['pk'])
+        form.instance.user = self.request.user
+        form.instance.forum = _forum
+        return super().form_valid(form)
+
+@method_decorator(login_required, name='dispatch')
+class CommentUpdateView(OwnerProtectMixin, UpdateView):
+    model = Comment
+    fields = ['desc']
+    template_name = 'forum/forum_update_comment.html'
+    success_url = '/forum'
+
+@method_decorator(login_required, name='dispatch')
+class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
+    model = Comment
+    success_url = '/forum'
+    success_message = 'Comment was successfully deleted'
 
 
 def home(request):

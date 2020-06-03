@@ -22,8 +22,9 @@ class Post(models.Model):
 
     # for using slug
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
-        super(Post, self).save(*args, **kwargs)
+        if self.pk is None:
+            self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
+            super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('forum-list') # note: give a working redirect page
@@ -37,4 +38,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.desc
+
+    def get_absolute_url(self):
+        return reverse('forum-list')
 

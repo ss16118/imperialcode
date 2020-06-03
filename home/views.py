@@ -6,6 +6,7 @@ from home.models import PastPaper, Question, Code_Segment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
+from django.db.models import Q
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
@@ -60,25 +61,42 @@ def index(request):
 
 
 def past_papers_page(request):
-    papername = request.GET.get("p")
-    paper_titles = [p.title for p in PastPaper.objects.all()]
-    choosen_paper = PastPaper.objects.filter(title=papername)
-    if len(choosen_paper) == 0:
-        title = ""
-        description = ""
-        year = 0
-        difficulty = 0
-        upvotes = 0
+    results = PastPaper.objects.all()
+    if request.GET.get("keywords") is not None:
+        kw = request.GET.get("keywords")
+        results = results.filter(Q(title__contains=kw) | Q(desc__contains=kw))
+        if kw.isdigit():
+            results = results.filter(id=kw)
+    if request.GET.get("lang") is not None:
+        results = results.filter(language=request.GET.get("lang"))
+    if request.GET.get("year") is not None:
+        results = results.filter(year=request.GET.get("year"))
+    if request.GET.get("diff") is not None:
+        results = results.filter(difficulty=request.GET.get("diff"))
+    if request.GET.get("status") is not None:
+        results = results.filter(status=request.GET.get("status"))
+    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
+    selected_paper = PastPaper.objects.filter(title=selected_title)
+    selected_paper_info = {}
+    if len(selected_paper) == 0:
+        selected_paper_info["title"] = ""
+        selected_paper_info["desc"] = ""
+        selected_paper_info["year"] = 0
+        selected_paper_info["status"] = ""
+        selected_paper_info["difficulty"] = 0
+        selected_paper_info["upvotes"] = 0
     else:
-        paper = choosen_paper[0]
-        title = paper.title
-        description = paper.desc
-        year = paper.year
-        difficulty = paper.difficulty
-        upvotes = paper.upvotes
-    context = {"paper_titles": paper_titles, "title": title, "description": description, "year": year,
-               "difficulty": difficulty, "upvotes": upvotes}
+        selected_paper_info["title"] = selected_paper[0].title
+        selected_paper_info["desc"] = selected_paper[0].desc
+        selected_paper_info["year"] = selected_paper[0].year
+        selected_paper_info["status"] = selected_paper[0].status
+        selected_paper_info["difficulty"] = selected_paper[0].difficulty
+        selected_paper_info["upvotes"] = selected_paper[0].upvotes
+
+    selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
+    context = {"display_papers": results, "selected_paper": selected_paper_info}
     return render(request, "home/past_papers_page.html", context)
+
 
 @login_required
 def problem_creation_page(request):
@@ -91,8 +109,8 @@ def question_comment_page(request):
 
 @login_required
 def question_solving_page(request):
-    pname = request.GET.get("p")
-    qindex = request.GET.get("i")
+    pname = request.GET.get("papername")
+    qindex = request.GET.get("question_index")
     answer = request.GET.get("code")
     question = Question.objects.filter(paper__title=pname).filter(question_index = qindex)
     if len(question) == 0:

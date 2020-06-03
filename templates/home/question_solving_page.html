@@ -46,9 +46,9 @@
     <script src={% static "data/document.js" %}></script>
     <script type="text/javascript" src={% static "files/question_solving_page/data.js" %}></script>
     <script type="text/javascript">
-      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
-      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
-      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+      $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
+      $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
     </script>
   </head>
   <body>

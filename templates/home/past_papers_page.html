@@ -42,9 +42,9 @@
     <script src={% static "data/document.js" %}></script>
     <script src={% static "files/past_papers_page/data.js" %}></script>
     <script type="text/javascript">
-      $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif' %}; };
-      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
-      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+      $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
+      $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
     </script>
   </head>
   <body>
@@ -130,9 +130,9 @@
         <div id="u191_div" class=""></div>
         <select id="u191_input" class="u191_input">
           <option class="u191_input_option" value="All">All</option>
-          <option class="u191_input_option" value="★★★">★★★</option>
-          <option class="u191_input_option" value="★★">★★</option>
-          <option class="u191_input_option" value="★">★</option>
+          <option class="u191_input_option" value="3">★★★</option>
+          <option class="u191_input_option" value="2">★★</option>
+          <option class="u191_input_option" value="1">★</option>
         </select>
       </div>
 
@@ -142,9 +142,9 @@
         <select id="u192_input" size="2" class="u192_input">
           <!-- should be dynamic -->
 
-          {%for paper_title in paper_titles %}
+          {%for paper in display_papers %}
 
-          <option class="u192_input_option" onclick='displayInfo("{{ paper_title }}")'>{{paper_title}}</option>
+          <option class="u192_input_option" onclick='displayInfo("{{ paper.title }}")'>{{paper.title}}</option>
 
           {% endfor %}
 
@@ -174,13 +174,14 @@
       <div id="u195" class="ax_default heading_1">
         <div id="u195_div" class=""></div>
         <div id="u195_text" class="text ">
-          <p><span>{{title}}</span></p>
+          <p><span>{{selected_paper.title}}</span></p>
         </div>
       </div>
 
       <!-- Unnamed (Text Area) -->
       <div id="u196" class="ax_default text_area disabled">
-        <div id="u196_div" class="disabled"></div>        <textarea id="u196_input" class="u196_input" disabled>{{description}}</textarea>
+        <div id="u196_div" class="disabled"></div>
+          <textarea id="u196_input" class="u196_input" disabled>{{selected_paper.desc}}</textarea>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -188,8 +189,8 @@
         <div id="u197_div" class=""></div>
         <div id="u197_text" class="text ">
           <p><span>
-              {% if not year == 0 %}
-                  {{year}}
+              {% if not selected_paper.year == 0 %}
+                  {{selected_paper.year}}
               {% endif %}
           </span></p>
         </div>
@@ -218,7 +219,7 @@
       </div>
 
       <!-- Unnamed (Shape) -->
-      <div id="u200" class="ax_default button">
+      <div id="u200" class="ax_default button" onclick="searchPastPapersButtonOnClick()">
         <img id="u200_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
         <div id="u200_text" class="text ">
           <p><span>Search</span></p>
@@ -226,7 +227,7 @@
       </div>
 
       <!-- Unnamed (Shape) -->
-      <div id="u201" class="ax_default button">
+      <div id="u201" class="ax_default button" onclick="clearFilters()">
         <img id="u201_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
         <div id="u201_text" class="text ">
           <p><span>Clear Filter</span></p>
@@ -237,7 +238,11 @@
       <div id="u202" class="ax_default heading_1">
         <div id="u202_div" class=""></div>
         <div id="u202_text" class="text ">
-          <p><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;">Difficulty: </span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;font-style:normal;">★</span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;"> </span></p>
+        {% if selected_paper.difficulty != 0 %}
+          <p><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;">
+              Difficulty: {{ selected_paper.difficulty }}
+          </span></p>
+        {% endif %}
         </div>
       </div>
 
@@ -285,7 +290,7 @@
       <div id="u208" class="ax_default heading_1">
         <div id="u208_div" class=""></div>
         <div id="u208_text" class="text ">
-          <p><span>{{up}}</span></p>
+          <p><span>{{selected_paper.upvotes}}</span></p>
         </div>
       </div>
 
@@ -306,11 +311,54 @@
       </div>
     </div>
     <script>
-        function displayInfo(title) {
-            window.location.href = "/past_papers_page?p=" + title;
+        let currentUrl = new URL(window.location.href);
+
+        const DEFAULT_KEYWORDS = "Search past papers title, description, or IDs";
+        let keywordsFilter = document.getElementById("u186_input");
+        let languageFilter = document.getElementById("u184_input");
+        let yearFilter = document.getElementById("u185_input");
+        let difficultyFilter = document.getElementById("u191_input");
+        let statusFilter = document.getElementById("u198_input");
+
+        let filters = ["keywords", "lang", "year", "diff", "status"];
+        let filterFields = [keywordsFilter, languageFilter, yearFilter, difficultyFilter, statusFilter];
+        for (i = 0; i < filters.length; i++) {
+            if (currentUrl.searchParams.get(filters[i]) !== null) {
+                filterFields[i].value = currentUrl.searchParams.get(filters[i]).toString();
+            }
         }
+
         let pastPapersList = document.getElementById("u192_input");
-        pastPapersList.value = "{{ title }}";
+        pastPapersList.value = "{{ selected_paper.title }}";
+
+        function displayInfo(title) {
+            if (currentUrl.searchParams.get("p") !== null) {
+                currentUrl.searchParams.set("p", title);
+            } else {
+                currentUrl.searchParams.append("p", title);
+            }
+            window.location.href = currentUrl.toString();
+        }
+
+        function searchPastPapersButtonOnClick() {
+            let keywords = keywordsFilter.value;
+            let language = languageFilter.options[languageFilter.selectedIndex].value;
+            let year = yearFilter.options[yearFilter.selectedIndex].value;
+            let difficulty = difficultyFilter.options[difficultyFilter.selectedIndex].value;
+            let status = statusFilter.options[statusFilter.selectedIndex].value;
+
+            let params = ""
+            params = params + (keywords.localeCompare(DEFAULT_KEYWORDS) == 0 ? "" : `&keywords=${keywords}`);
+            params = params + (language.localeCompare("All") == 0 ? "" : `&lang=${language}`);
+            params = params + (year.localeCompare("All") == 0 ? "" : `&year=${year}`);
+            params = params + (difficulty.localeCompare("All") == 0 ? "" : `&diff=${difficulty}`);
+            params = params + (status.localeCompare("All") == 0 ? "" : `&status=${status}`);
+            window.location.href = `/past_papers_page?${params.substr(1)}`
+        }
+
+        function clearFilters() {
+            window.location.href = "/past_papers_page.html"
+        }
     </script>
     <script src="resources/scripts/axure/ios.js"></script>
   </body>

@@ -42,8 +42,8 @@
     <script src={% static "files/all_problems_page/data.js" %}></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return {% static 'resources/images/transparent.gif'; };
-      $axure.utils.getOtherPath = function() { return {% static 'resources/Other.html' %}; };
-      $axure.utils.getReloadPath = function() { return {% static 'resources/reload.html' %}; };
+      $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
     </script>
   </head>
   <body>
