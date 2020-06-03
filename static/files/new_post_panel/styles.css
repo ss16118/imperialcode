@@ -261,7 +261,7 @@
   box-sizing:border-box;
   width:100%;
 }
-#u476_div.mouseOver {
+#u476_div:hover {
   border-width:0px;
   position:absolute;
   left:0px;

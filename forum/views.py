@@ -3,7 +3,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-
 from .form import CommentForm
 from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
@@ -11,9 +10,19 @@ from django.utils.decorators import method_decorator
 
 @method_decorator(login_required, name='dispatch') # Protected the class, must be logged in to access.
 class ForumListView(SuccessMessageMixin, ListView):
-    model = Post
     context_object_name = "objPosts"
     queryset = Post.objects.order_by('-created_at') # order by creation date
+
+    def get(self, request):
+        return render(request, "home/forum_page.html")
+
+    def post(self, request):
+        print(request.POST)
+        post_title = request.POST['post_title']
+        post_desc = request.POST['post_content']
+        new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc)
+        new_post.save()
+        return render(request, "home/forum_page.html")
 
 class ForumCreate(SuccessMessageMixin, CreateView):
     model = Post

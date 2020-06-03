@@ -64,7 +64,7 @@ LOGGING = {
 '''
 
 # Application definition
-
+APPEND_SLASH = False
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

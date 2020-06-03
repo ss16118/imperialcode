@@ -1,11 +1,10 @@
 from django.urls import path
-
 from . import views
 from .views import ForumCreate, ForumListView, ForumUserListView, ForumDetailView,\
     ForumUpdateView, ForumDeleteView, CommentCreateView, CommentUpdateView, CommentDeleteView
 
 urlpatterns = [
-    path('', ForumListView.as_view() , name='forum-list'),
+    path('', ForumListView.as_view(), name='forum-list'),
     path('add/', ForumCreate.as_view(), name='forum-add'),
     path('by/<username>/', ForumUserListView.as_view(), name='forum-by'),
     path('edit/<int:pk>', ForumUpdateView.as_view(), name='forum-edit'),
