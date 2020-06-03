@@ -6,15 +6,16 @@
 </head>
 <body>
 
-{% block title %} List Post{% endblock %}
+{% load humanize %}
 
+{% block title %} List Post{% endblock %}
 {% block content %}
 <div class="jumbotron">
   <h1>Posts</h1>
     <ul>
-            {% for post in objPosts %}
-                <li>{{post.title}} | <b>{{post.user}}</b> | <span style="font-size: 12px;"><i>{{post.created_at}}</i></span></li><br>
-            {% endfor %}
+        {% for post in object_list %}
+            <li><a href="{% url 'forum-detail' post.slug %}">{{post.title}}  |  <a href="{% url 'forum-by' post.user %}">{{post.user}}</a> | <span style="font-size: 12px;"><i>{{post.created_at | naturaltime}}</i></span></li><br>
+        {% endfor %}
     </ul>
 </div>
 {% endblock%}
