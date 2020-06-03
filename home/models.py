@@ -18,11 +18,21 @@ class PastPaper(models.Model):
     def __str__(self):
         return self.title
 
+class Code_Segment(models.Model):
+    index = models.IntegerField()
+    code = models.TextField()
+    paper = models.ForeignKey(PastPaper, on_delete= models.CASCADE)
+
+    def __str__(self):
+        return str(self.paper) + "question" + self.index 
+
 
 class Question(models.Model):
     question_desc = models.TextField()
-    question_code = models.TextField()
-    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
+    code_segment = models.ForeignKey(Code_Segment, on_delete=models.CASCADE, default="") 
+    test_script = models.TextField(default="")
 
     def __str__(self):
         return self.question_desc
+
+

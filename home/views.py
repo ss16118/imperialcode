@@ -79,8 +79,7 @@ def past_papers_page(request):
 
 @login_required
 def problem_creation_page(request):
-    context = {"paper_titles": "", "title": "", "description": "", "year": "", "difficulty": "",
-               "upvotes": ""}
+    context = {}
     return render(request, "home/problem_creation_page.html", context)
 
 @login_required
@@ -89,7 +88,8 @@ def question_comment_page(request):
 
 @login_required
 def question_solving_page(request):
-    return render(request, "home/question_solving_page.html")
+    context = {}
+    return render(request, "home/question_solving_page.html",context)
 
 
 def signup_page(request):
