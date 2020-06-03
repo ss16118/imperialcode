@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>forum_form</title>
+    <title>Update_comment</title>
 </head>
 <body>
 {% extends "base.html" %}
-{% block title %} Create Forums{% endblock %}
+{% block title %} Edit Comment {% endblock %}
 
 {% block content %}
-<h2>Add Forum</h2>
+<h2>Edit Comment</h2>
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    {% csrf_token %} // to protect the form
+    {{ form.as_p }} // to render form
     <button type="submit" name="button">Submit</button>
 </form>
 

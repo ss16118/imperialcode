@@ -5,11 +5,21 @@
     <title>Post_list</title>
 </head>
 <body>
+{% extends "base.html" %}
 
 {% load humanize %}
 
 {% block title %} List Post{% endblock %}
 {% block content %}
+
+{% if messages %}
+<div class="card bg-danger text-white">
+    {% for message in messages %}
+        <div class="card-body">{{message}}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="jumbotron">
   <h1>Posts</h1>
     <ul>
