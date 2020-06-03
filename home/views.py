@@ -14,6 +14,7 @@ from django.db.models import Q
 
 code_cache = CodeCache()
 
+
 def landing(request):
     if request.user.is_authenticated:
         return redirect("../index")
@@ -47,13 +48,16 @@ def sign_up(request):
     context = {"msg": message}
     return render(request, "home/signup_page.html", context)
 
+
 @login_required
 def all_problems_page(request):
     return render(request, "home/all_problems_page.html")
 
+
 @login_required
 def forum_page(request):
     return render(request, "home/forum_page.html")
+
 
 @login_required
 def index(request):
@@ -103,16 +107,18 @@ def problem_creation_page(request):
     context = {}
     return render(request, "home/problem_creation_page.html", context)
 
+
 @login_required
 def question_comment_page(request):
     return render(request, "home/question_comment_page.html")
+
 
 @login_required
 def question_solving_page(request):
     pname = request.GET.get("papername")
     qindex = request.GET.get("question_index")
     answer = request.GET.get("code")
-    question = Question.objects.filter(paper__title=pname).filter(question_index = qindex)
+    question = Question.objects.filter(paper__title=pname).filter(question_index=qindex)
     if len(question) == 0:
         desc = ""
         code = ""
@@ -121,12 +127,12 @@ def question_solving_page(request):
         desc = question[0].question_desc
         code = CodeSegment.objects.filter(id=question[0].code_segment)[0]
         output = ""
-        if answer != None:
+        if answer is not None:
             code_segments = CodeSegment.objects.filter(paper__title=pname).order_by('index')
             code_cache.add(pname, qindex, request.user.id, answer)
             all_code = ""
-            for i in range (len(code_segments)):
-                cached_segment = code_cache.get(pname, qindex,request.user.id)
+            for i in range(len(code_segments)):
+                cached_segment = code_cache.get(pname, qindex, request.user.id)
                 if cached_segment is not None:
                     all_code += cached_segment
                     cached_segment = None
@@ -134,28 +140,30 @@ def question_solving_page(request):
                     all_code += code_segments[i].code
             all_code += question[0].test_script
             response = requests.post('https://api.jdoodle.com/v1/execute',
-             json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
-             'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
-             'script': all_code,
-             'stdin': "",
-             'language':"haskell",
-             'versionIndex':'0'})
+                                     json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
+                                           'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
+                                           'script': all_code,
+                                           'stdin': "",
+                                           'language': "haskell",
+                                           'versionIndex': '0'})
             try:
-                #try except is used because the external api may not be reliable
+                # try except is used because the external api may not be reliable
                 output = response.json()["output"]
             except:
                 pass
 
-    context = {"desc":desc,"code":code, "output":output}
-    return render(request, "home/question_solving_page.html",context)
+    context = {"desc": desc, "code": code, "output": output}
+    return render(request, "home/question_solving_page.html", context)
 
 
 def signup_page(request):
     return render(request, "home/signup_page.html")
 
+
 @login_required
 def single_post_page(request):
     return render(request, "home/single_post_page.html")
+
 
 @login_required
 def user_info_page(request):
@@ -168,6 +176,7 @@ def start(request):
 
 def start_c_1(request):
     return render(request, "home/start_c_1.html")
+
 
 @login_required
 def start_with_pages(request):

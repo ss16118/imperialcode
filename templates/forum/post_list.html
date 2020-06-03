@@ -1,33 +1,142 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post_list</title>
-</head>
-<body>
-{% extends "base.html" %}
+<html>
+  {% load static %}
+  {% load humanize %}
+  <head>
+    <title>Forum Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/forum_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
+    <script src={% static "resources/scripts/axure/globals.js" %}></script>
+    <script src={% static "resources/scripts/axutils.js" %}></script>
+    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
+    <script src={% static "resources/scripts/axure/doc.js" %}></script>
+    <script src={% static "resources/scripts/messagecenter.js" %}></script>
+    <script src={% static "resources/scripts/axure/events.js" %}></script>
+    <script src={% static "resources/scripts/axure/recording.js" %}></script>
+    <script src={% static "resources/scripts/axure/action.js" %}></script>
+    <script src={% static "resources/scripts/axure/expr.js" %}></script>
+    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
+    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
+    <script src={% static "resources/scripts/axure/model.js" %}></script>
+    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
+    <script src={% static "resources/scripts/axure/sto.js" %}></script>
+    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/variables.js" %}></script>
+    <script src={% static "resources/scripts/axure/drag.js" %}></script>
+    <script src={% static "resources/scripts/axure/move.js" %}></script>
+    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
+    <script src={% static "resources/scripts/axure/style.js" %}></script>
+    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
+    <script src={% static "resources/scripts/axure/tree.js" %}></script>
+    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
+    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
+    <script src={% static "resources/scripts/axure/math.js" %}></script>
+    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "data/document.js" %}></script>
+    <script src={% static "files/forum_page/data.js" %}></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
+      $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
 
-{% load humanize %}
+      {% include "home/../global_components/navbar.html" %}
+      <div id="u403" style="display:none; visibility:hidden;"></div>
 
-{% block title %} List Post{% endblock %}
-{% block content %}
+      <!-- Unnamed (Rectangle) -->
+      <div id="u420" class="ax_default box_2">
+        <div id="u420_div" class="">
+          <!-- Unnamed (Group) -->
+        </div>
+      </div>
 
-{% if messages %}
-<div class="card bg-danger text-white">
-    {% for message in messages %}
-        <div class="card-body">{{message}}</div>
-    {% endfor %}
-</div>
-{% endif %}
+      <!-- Unnamed (Rectangle) -->
+      <div id="u421" class="ax_default box_3">
+        <div id="u421_div" class=""></div>
+        <div id="u421_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
 
-<div class="jumbotron">
-  <h1>Posts</h1>
-    <ul>
-        {% for post in object_list %}
-            <li><a href="{% url 'forum-detail' post.slug %}">{{post.title}}  |  <a href="{% url 'forum-by' post.user %}">{{post.user}}</a> | <span style="font-size: 12px;"><i>{{post.created_at | naturaltime}}</i></span></li><br>
-        {% endfor %}
-    </ul>
-</div>
-{% endblock%}
-</body>
+      <!-- Unnamed (Rectangle) -->
+      <div id="u429" class="ax_default heading_1">
+        <div id="u429_div" class=""></div>
+        <div id="u429_text" class="text ">
+          <p><span>Forum Posts</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Text Field) -->
+      <div id="u430" class="ax_default text_field">
+        <div id="u430_div" class=""></div>
+        <input id="u430_input" type="search" value="" class="u430_input"/>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u431" class="ax_default button">
+        <img id="u431_img" class="img " src={% static "images/forum_page/u431.svg" %}/>
+        <div id="u431_text" class="text ">
+          <p><span>Search</span></p>
+        </div>
+      </div>
+
+      <!-- New post (Shape) -->
+      <div id="u432" class="ax_default button" data-label="New post" onclick="addNewPostButtonOnClick()">
+        <img id="u432_img" class="img " src={% static "images/forum_page/new_post_u432.svg" %}/>
+        <div id="u432_text" class="text ">
+          <p><span>+ New Post</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u468" class="ax_default button selected" selectiongroup="Post order">
+        <img id="u468_img" class="img " src={% static "images/index/u37.svg" %}/>
+        <div id="u468_text" class="text ">
+          <p><span>Trending</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u469" class="ax_default button" selectiongroup="Post order">
+        <img id="u469_img" class="img " src={% static "images/forum_page/u469.svg" %}/>
+        <div id="u469_text" class="text ">
+          <p><span>Newest to oldest</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u470" class="ax_default button" selectiongroup="Post order">
+        <img id="u470_img" class="img " src={% static "images/forum_page/u470.svg" %}/>
+        <div id="u470_text" class="text ">
+          <p><span>Most upvotes</span></p>
+        </div>
+      </div>
+      <script>
+          let panelsHTML = []
+          {% for post in posts %}
+              panelsHTML.push(createPostPanel({{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
+          {% endfor %}
+          panelsHTML.forEach(panelHTML => {
+              console.log(panelHTML);
+              let html = document.createElement("div");
+              html.innerHTML = panelHTML;
+              document.getElementById("u420_div").append(html);
+          });
+      </script>
+      <!-- New Post Form -->
+      {% include "home/../global_components/new_post_panel.html" %}
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  </body>
 </html>

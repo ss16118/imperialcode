@@ -8,21 +8,23 @@ from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-@method_decorator(login_required, name='dispatch') # Protected the class, must be logged in to access.
+
+@method_decorator(login_required, name='dispatch')  # Protected the class, must be logged in to access.
 class ForumListView(SuccessMessageMixin, ListView):
     context_object_name = "objPosts"
-    queryset = Post.objects.order_by('-created_at') # order by creation date
+    queryset = Post.objects.order_by('-created_at')  # order by creation date
 
     def get(self, request):
-        return render(request, "home/forum_page.html")
+        context = {"posts": Post.objects.all()}
+        return render(request, "forum/post_list.html", context)
 
     def post(self, request):
-        print(request.POST)
         post_title = request.POST['post_title']
         post_desc = request.POST['post_content']
-        new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc)
+        new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc, upvotes=0, views=0)
         new_post.save()
-        return render(request, "home/forum_page.html")
+        return render(request, "forum/post_list.html")
+
 
 class ForumCreate(SuccessMessageMixin, CreateView):
     model = Post
@@ -33,14 +35,18 @@ class ForumCreate(SuccessMessageMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
 class ForumUserListView(ListView):
     template_name = 'forum/post_by_user.html'
+
     def get_queryset(self):
-        self.user = get_object_or_404(User, username = self.kwargs['username']) # checking if the user exists
-        return Post.objects.filter(user = self.user)
+        self.user = get_object_or_404(User, username=self.kwargs['username'])  # checking if the user exists
+        return Post.objects.filter(user=self.user)
+
 
 class ForumDetailView(DetailView):
     model = Post
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form_comment'] = CommentForm()
@@ -55,11 +61,13 @@ class OwnerProtectMixin(object):
             return HttpResponseForbidden()
         return super(OwnerProtectMixin, self).dispatch(request, *args, **kwargs)
 
+
 @method_decorator(login_required, name='dispatch')
-class ForumUpdateView(OwnerProtectMixin ,UpdateView):
+class ForumUpdateView(OwnerProtectMixin, UpdateView):
     model = Post
     fields = ['title', 'desc']
     template_name = 'forum/post_update_form.html'
+
 
 @method_decorator(login_required, name='dispatch')
 class ForumDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
@@ -80,12 +88,14 @@ class CommentCreateView(SuccessMessageMixin, CreateView):
         form.instance.forum = _forum
         return super().form_valid(form)
 
+
 @method_decorator(login_required, name='dispatch')
 class CommentUpdateView(OwnerProtectMixin, UpdateView):
     model = Comment
     fields = ['desc']
     template_name = 'forum/forum_update_comment.html'
     success_url = '/forum'
+
 
 @method_decorator(login_required, name='dispatch')
 class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
@@ -96,5 +106,3 @@ class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
 
 def home(request):
     return render(request, "home/forum_page.html")
-
-

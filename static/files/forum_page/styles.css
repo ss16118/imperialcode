@@ -799,6 +799,7 @@
   background:inherit;
   background-color:rgba(242, 242, 242, 1);
   border:none;
+  overflow: auto;
   border-radius:0px;
   -moz-box-shadow:none;
   -webkit-box-shadow:none;
@@ -870,6 +871,7 @@
   top:0px;
   width:0px;
   height:0px;
+  overflow: auto;
 }
 #u423_div {
   border-width:0px;
@@ -892,8 +894,8 @@
 #u423 {
   border-width:0px;
   position:absolute;
-  left:110px;
-  top:187px;
+  left:31px;
+  top:71px;
   width:1155px;
   height:75px;
   display:flex;
@@ -905,7 +907,7 @@
   box-sizing:border-box;
   width:100%;
 }
-#u423_div.mouseOver {
+#u423_div:hover {
   border-width:0px;
   position:absolute;
   left:0px;
@@ -953,8 +955,8 @@
 #u424 {
   border-width:0px;
   position:absolute;
-  left:139px;
-  top:213px;
+  left:29px;
+  top:13px;
   width:102px;
   height:24px;
   display:flex;
@@ -981,7 +983,7 @@
   left:0px;
   top:0px;
   width:548px;
-  height:47px;
+  height:16px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
   border:none;
@@ -994,12 +996,13 @@
 #u425 {
   border-width:0px;
   position:absolute;
-  left:289px;
-  top:201px;
+  left:29px;
+  top:42px;
   width:548px;
-  height:47px;
+  height:16px;
   display:flex;
   font-size:12px;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
 }
 #u425 .text {
   position:absolute;
@@ -1035,8 +1038,8 @@
 #u426 {
   border-width:0px;
   position:absolute;
-  left:932px;
-  top:213px;
+  left:822px;
+  top:26px;
   width:46px;
   height:24px;
   display:flex;
@@ -1079,8 +1082,8 @@
 #u427 {
   border-width:0px;
   position:absolute;
-  left:1018px;
-  top:213px;
+  left:908px;
+  top:26px;
   width:55px;
   height:24px;
   display:flex;
@@ -1123,8 +1126,8 @@
 #u428 {
   border-width:0px;
   position:absolute;
-  left:1113px;
-  top:213px;
+  left:1003px;
+  top:26px;
   width:69px;
   height:24px;
   display:flex;

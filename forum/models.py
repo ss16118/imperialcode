@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 # Create your models here.
 
 # class User(models.Model):
@@ -16,6 +17,8 @@ class Post(models.Model):
     desc = models.TextField(default="")
     slug = models.SlugField(unique=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    upvotes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -27,7 +30,7 @@ class Post(models.Model):
             super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('forum-list') # note: give a working redirect page
+        return reverse('forum-list')  # note: give a working redirect page
 
 
 class Comment(models.Model):
@@ -41,4 +44,3 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('forum-list')
-

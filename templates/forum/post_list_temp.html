@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post_list</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% load humanize %}
+
+{% block title %} List Post{% endblock %}
+{% block content %}
+
+{% if messages %}
+<div class="card bg-danger text-white">
+    {% for message in messages %}
+        <div class="card-body">{{message}}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="jumbotron">
+  <h1>Posts</h1>
+    <ul>
+        {% for post in object_list %}
+            <li><a href="{% url 'forum-detail' post.slug %}">{{post.title}}  |  <a href="{% url 'forum-by' post.user %}">{{post.user}}</a> | <span style="font-size: 12px;"><i>{{post.created_at | naturaltime}}</i></span></li><br>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock%}
+</body>
+</html>

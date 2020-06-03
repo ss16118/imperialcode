@@ -8,7 +8,7 @@
     <script type="text/javascript" src={% static "files/navbar/data.js" %}></script>
 </head>
 <body>
-  <div id="u12" class="ax_default">
+<div id="u12" class="ax_default">
     <div id="u12_state0" class="panel_state" data-label="Default" style="">
       <div id="u12_state0_content" class="panel_state_content">
 
@@ -34,7 +34,7 @@
         </a>
 
         <!-- Unnamed (Rectangle) -->
-        <a href="forum_page.html">
+        <a href="{% url 'forum-list' %}">
           <div id="u15" class="ax_default button">
             <div id="u15_div" class=""></div>
             <div id="u15_text" class="text ">
@@ -44,7 +44,7 @@
         </a>
 
         <!-- Unnamed (Rectangle) -->
-        <a href="past_papers_page.html">
+        <a href="{% url 'past_papers_page' %}">
           <div id="u16" class="ax_default button">
             <div id="u16_div" class=""></div>
             <div id="u16_text" class="text ">
@@ -54,7 +54,7 @@
         </a>
 
         <!-- Unnamed (Shape) -->
-        <a href="user_info_page.html">
+        <a href="{% url 'user_info_page' %}">
           <div id="u17" class="ax_default button">
             <img id="u17_img" class="img " src={% static "images/index/u17.svg" %}/>
             <div id="u17_text" class="text ">
@@ -64,7 +64,7 @@
         </a>
 
         <!-- Unnamed (Rectangle) -->
-        <a href="all_problems_page.html">
+        <a href="{% url 'all_problems_page' %}">
           <div id="u18" class="ax_default button">
             <div id="u18_div" class=""></div>
             <div id="u18_text" class="text ">
