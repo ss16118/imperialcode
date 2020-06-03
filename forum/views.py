@@ -1,10 +1,16 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic import CreateView, ListView
 from .models import Post
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 @method_decorator(login_required, name='dispatch') # Protected the class, must be logged in to access.
+
+class ForumListView(ListView):
+    model = Post
+    context_object_name = "objPosts"
+    queryset = Post.objects.all() # default queryset
+
 class ForumCreate(CreateView):
     model = Post
     fields = ['title', 'desc']

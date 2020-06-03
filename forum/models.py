@@ -1,3 +1,5 @@
+import time
+
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -20,7 +22,7 @@ class Post(models.Model):
 
     # for using slug
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.title)+ '-' + time.strftime("%Y%m%d%H%M%S")
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
