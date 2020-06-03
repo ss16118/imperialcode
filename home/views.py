@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import PastPaper, Question, Code_Segment
+from home.models import PastPaper, Question, CodeSegment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -119,10 +119,10 @@ def question_solving_page(request):
         output = ""
     else:
         desc = question[0].question_desc
-        code = Code_Segment.objects.filter(id=question[0].code_segment)[0]
+        code = CodeSegment.objects.filter(id=question[0].code_segment)[0]
         output = ""
         if answer != None:
-            code_segments = Code_Segment.objects.filter(paper__title=pname).order_by('index')
+            code_segments = CodeSegment.objects.filter(paper__title=pname).order_by('index')
             code_cache.add(pname, qindex, request.user.id, answer)
             all_code = ""
             for i in range (len(code_segments)):
