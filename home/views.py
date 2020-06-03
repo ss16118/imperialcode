@@ -87,7 +87,8 @@ def question_comment_page(request):
     return render(request, "home/question_comment_page.html")
 
 @login_required
-def question_solving_page(request):
+def question_solving_page(request, paper_name = "", question_index = 0):
+    question = Question.objects.filter(paper__title=paper_name).filter(index = question_index)
     context = {}
     return render(request, "home/question_solving_page.html",context)
 

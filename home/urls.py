@@ -13,6 +13,8 @@ urlpatterns = [
                   url(r'^past_papers_page', views.past_papers_page, name="past_papers_page"),
                   url(r'^problem_creation_page', views.problem_creation_page),
                   url(r'^question_comment_page', views.question_comment_page),
+                  url(r'^question_solving_page(.html)/(.*)/(\d+)', views.question_solving_page),
+                  url(r'^question_solving_page(.html)/(.*)', views.question_solving_page),
                   url(r'^question_solving_page', views.question_solving_page),
                   url(r'^signup_page', views.signup_page),
                   url(r'^single_post_page', views.single_post_page),

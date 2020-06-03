@@ -4,3 +4,5 @@
 .vscode
 home/migrations/*
 !home/migrations/__init__.py
+forum/migrations/*
+forum/migrations/__init__.py
