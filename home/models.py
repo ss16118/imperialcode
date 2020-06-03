@@ -29,8 +29,10 @@ class Code_Segment(models.Model):
 
 class Question(models.Model):
     question_desc = models.TextField()
+    question_index = models.IntegerField(default=0)
     code_segment = models.ForeignKey(Code_Segment, on_delete=models.CASCADE, default="") 
     test_script = models.TextField(default="")
+    paper = models.ForeignKey(PastPaper, on_delete= models.CASCADE, default="")
 
     def __str__(self):
         return self.question_desc
