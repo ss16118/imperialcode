@@ -2,13 +2,16 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import PastPaper, Question
+from home.models import PastPaper, Question, Code_Segment
 from django.contrib.auth.decorators import login_required
-
+from home.codeCache import CodeCache
+import requests
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
 
+
+code_cache = CodeCache()
 
 def landing(request):
     if request.user.is_authenticated:
@@ -87,9 +90,45 @@ def question_comment_page(request):
     return render(request, "home/question_comment_page.html")
 
 @login_required
-def question_solving_page(request, paper_name = "", question_index = 0):
-    question = Question.objects.filter(paper__title=paper_name).filter(index = question_index)
-    context = {}
+def question_solving_page(request):
+    pname = request.GET.get("p")
+    qindex = request.GET.get("i")
+    answer = request.GET.get("code")
+    question = Question.objects.filter(paper__title=pname).filter(question_index = qindex)
+    if len(question) == 0:
+        desc = ""
+        code = ""
+        output = ""
+    else:
+        desc = question[0].question_desc
+        code = Code_Segment.objects.filter(id=question[0].code_segment)[0]
+        output = ""
+        if answer != None:
+            code_segments = Code_Segment.objects.filter(paper__title=pname).order_by('index')
+            code_cache.add(pname, qindex, request.user.id, answer)
+            all_code = ""
+            for i in range (len(code_segments)):
+                cached_segment = code_cache.get(pname, qindex,request.user.id)
+                if cached_segment is not None:
+                    all_code += cached_segment
+                    cached_segment = None
+                else:
+                    all_code += code_segments[i].code
+            all_code += question[0].test_script
+            response = requests.post('https://api.jdoodle.com/v1/execute',
+             json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
+             'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
+             'script': all_code,
+             'stdin': "",
+             'language':"haskell",
+             'versionIndex':'0'})
+            try:
+                #try except is used because the external api may not be reliable
+                output = response.json()["output"]
+            except:
+                pass
+
+    context = {"desc":desc,"code":code, "output":output}
     return render(request, "home/question_solving_page.html",context)
 
 
