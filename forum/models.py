@@ -22,11 +22,11 @@ class Post(models.Model):
 
     # for using slug
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)+ '-' + time.strftime("%Y%m%d%H%M%S")
+        self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
         super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('home') # note: give a working redirect page
+        return reverse('forum-list') # note: give a working redirect page
 
 
 class Comment(models.Model):

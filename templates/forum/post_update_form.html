@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post_update</title>
+</head>
+<body>
+{% block title %} Edit Forum {% endblock %}
+
+{% block content %}
+<h2>Edit Forum</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="button">Update</button>
+</form>
+
+{% endblock%}
+</body>
+</html>
