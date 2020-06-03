@@ -89,7 +89,8 @@ def question_comment_page(request):
 
 @login_required
 def question_solving_page(request):
-    return render(request, "home/question_solving_page.html")
+    context = {question_desc, question_code, test_script, }
+    return render(request, "home/question_solving_page.html",context)
 
 
 def signup_page(request):

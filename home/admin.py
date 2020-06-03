@@ -9,5 +9,8 @@ class PastPaperAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ['question_desc', 'question_code', 'paper']
+    list_display = ['question_desc', 'code_segment','test_script']
+
+class CodeSegmentAdmin(admin.ModelAdmin):
+    list_display = ['index', 'code', 'paper']
 
