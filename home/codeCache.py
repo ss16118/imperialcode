@@ -6,9 +6,8 @@ class CodeCache:
         self.__data = {}
 
     def get(self, paper_name, question_index, userid):
-        result =self.__data[(paper_name, question_index, userid)]
-        if result is not None:
-            code_segment, time_stamp = result
+        if (paper_name, question_index, userid) in self.__data:
+            code_segment, time_stamp = self.__data[(paper_name, question_index, userid)]
             if time.time() - time_stamp < 3600 * 24: #expire after 1 day
                 return code_segment
             del self.__data[(paper_name, question_index, userid)]

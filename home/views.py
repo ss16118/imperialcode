@@ -117,8 +117,7 @@ def question_comment_page(request):
 def question_solving_page(request):
     pname = request.GET.get("papername")
     qindex = request.GET.get("question_index")
-    answer = request.GET.get("code")
-    print("Paper name: " + pname)
+    answer = request.GET.get("answer")
     paper = PastPaper.objects.filter(title=pname)[0]
     question = Question.objects.filter(paper__title=pname).filter(question_index=qindex)
     if len(question) == 0:
@@ -131,10 +130,11 @@ def question_solving_page(request):
         output = ""
         if answer is not None:
             code_segments = CodeSegment.objects.filter(paper__title=pname).order_by('index')
-            code_cache.add(pname, qindex, request.user.id, answer)
+            corresponding_code_segment_id = question[0].code_segment.id
+            code_cache.add(pname, corresponding_code_segment_id, request.user.id, answer)
             all_code = ""
             for i in range(len(code_segments)):
-                cached_segment = code_cache.get(pname, qindex, request.user.id)
+                cached_segment = code_cache.get(pname, code_segments[i].id , request.user.id)
                 if cached_segment is not None:
                     all_code += "\n"
                     all_code += cached_segment
@@ -144,6 +144,8 @@ def question_solving_page(request):
                     all_code += code_segments[i].code
             all_code += "\n"
             all_code += question[0].test_script
+            f = open("f.hs", "w")
+            f.write(all_code)
             response = requests.post('https://api.jdoodle.com/v1/execute',
                                      json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
                                            'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
