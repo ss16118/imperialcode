@@ -422,7 +422,7 @@
     </div>
     <script>
         function returnCode() {
-            let userAnswer = document.getElementById("u278_input").innerHTML;
+            let userAnswer = $('.CodeMirror')[0].CodeMirror.getValue();
             let currentURL = new URL(window.location.href);
             currentURL.searchParams.set("answer", userAnswer);
             window.location.href = currentURL.toString();
