@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
 from django.db.models import Q
+import re
+
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
@@ -156,6 +158,8 @@ def question_solving_page(request):
             try:
                 # try except is used because the external api may not be reliable
                 output = response.json()["output"]
+                output = re.sub('\( jdoodle.hs, jdoodle.o \)', '', output)
+                output = re.sub('Linking jdoodle ...', '', output)
             except:
                 pass
 
