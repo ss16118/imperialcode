@@ -28,7 +28,7 @@ class CodeSegment(models.Model):
     paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.paper) + "question"
+        return str(self.paper) + "question" + str(self.index)
 
 
 class Question(models.Model):
