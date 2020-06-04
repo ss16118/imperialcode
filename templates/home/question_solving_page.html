@@ -3,14 +3,13 @@
   {% load static %}
   <head>
     <title>Question Solving Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <!-- Codemirror -->
     <script src={% static "codemirror/lib/codemirror.js" %}></script>
     <link rel="stylesheet" href={% static "codemirror/lib/codemirror.css" %}>
     <link rel="stylesheet" href={% static "codemirror/theme/dracula.css" %}>
     <script src={% static "codemirror/mode/haskell/haskell.js" %}></script>
     <!-- Codemirror -->
-
-    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
@@ -91,7 +90,7 @@
                 <!-- Unnamed (Text Area) -->
                 <div id="u277" class="ax_default text_area">
                   <div id="u277_div" class=""></div>
-                  <textarea id="u277_input" class="u277_input"></textarea>
+                  <textarea id="u277_input" class="u277_input" disabled="true"></textarea>
                 </div>
               </div>
               <script>
@@ -143,7 +142,7 @@
         <div id="u304" class="ax_default" data-label="Buttons" data-left="900" data-top="672" data-width="463" data-height="40">
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u305" class="ax_default button">
+          <div id="u305" class="ax_default button" onclick="displaySubquestion(currentQuestionIndex + 1)">
             <div id="u305_div" class=""></div>
             <div id="u305_text" class="text ">
               <p style="font-size:12px;"><span>Next </span><span style="font-size:15px;">»</span></p>
@@ -151,7 +150,7 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u306" class="ax_default button">
+          <div id="u306" class="ax_default button" onclick="displaySubquestion(currentQuestionIndex - 1)">
             <div id="u306_div" class=""></div>
             <div id="u306_text" class="text ">
               <p style="font-size:12px;"><span style="font-size:15px;">«</span><span> Prev</span></p>
@@ -202,115 +201,27 @@
 
         <!-- panel (Rectangle) -->
         <div id="u329" class="ax_default box_1" data-label="panel">
-          <div id="u329_div" class=""></div>
-          <div id="u329_text" class="text " style="display:none; visibility: hidden">
-            <p></p>
+          <div id="u329_div" class="">
+            <!-- Unnamed (Rectangle) -->
+            <div id="u330" class="ax_default heading_1">
+              <div id="u330_div" class=""></div>
+              <div id="u330_text" class="text ">
+                <p><span>{{ paper.title }}</span></p>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
         <!-- Unnamed (Rectangle) -->
-        <div id="u330" class="ax_default heading_1">
-          <div id="u330_div" class=""></div>
-          <div id="u330_text" class="text ">
-            <p><span>SAT Solving</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u331" class="ax_default heading_1">
-          <div id="u331_div" class=""></div>
-          <div id="u331_text" class="text ">
-            <p><span>Part I: Utilties</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u332" class="ax_default heading_1">
-          <div id="u332_div" class=""></div>
-          <div id="u332_text" class="text ">
-            <p><span>Part II: Norm Forms</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
+        <!--
         <div id="u333" class="ax_default heading_3 selected" selectiongroup="Subquestions items">
           <div id="u333_div" class="selected"></div>
           <div id="u333_text" class="text ">
             <p><span>Question 1</span></p>
           </div>
         </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u334" class="ax_default heading_1">
-          <div id="u334_div" class=""></div>
-          <div id="u334_text" class="text ">
-            <p><span>Part III: The DP Algorithms</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u335" class="ax_default heading_1" selectiongroup="Subquestions items">
-          <div id="u335_div" class=""></div>
-          <div id="u335_text" class="text ">
-            <p><span>Part IV: Bonus</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u336" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u336_div" class=""></div>
-          <div id="u336_text" class="text ">
-            <p><span>Question 2</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u337" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u337_div" class=""></div>
-          <div id="u337_text" class="text ">
-            <p><span>Question 3</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u338" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u338_div" class=""></div>
-          <div id="u338_text" class="text ">
-            <p><span>Question 1</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u339" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u339_div" class=""></div>
-          <div id="u339_text" class="text ">
-            <p><span>Question 2</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u340" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u340_div" class=""></div>
-          <div id="u340_text" class="text ">
-            <p><span>Question 3</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u341" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u341_div" class=""></div>
-          <div id="u341_text" class="text ">
-            <p><span>Question 1</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u342" class="ax_default heading_3" selectiongroup="Subquestions items">
-          <div id="u342_div" class=""></div>
-          <div id="u342_text" class="text ">
-            <p><span>Question 2</span></p>
-          </div>
-        </div>
+        -->
       </div>
     </div>
 
@@ -446,16 +357,27 @@
         let codeEditor = $('.CodeMirror')[0].CodeMirror;
         let questionDescription = document.getElementById("u280_input");
         let outputArea = document.getElementById("u277_input");
+        let testcaseArea = document.getElementById("u274_input");
 
-        let decodedDesc = decode(questions[currentQuestionIndex]["desc"]);
-        let decodedSegment = decode(codeSegments[currentQuestionIndex + 1]);
-        codeEditor.setValue(decodedSegment);
-        questionDescription.value = decodedDesc;
+        let displaySubquestion = function(index) {
+            index = index >= questions.length ? questions.length - 1 : index;
+            index = index < 0 ? 0 : index;
+            currentQuestionIndex = index;
+            let decodedDesc = decode(questions[currentQuestionIndex]["desc"]);
+            let decodedSegment = decode(codeSegments[currentQuestionIndex + 1]);
+            let decodedTestcases = decode(questions[currentQuestionIndex]["testScript"]);
+            codeEditor.setValue(decodedSegment);
+            questionDescription.value = decodedDesc;
+            testcaseArea.value = decodedTestcases;
+        };
+
+        displaySubquestion(0);
 
         function runCode() {
             let userAnswer = codeEditor.getValue();
-
-
+            // Save the current user answer
+            codeSegments[currentQuestionIndex + 1] = userAnswer;
+            outputArea.value = "Running test...";
             let allCode = "";
             for (i = 0; i < codeSegments.length; i++) {
                 if (i == currentQuestionIndex + 1) {
@@ -478,6 +400,15 @@
                 }
             });
         }
+
+        // Create labels for the navigation panel
+        for (i = 0; i < questions.length; i++) {
+            let html = document.createElement("div");
+            let seg = codeSegments[i + 1];
+            html.innerHTML = createNavigationLabel(i, seg.substr(0, seg.indexOf(" ")));
+            document.getElementById("u329_div").append(html);
+        }
+
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>

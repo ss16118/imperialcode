@@ -128,7 +128,6 @@
               panelsHTML.push(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
           {% endfor %}
           panelsHTML.forEach(panelHTML => {
-              console.log(panelHTML);
               let html = document.createElement("div");
               html.innerHTML = panelHTML;
               document.getElementById("u420_div").append(html);

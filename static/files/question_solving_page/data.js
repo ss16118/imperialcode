@@ -140,3 +140,20 @@ function editorSettingsCancelButtonOnClick() {
     let editorSettingsPanel = document.getElementById("u353");
     editorSettingsPanel.style.display = "none";
 }
+
+const LABEL_INITIAL_TOP_POS = 115;
+const LABEL_PADDING = 15;
+const LABEL_HEIGHT = 18;
+
+function createNavigationLabel(index, title) {
+    let topPos = (LABEL_INITIAL_TOP_POS  + (index * (LABEL_HEIGHT + LABEL_PADDING))) + "px";
+    let labelHTML = [
+        `<div id=u333 class="ax_default heading_3" style="top:${topPos}" onclick="displaySubquestion(${index})">`,
+          '<div id="u333_div" class=""></div>',
+          '<div id="u333_text" class="text ">',
+            `<p>Question ${index + 1}: ${title}</p>`,
+          '</div>',
+        '</div>'
+    ].join("\n");
+    return labelHTML;
+}
