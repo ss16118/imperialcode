@@ -76,7 +76,7 @@ class ForumUpdateView(OwnerProtectMixin, UpdateView):
 @method_decorator(login_required, name='dispatch')
 class ForumDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
     model = Post
-    success_url = '/forum'
+    success_url = '/forum/'
     success_message = 'Post was successfully deleted'
 
 
@@ -98,13 +98,13 @@ class CommentUpdateView(OwnerProtectMixin, UpdateView):
     model = Comment
     fields = ['desc']
     template_name = 'forum/forum_update_comment.html'
-    success_url = '/forum'
+    success_url = '/forum/'
 
 
 @method_decorator(login_required, name='dispatch')
 class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
     model = Comment
-    success_url = '/forum'
+    success_url = '/forum/'
     success_message = 'Comment was successfully deleted'
 
 
