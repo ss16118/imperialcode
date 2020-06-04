@@ -99,7 +99,7 @@
               <!-- Code edit area (Text Area) -->
               <div id="u278" class="ax_default text_area" data-label="Code edit area">
                 <div id="u278_div"></div>
-                <textarea id="u278_input">{{code}}</textarea>
+                <textarea id="u278_input">{{ code }}</textarea>
                   <script>
                       let editor = CodeMirror.fromTextArea(document.getElementById("u278_input"), {
                           theme: "dracula",
@@ -112,7 +112,8 @@
 
               <!-- Spec (Inline Frame) -->
               <div id="u279" class="ax_default" data-label="Spec">
-                <iframe id="u279_input" data-label="Spec" scrolling="auto" frameborder="1" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <iframe id="u279_input" src="{{ paper_url }}" data-label="Spec" scrolling="auto" frameborder="1"
+                        webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </div>
 
               <!-- Single question (Text Area) -->

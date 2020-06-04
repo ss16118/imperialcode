@@ -1558,11 +1558,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u194_div.mouseOver {
+#u194:hover {
   border-width:0px;
   position:absolute;
-  left:0px;
-  top:0px;
   width:415px;
   height:47px;
   background:inherit;
@@ -1902,7 +1900,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u200_img.mouseOver {
+#u200:hover {
+  cursor:pointer;
+  background-color:#81D3F8;
 }
 #u200.mouseOver {
 }
@@ -1939,7 +1939,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u201_img.mouseOver {
+#u201:hover {
+  cursor:pointer;
+  background-color:#81D3F8;
 }
 #u201.mouseOver {
 }

@@ -93,7 +93,7 @@ def past_papers_page(request):
         selected_paper_info["title"] = selected_paper[0].title
         selected_paper_info["desc"] = selected_paper[0].desc
         selected_paper_info["year"] = selected_paper[0].year
-        selected_paper_info["status"] = selected_paper[0].status
+        selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
         selected_paper_info["upvotes"] = selected_paper[0].upvotes
 
@@ -118,6 +118,8 @@ def question_solving_page(request):
     pname = request.GET.get("papername")
     qindex = request.GET.get("question_index")
     answer = request.GET.get("code")
+    print("Paper name: " + pname)
+    paper = PastPaper.objects.filter(title=pname)[0]
     question = Question.objects.filter(paper__title=pname).filter(question_index=qindex)
     if len(question) == 0:
         desc = ""
@@ -152,7 +154,7 @@ def question_solving_page(request):
             except:
                 pass
 
-    context = {"desc": desc, "code": code, "output": output}
+    context = {"paper_url": paper.spec_path, "desc": desc, "code": code, "output": output}
     return render(request, "home/question_solving_page.html", context)
 
 

@@ -90,7 +90,7 @@
       <!-- Unnamed (Text Field) -->
       <div id="u186" class="ax_default text_field">
         <div id="u186_div" class=""></div>
-        <input id="u186_input" type="search" value="" class="u186_input"/>
+        <input id="u186_input" type="search" value="" class="u186_input" placeholder="Search past papers title, description, or IDs"/>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -161,7 +161,7 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u194" class="ax_default button">
+      <div id="u194" class="ax_default button" onclick="startQuestionPaperOnClick()">
         <div id="u194_div" class=""></div>
         <div id="u194_text" class="text ">
           <p><span>Start</span></p>
@@ -313,7 +313,7 @@
     <script>
         let currentUrl = new URL(window.location.href);
 
-        const DEFAULT_KEYWORDS = "Search past papers title, description, or IDs";
+        const DEFAULT_KEYWORDS = "";
         let keywordsFilter = document.getElementById("u186_input");
         let languageFilter = document.getElementById("u184_input");
         let yearFilter = document.getElementById("u185_input");
@@ -359,7 +359,18 @@
         function clearFilters() {
             window.location.href = "/past_papers_page.html"
         }
+
+        function startQuestionPaperOnClick() {
+            // If there is a paper selected
+            console.log("HERE");
+            if ("{{ selected_paper.title }}".localeCompare("") != 0) {
+                window.location.href = `/question_solving_page?papername={{ selected_paper.title }}&question_index=0`;
+            } else {
+                console.log("HERE");
+                alert("Please select a paper to start!");
+            }
+        }
     </script>
-    <script src="resources/scripts/axure/ios.js"></script>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>
 </html>
