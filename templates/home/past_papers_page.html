@@ -362,11 +362,9 @@
 
         function startQuestionPaperOnClick() {
             // If there is a paper selected
-            console.log("HERE");
             if ("{{ selected_paper.title }}".localeCompare("") != 0) {
-                window.location.href = `/question_solving_page?papername={{ selected_paper.title }}&question_index=0`;
+                window.location.href = `/question_solving_page?papername={{ selected_paper.title }}`;
             } else {
-                console.log("HERE");
                 alert("Please select a paper to start!");
             }
         }

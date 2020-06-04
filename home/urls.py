@@ -26,6 +26,7 @@ urlpatterns = [
                   url(r'^expand', views.expand),
                   url(r'^Other', views.Other),
                   url(r'^reload', views.reload),
+                  url(r'^run_code/$', views.run_code),
                   url(r'^$', views.landing),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

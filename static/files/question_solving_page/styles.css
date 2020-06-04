@@ -2170,28 +2170,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u308_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
-  width:74px;
-  height:40px;
-  background:inherit;
+#u308:hover {
   background-color:rgba(129, 211, 248, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(121, 121, 121, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
-  font-weight:700;
-  font-style:normal;
-  font-size:15px;
-  color:#027DB4;
+  color:white;
 }
 #u308.mouseOver {
 }

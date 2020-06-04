@@ -91,7 +91,7 @@
                 <!-- Unnamed (Text Area) -->
                 <div id="u277" class="ax_default text_area">
                   <div id="u277_div" class=""></div>
-                  <textarea id="u277_input" class="u277_input"> {{output}}</textarea>
+                  <textarea id="u277_input" class="u277_input"></textarea>
                 </div>
               </div>
               <script>
@@ -101,7 +101,7 @@
               <!-- Code edit area (Text Area) -->
               <div id="u278" class="ax_default text_area" data-label="Code edit area">
                 <div id="u278_div"></div>
-                <textarea id="u278_input">{{ code }}</textarea>
+                <textarea id="u278_input"></textarea>
                   <script>
                       let editor = CodeMirror.fromTextArea(document.getElementById("u278_input"), {
                           theme: "dracula",
@@ -114,14 +114,14 @@
 
               <!-- Spec (Inline Frame) -->
               <div id="u279" class="ax_default" data-label="Spec">
-                <iframe id="u279_input" src="{{ paper_url }}" data-label="Spec" scrolling="auto" frameborder="1"
+                <iframe id="u279_input" src="{{ paper.spec_path }}" data-label="Spec" scrolling="auto" frameborder="1"
                         webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </div>
 
               <!-- Single question (Text Area) -->
               <div id="u280" class="ax_default text_area disabled" data-label="Single question">
                 <div id="u280_div" class="disabled"></div>
-                <textarea id="u280_input" class="u280_input" disabled> {{desc}} </textarea>
+                <textarea id="u280_input" class="u280_input" disabled></textarea>
               </div>
 
               <!-- Unnamed (Rectangle) -->
@@ -167,7 +167,7 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u308" class="ax_default button" onclick="returnCode()">
+          <div id="u308" class="ax_default button" onclick="runCode()">
             <div id="u308_div" class=""></div>
             <div id="u308_text" class="text ">
                 <p><span>Test</span></p>
@@ -423,11 +423,60 @@
       </div>
     </div>
     <script>
-        function returnCode() {
-            let userAnswer = $('.CodeMirror')[0].CodeMirror.getValue();
-            let currentURL = new URL(window.location.href);
-            currentURL.searchParams.set("answer", userAnswer);
-            window.location.href = currentURL.toString();
+
+        window.CSRF_TOKEN = "{{ csrf_token }}";
+
+        let currentQuestionIndex = 0;
+        let questions = [];
+        let codeSegments = [];
+        {% for question in questions %}
+            questions.push({
+                "desc": `{{ question.desc }}`,
+                "testScript": `{{ question.test_script }}`,
+            });
+        {% endfor %}
+        {% for segment in code_segments %}
+            codeSegments[{{ forloop.counter0 }}]= `{{ segment }}`;
+        {% endfor %}
+
+        let decode = function(encodedString) {
+            return $("<p/>").html(encodedString).text();
+        };
+
+        let codeEditor = $('.CodeMirror')[0].CodeMirror;
+        let questionDescription = document.getElementById("u280_input");
+        let outputArea = document.getElementById("u277_input");
+
+        let decodedDesc = decode(questions[currentQuestionIndex]["desc"]);
+        let decodedSegment = decode(codeSegments[currentQuestionIndex + 1]);
+        codeEditor.setValue(decodedSegment);
+        questionDescription.value = decodedDesc;
+
+        function runCode() {
+            let userAnswer = codeEditor.getValue();
+
+
+            let allCode = "";
+            for (i = 0; i < codeSegments.length; i++) {
+                if (i == currentQuestionIndex + 1) {
+                    allCode += userAnswer + "\n";
+                } else {
+                    allCode += decode(codeSegments[i]) + "\n";
+                }
+            }
+            allCode += "\n" + decode(questions[currentQuestionIndex]["testScript"]);
+            $.ajax({
+                type: "POST",
+                url: "/run_code/",
+                data: {
+                    "code": allCode,
+                    "csrfmiddlewaretoken": window.CSRF_TOKEN
+                },
+                dataType: "text",
+                success: function(data) {
+                    outputArea.value = data;
+                }
+            });
         }
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>

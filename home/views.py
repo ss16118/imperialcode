@@ -6,9 +6,9 @@ from home.models import PastPaper, Question, CodeSegment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
+from django.http import HttpResponse
 from django.db.models import Q
 import re
-
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
@@ -116,11 +116,39 @@ def question_comment_page(request):
 
 
 @login_required
+def run_code(request):
+    output = ""
+    if request.method == "POST":
+        all_code = request.POST.get("code", "")
+        f = open("logs/imperialcode_debug.log", "w")
+        f.write(all_code)
+        f.close()
+
+        response = requests.post('https://api.jdoodle.com/v1/execute',
+                                 json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
+                                       'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
+                                       'script': all_code,
+                                       'stdin': "",
+                                       'language': "haskell",
+                                       'versionIndex': '0'})
+        try:
+            # try except is used because the external api may not be reliable
+            output = response.json()["output"]
+            print(output)
+            output = re.sub('\( jdoodle.hs, jdoodle.o \)', '', output)
+            output = re.sub('Linking jdoodle ...', '', output)
+        except:
+            pass
+    return HttpResponse(output, content_type="text/plain")
+
+
+@login_required
 def question_solving_page(request):
     pname = request.GET.get("papername")
+    paper = PastPaper.objects.filter(title=pname)[0]
+    '''
     qindex = request.GET.get("question_index")
     answer = request.GET.get("answer")
-    paper = PastPaper.objects.filter(title=pname)[0]
     question = Question.objects.filter(paper__title=pname).filter(question_index=qindex)
     if len(question) == 0:
         desc = ""
@@ -136,11 +164,10 @@ def question_solving_page(request):
             code_cache.add(pname, corresponding_code_segment_id, request.user.id, answer)
             all_code = ""
             for i in range(len(code_segments)):
-                cached_segment = code_cache.get(pname, code_segments[i].id , request.user.id)
+                cached_segment = code_cache.get(pname, code_segments[i].id, request.user.id)
                 if cached_segment is not None:
                     all_code += "\n"
                     all_code += cached_segment
-                    cached_segment = None
                 else:
                     all_code += "\n"
                     all_code += code_segments[i].code
@@ -148,22 +175,20 @@ def question_solving_page(request):
             all_code += question[0].test_script
             f = open("f.hs", "w")
             f.write(all_code)
-            response = requests.post('https://api.jdoodle.com/v1/execute',
-                                     json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
-                                           'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
-                                           'script': all_code,
-                                           'stdin': "",
-                                           'language': "haskell",
-                                           'versionIndex': '0'})
-            try:
-                # try except is used because the external api may not be reliable
-                output = response.json()["output"]
-                output = re.sub('\( jdoodle.hs, jdoodle.o \)', '', output)
-                output = re.sub('Linking jdoodle ...', '', output)
-            except:
-                pass
-
-    context = {"paper_url": paper.spec_path, "desc": desc, "code": code, "output": output}
+    '''
+    questions = Question.objects.filter(paper__title=pname).order_by("question_index")
+    code_segments = CodeSegment.objects.filter(paper__title=pname).order_by("index")
+    code_segments = code_segments
+    questions_clean = []
+    for question in questions:
+        questions_clean.append({
+            "desc": question.question_desc,
+            "test_script": question.test_script.replace("\\", "\\\\").replace("`", "\`")
+        })
+    code_segments_clean = []
+    for code_segment in code_segments:
+        code_segments_clean.append(code_segment.code.replace("\\", "\\\\").replace("`", "\`"))
+    context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean}
     return render(request, "home/question_solving_page.html", context)
 
 
