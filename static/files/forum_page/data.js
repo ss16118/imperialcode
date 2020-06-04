@@ -1,4 +1,4 @@
-﻿const INITIAL_POS_TOP = 71;
+﻿const INITIAL_POS_TOP = 60;
 const PANEL_HEIGHT = 75;
 const PADDING = 5;
 

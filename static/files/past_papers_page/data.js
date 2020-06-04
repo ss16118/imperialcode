@@ -1,4 +1,5 @@
-﻿$axure.loadCurrentPage(
+﻿/*
+$axure.loadCurrentPage(
     (function () {
         var _ = function () {
             var r = {}, a = arguments;
@@ -142,3 +143,4 @@
             kG = "d9a3b161e54a48f7bc83606711f7b75f", kH = "u210";
         return _creator();
     })());
+*/
