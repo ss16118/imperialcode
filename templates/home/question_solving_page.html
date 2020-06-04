@@ -107,6 +107,12 @@
                       });
                       editor.setSize("1268", "357");
                       editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
+
+
+                      function returnCode() {
+                        var code = document.getElementById("u278_input").value;
+                         document.getElementById("code_script").innerHTML = code;
+                      }
                   </script>
               </div>
 
@@ -168,7 +174,7 @@
           <div id="u308" class="ax_default button">
             <div id="u308_div" class=""></div>
             <div id="u308_text" class="text ">
-              <p><span>Test</span></p>
+              <button type="button" onclick="returnCode()">Test</button>
             </div>
           </div>
 
