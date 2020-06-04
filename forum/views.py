@@ -4,7 +4,6 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .form import CommentForm
 from .models import Post, Comment
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -13,7 +12,6 @@ from django.utils.decorators import method_decorator
 @method_decorator(login_required, name='dispatch')  # Protected the class, must be logged in to access.
 class ForumListView(SuccessMessageMixin, ListView):
     context_object_name = "objPosts"
-    queryset = Post.objects.order_by('-created_at')  # order by creation date
 
     def get(self, request):
         context = {"posts": Post.objects.order_by('-created_at')}
@@ -46,12 +44,16 @@ class ForumUserListView(ListView):
 
 
 class ForumDetailView(DetailView):
-    model = Post
-
+    '''
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form_comment'] = CommentForm()
         return context
+    '''
+    def get(self, request, slug):
+        post = Post.objects.filter(slug=slug)[0]
+        context = {"post": post}
+        return render(request, "forum/post_detail.html", context=context)
 
 
 # for url security:

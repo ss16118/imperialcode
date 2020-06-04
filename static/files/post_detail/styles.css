@@ -797,7 +797,6 @@
   width:93px;
   height:40px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -827,25 +826,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u570_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
-  width:93px;
-  height:40px;
-  background:inherit;
+#u570:hover {
+  cursor:pointer;
   background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(121, 121, 121, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-size:15px;
-  color:#7F7F7F;
 }
 #u570.mouseOver {
 }
@@ -903,7 +886,7 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:91px;
+  width:130px;
   height:18px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
@@ -922,7 +905,7 @@
   position:absolute;
   left:203px;
   top:157px;
-  width:91px;
+  width:130px;
   height:18px;
   display:flex;
   font-family:'SF Pro Text Thin', 'SF Pro Text', sans-serif;
@@ -947,7 +930,7 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:154px;
+  width:250px;
   height:18px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
@@ -964,9 +947,9 @@
 #u573 {
   border-width:0px;
   position:absolute;
-  left:334px;
+  left:340px;
   top:157px;
-  width:154px;
+  width:250px;
   height:18px;
   display:flex;
   font-family:'SF Pro Text Thin', 'SF Pro Text', sans-serif;
@@ -1008,7 +991,7 @@
 #u574 {
   border-width:0px;
   position:absolute;
-  left:528px;
+  left:618px;
   top:157px;
   width:60px;
   height:18px;
@@ -1072,7 +1055,6 @@
   width:40px;
   height:40px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1108,28 +1090,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u576_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
-  width:40px;
-  height:40px;
-  background:inherit;
+#u576:hover {
+  cursor:pointer;
   background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(85, 85, 85, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
-  font-weight:700;
-  font-style:normal;
-  font-size:15px;
-  color:#7F7F7F;
 }
 #u576.mouseOver {
 }
@@ -1146,7 +1109,6 @@
   width:40px;
   height:40px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1182,28 +1144,9 @@
   box-sizing:border-box;
   width:100%;
 }
-#u577_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
-  width:40px;
-  height:40px;
-  background:inherit;
+#u577:hover {
+  cursor:pointer;
   background-color:rgba(242, 242, 242, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(85, 85, 85, 1);
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
-  font-weight:700;
-  font-style:normal;
-  font-size:15px;
-  color:#7F7F7F;
 }
 #u577.mouseOver {
 }
@@ -1387,7 +1330,6 @@
   font-size:13px;
   letter-spacing:normal;
   color:#000000;
-  vertical-align:none;
   text-align:left;
   text-transform:none;
   background-color:transparent;
@@ -1407,7 +1349,6 @@
   font-size:13px;
   letter-spacing:normal;
   color:#000000;
-  vertical-align:none;
   text-align:left;
   text-transform:none;
   background-color:transparent;
@@ -1529,8 +1470,8 @@
 #u584 {
   border-width:0px;
   position:absolute;
-  left:618px;
-  top:156px;
+  left:700px;
+  top:157px;
   width:60px;
   height:19px;
   display:flex;
@@ -2262,6 +2203,129 @@
   width:100%;
 }
 #u602_text {
+  border-width:0px;
+  word-wrap:break-word;
+  text-transform:none;
+}
+#u639_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:52px;
+  height:16px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
+#u639 {
+  border-width:0px;
+  position:absolute;
+  left:933px;
+  top:97px;
+  width:52px;
+  height:16px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
+#u639 .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+#u639:hover {
+  border-width:0px;
+  position:absolute;
+  width:52px;
+  height:16px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  color:#7F7F7F;
+}
+#u639.mouseOver {
+}
+#u639_text {
+  border-width:0px;
+  word-wrap:break-word;
+  text-transform:none;
+}
+#u640_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:72px;
+  height:16px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
+#u640 {
+  border-width:0px;
+  position:absolute;
+  left:1018px;
+  top:97px;
+  width:72px;
+  height:16px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
+#u640 .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+#u640_div:hover {
+  border-width:0px;
+  position:absolute;
+  width:72px;
+  height:16px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  cursor:pointer;
+  color:#7F7F7F;
+}
+#u640.mouseOver {
+}
+#u640_text {
   border-width:0px;
   word-wrap:break-word;
   text-transform:none;
