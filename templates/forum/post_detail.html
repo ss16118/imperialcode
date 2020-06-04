@@ -3,11 +3,12 @@
   {% load static %}
   <head>
     <title>Single Post Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
-    <link href={% static "files/single_post_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/post_detail/styles.css" %} type="text/css" rel="stylesheet"/>
     <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
     <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
     <script src={% static "resources/scripts/axure/globals.js" %}></script>
@@ -39,7 +40,7 @@
     <script src={% static "resources/scripts/axure/math.js" %}></script>
     <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
     <script src={% static "data/document.js" %}></script>
-    <script src={% static "files/single_post_page/data.js" %}></script>
+    <script src={% static "files/post_detail/data.js" %}></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
       $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
@@ -48,7 +49,6 @@
   </head>
   <body>
   {% load humanize %}
-  {% block title %} {{object.title}} {% endblock %}
   {% block content %}
     <div id="base" class="">
 
@@ -56,10 +56,10 @@
       <div id="u553" style="display:none; visibility:hidden;"></div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u570" class="ax_default button">
+      <div id="u570" class="ax_default button" onclick="window.location.href='{% url "forum-list" %}'">
         <div id="u570_div" class=""></div>
         <div id="u570_text" class="text ">
-          <p><span>🔙&nbsp;Back</span></p>
+          <p><span>⮜ Back</span></p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
       <div id="u571" class="ax_default heading_1">
         <div id="u571_div" class=""></div>
         <div id="u571_text" class="text ">
-          <p><span>{{object.title}}</span></p>
+          <p><span>{{ post.title }}</span></p>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
       <div id="u572" class="ax_default heading_1">
         <div id="u572_div" class=""></div>
         <div id="u572_text" class="text ">
-          <p><span>Post by: {{object.user}}</span></p>
+          <p><span>Post by: {{ post.user }}</span></p>
         </div>
       </div>
 
@@ -83,7 +83,7 @@
       <div id="u573" class="ax_default heading_1">
         <div id="u573_div" class=""></div>
         <div id="u573_text" class="text ">
-          <p><span>Created at: {{object.created_at}}</span></p>
+          <p><span>Created at: {{post.created_at}}</span></p>
         </div>
       </div>
 
@@ -91,7 +91,7 @@
       <div id="u574" class="ax_default heading_1">
         <div id="u574_div" class=""></div>
         <div id="u574_text" class="text ">
-          <p><span>👁 </span><span>{{object.views}}</span></p>
+          <p><span>👁 {{ post.views }}</span></p>
         </div>
       </div>
 
@@ -107,7 +107,7 @@
       <div id="u576" class="ax_default button">
         <div id="u576_div" class=""></div>
         <div id="u576_text" class="text ">
-          <p><span>👍</span></p>
+          <p><span>⯅</span></p>
         </div>
       </div>
 
@@ -115,7 +115,7 @@
       <div id="u577" class="ax_default button">
         <div id="u577_div" class=""></div>
         <div id="u577_text" class="text ">
-          <p><span>👎</span></p>
+          <p><span>⯆</span></p>
         </div>
       </div>
 
@@ -123,7 +123,7 @@
       <div id="u578" class="ax_default heading_1">
         <div id="u578_div" class=""></div>
         <div id="u578_text" class="text ">
-          <p><span>{{object.upvotes}}</span></p>
+          <p><span>{{post.upvotes}}</span></p>
         </div>
       </div>
 
@@ -132,21 +132,29 @@
       <div id="u579" class="ax_default paragraph">
         <div id="u579_div" class=""></div>
         <div id="u579_text" class="text ">
-            <br>
-          <p><span>post content: {{object.desc}}</span></p><p><span><br></span></p>
-            <br>
-            {% if request.user == object.user %}
-            <!--  only can edit when the browsing user is the one who created the post  -->
-                <a href="{% url 'forum-edit' object.id %}">Edit this post</a>
-                <form method="post" action="{% url 'forum-delete' object.id %}">
-                  {% csrf_token %}
-                  <input type="submit" value="Delete this post">
-                </form>
-            {% endif  %}
+            <p><span>{{post.desc}}</span></p><p><span><br></span></p>
         </div>
       </div>
 
-
+      {% if request.user == post.user %}
+        <!--  only can edit when the browsing user is the one who created the post  -->
+        <a href="{% url 'forum-edit' post.id %}">
+          <div id="u639" class="ax_default label">
+            <div id="u639_div" class=""></div>
+            <div id="u639_text" class="text ">
+              <p><span>✒️ Edit</span></p>
+            </div>
+          </div>
+        </a>
+        <form method="post" action="{% url 'forum-delete' post.id %}">
+          {% csrf_token %}
+          <!-- Unnamed (Rectangle) -->
+          <div id="u640" class="ax_default label">
+            <div id="u640_text" class="text "></div>
+            <input type="submit" id="u640_div" class="" value="🗑 Delete">
+          </div>
+        </form>
+      {% endif  %}
 
       <!-- a line -->
       <div id="u580" class="ax_default line">
@@ -166,7 +174,7 @@
 
       <!-- comment text area -->
       <div id="u582" class="ax_default text_area">
-        <form id="u582_input" class="u582_input" method="post" action="{% url 'add-comment' object.id %}">
+        <form id="u582_input" class="u582_input" method="post" action="{% url 'add-comment' post.id %}">
             {% csrf_token %}
             {{ form_comment }}
             <input type="submit" name="Add Comment", value="add my comment">
@@ -177,15 +185,12 @@
       <div id="u584" class="ax_default heading_1">
         <div id="u584_div" class=""></div>
         <div id="u584_text" class="text ">
-          <p><span>🗨 {{object.views}}</span></p>
+          <p><span>🗨 {{post.views}}</span></p>
         </div>
       </div>
 
 
-
-
-
-          {% for comment in object.comment_set.all %}
+      {% for comment in post.comment_set.all %}
         <!-- Unnamed (Group) -->
       <div id="u585" class="ax_default" data-left="203" data-top="785" data-width="670" data-height="103">
 
@@ -224,14 +229,7 @@
 
   {% endfor %}
 
-
-
-
-
-
         <!-- Comment section -->
-
-
 
       <!-- Unnamed (Group) -->
       <div id="u594" class="ax_default" data-left="203" data-top="908" data-width="670" data-height="103">
@@ -303,5 +301,6 @@
     </div>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   {% endblock %}
+  </div>
   </body>
 </html>
