@@ -16,7 +16,7 @@ class ForumListView(SuccessMessageMixin, ListView):
     queryset = Post.objects.order_by('-created_at')  # order by creation date
 
     def get(self, request):
-        context = {"posts": Post.objects.all()}
+        context = {"posts": Post.objects.order_by('-created_at')}
         return render(request, "forum/post_list.html", context)
 
     def post(self, request):
