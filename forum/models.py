@@ -15,7 +15,7 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     desc = models.TextField(default="")
-    slug = models.SlugField(unique=False)
+    slug = models.SlugField(max_length=255, unique=False)
     created_at = models.DateTimeField(auto_now_add=True)
     upvotes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
@@ -34,6 +34,7 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     forum = models.ForeignKey(Post, on_delete=models.CASCADE)
     desc = models.TextField(default="")
+    upvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

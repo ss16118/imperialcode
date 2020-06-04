@@ -38,7 +38,7 @@
           </div>
         </div>
 
-      <form action="/forum/" method="POST">
+      <form action="." method="POST">
           {% csrf_token %}
         <!-- Post title field (Text Field) -->
         <div id="u477" class="ax_default text_field" data-label="Post title field">
@@ -71,7 +71,7 @@
           <!-- Unnamed (Rectangle) -->
         <div id="u476" class="ax_default button">
           <div id="u476_text" class="text " type="submit"></div>
-          <input id="u476_div" class="" type="submit" value="✉ Post"/>
+          <input id="u476_div" class="" type="submit" value="✉ Post" onsubmit="window.location.reload()"/>
         </div>
       </form>
       </div>

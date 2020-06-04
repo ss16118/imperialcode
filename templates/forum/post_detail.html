@@ -8,7 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
-    <link href={% static "files/post_detail/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href='{% static "files/post_detail/styles.css" %}?{% now "U" %}' type="text/css" rel="stylesheet"/>
     <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
     <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
     <script src={% static "resources/scripts/axure/globals.js" %}></script>
@@ -49,7 +49,6 @@
   </head>
   <body>
   {% load humanize %}
-  {% block content %}
     <div id="base" class="">
 
       {% include "home/../global_components/navbar.html" %}
@@ -132,7 +131,7 @@
       <div id="u579" class="ax_default paragraph">
         <div id="u579_div" class=""></div>
         <div id="u579_text" class="text ">
-            <p><span>{{post.desc}}</span></p><p><span><br></span></p>
+            <p id="post_content">{{post.desc}}</p>
         </div>
       </div>
 
@@ -167,18 +166,25 @@
       <!-- Unnamed (Rectangle) -->
       <div id="u581" class="ax_default box_1">
         <div id="u581_div" class=""></div>
-        <div id="u581_text" class="text " style="display:none; visibility: hidden">
-          <p></p>
-        </div>
-      </div>
 
-      <!-- comment text area -->
-      <div id="u582" class="ax_default text_area">
-        <form id="u582_input" class="u582_input" method="post" action="{% url 'add-comment' post.id %}">
-            {% csrf_token %}
-            {{ form_comment }}
-            <input type="submit" name="Add Comment", value="add my comment">
-        </form>
+          <!-- comment text area -->
+          <div id="u582" class="ax_default text_area">
+            <form id="u582_input" class="u582_input" method="post" action="{% url 'add-comment' post.id %}">
+                {% csrf_token %}
+                <div id="u618" class="ax_default text_area">
+                    <div id="u618_div" class=""></div>
+                    <textarea name="comment_content" id="u618_input" class="u618_input" placeholder="Enter your comment"></textarea>
+                </div>
+                <div id="u619" class="ax_default button">
+                    <img id="u619_img" class="img " src={% static "images/single_post_page/u619.svg" %}/>
+                    <div id="u619_text" class="text ">
+                        <p><span>✉ Post</span></p>
+                    </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
       </div>
 
       <!-- comments counter -->
@@ -299,8 +305,17 @@
         </div>
       </div>
     </div>
+    <script>
+        const INITIAL_TOP_POS = 165;
+        const PADDING = 55;
+        let postTextHeight = document.getElementById("post_content").getBoundingClientRect().height
+        let bottomSeparator = document.getElementById("u580");
+        let commentPanel = document.getElementById("u581");
+
+        bottomSeparator.style.top = INITIAL_TOP_POS + postTextHeight + PADDING  + "px";
+        commentPanel.style.top = bottomSeparator.offsetTop + PADDING - 30 + "px";
+    </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
-  {% endblock %}
   </div>
   </body>
 </html>

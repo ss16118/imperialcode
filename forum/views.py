@@ -15,6 +15,7 @@ class ForumListView(SuccessMessageMixin, ListView):
 
     def get(self, request):
         context = {"posts": Post.objects.order_by('-created_at')}
+        print(len(context['posts']))
         return render(request, "forum/post_list.html", context)
 
     def post(self, request):
@@ -22,7 +23,8 @@ class ForumListView(SuccessMessageMixin, ListView):
         post_desc = request.POST['post_content']
         new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc, upvotes=0, views=0)
         new_post.save()
-        return render(request, "forum/post_list.html")
+        context = {"posts": Post.objects.order_by('-created_at')}
+        return render(request, "forum/post_list.html", context)
 
 
 class ForumCreate(SuccessMessageMixin, CreateView):
