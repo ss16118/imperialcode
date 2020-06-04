@@ -127,7 +127,7 @@ def question_solving_page(request):
         output = ""
     else:
         desc = question[0].question_desc
-        code = CodeSegment.objects.filter(id=question[0].code_segment)[0]
+        code = CodeSegment.objects.filter(id=str(question[0].code_segment))[0].code
         output = ""
         if answer is not None:
             code_segments = CodeSegment.objects.filter(paper__title=pname).order_by('index')
