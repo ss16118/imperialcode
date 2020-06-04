@@ -1,54 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post_Detail</title>
-</head>
-<body>
-{% extends "base.html" %}
-{% load humanize %}
+<html>
+  {% load static %}
+  <head>
+    <title>Single Post Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/single_post_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
+    <script src={% static "resources/scripts/axure/globals.js" %}></script>
+    <script src={% static "resources/scripts/axutils.js" %}></script>
+    <script src={% static "resources/scripts/axure/annotation.js" %}></script>
+    <script src={% static "resources/scripts/axure/axQuery.std.js" %}></script>
+    <script src={% static "resources/scripts/axure/doc.js" %}></script>
+    <script src={% static "resources/scripts/messagecenter.js" %}></script>
+    <script src={% static "resources/scripts/axure/events.js" %}></script>
+    <script src={% static "resources/scripts/axure/recording.js" %}></script>
+    <script src={% static "resources/scripts/axure/action.js" %}></script>
+    <script src={% static "resources/scripts/axure/expr.js" %}></script>
+    <script src={% static "resources/scripts/axure/geometry.js" %}></script>
+    <script src={% static "resources/scripts/axure/flyout.js" %}></script>
+    <script src={% static "resources/scripts/axure/model.js" %}></script>
+    <script src={% static "resources/scripts/axure/repeater.js" %}></script>
+    <script src={% static "resources/scripts/axure/sto.js" %}></script>
+    <script src={% static "resources/scripts/axure/utils.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/variables.js" %}></script>
+    <script src={% static "resources/scripts/axure/drag.js" %}></script>
+    <script src={% static "resources/scripts/axure/move.js" %}></script>
+    <script src={% static "resources/scripts/axure/visibility.js" %}></script>
+    <script src={% static "resources/scripts/axure/style.js" %}></script>
+    <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
+    <script src={% static "resources/scripts/axure/tree.js" %}></script>
+    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <script src={% static "resources/scripts/axure/legacy.js" %}></script>
+    <script src={% static "resources/scripts/axure/viewer.js" %}></script>
+    <script src={% static "resources/scripts/axure/math.js" %}></script>
+    <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "data/document.js" %}></script>
+    <script src={% static "files/single_post_page/data.js" %}></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
+      $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
+    </script>
+  </head>
+  <body>
+  {% load humanize %}
+  {% block title %} {{object.title}} {% endblock %}
+  {% block content %}
+    <div id="base" class="">
 
-{% block title %} {{object.title}} {% endblock %}
+      {% include "home/../global_components/navbar.html" %}
+      <div id="u553" style="display:none; visibility:hidden;"></div>
 
-{% block content %}
-<div class="jumbotron">
-  <h1>{{object.title}}</h1>
-  {% if request.user == object.user %}
-    <!--  only can edit when the browsing user is the one who created the post  -->
-  <a href="{% url 'forum-edit' object.id %}">Edit</a>
-  <form method="post" action="{% url 'forum-delete' object.id %}">
-    {% csrf_token %} <input type="submit" value="Delete">
-  </form>
-  {% endif  %}
-  <p style="font-size: 20px;">{{ object.desc }}</p>
-  - <span><i>{{object.created_at | naturaltime}}</i></span>
-  <hr>
+      <!-- Unnamed (Rectangle) -->
+      <div id="u570" class="ax_default button">
+        <div id="u570_div" class=""></div>
+        <div id="u570_text" class="text ">
+          <p><span>🔙&nbsp;Back</span></p>
+        </div>
+      </div>
 
-    <p>Write my comment: </p>
-  <form method="post" action="{% url 'add-comment' object.id %}">
-        {% csrf_token %}
-        {{ form_comment }}
-        <input type="submit" name="Add Comment">
-    </form>
+      <!-- Post Title -->
+      <div id="u571" class="ax_default heading_1">
+        <div id="u571_div" class=""></div>
+        <div id="u571_text" class="text ">
+          <p><span>{{object.title}}</span></p>
+        </div>
+      </div>
 
-    <hr>
-    <p>Comments: </p>
-  {% for comment in object.comment_set.all %}
-    <p>
-        {{comment.desc}}
-        - <span><i>{{comment.created_at | naturaltime}}</i></span>
-        {% if request.user == comment.user %}
-            <a href="{% url 'edit-comment' comment.id %}">Edit</a>
-            <form method="post" action="{% url 'delete-comment' comment.id %}">
+      <!-- Post editor -->
+      <div id="u572" class="ax_default heading_1">
+        <div id="u572_div" class=""></div>
+        <div id="u572_text" class="text ">
+          <p><span>Post by: {{object.user}}</span></p>
+        </div>
+      </div>
+
+      <!-- Post created_at -->
+      <div id="u573" class="ax_default heading_1">
+        <div id="u573_div" class=""></div>
+        <div id="u573_text" class="text ">
+          <p><span>Created at: {{object.created_at}}</span></p>
+        </div>
+      </div>
+
+      <!--views counter -->
+      <div id="u574" class="ax_default heading_1">
+        <div id="u574_div" class=""></div>
+        <div id="u574_text" class="text ">
+          <p><span>👁 </span><span>{{object.views}}</span></p>
+        </div>
+      </div>
+
+      <!-- a line -->
+      <div id="u575" class="ax_default line">
+        <img id="u575_img" class="img " src={% static "images/single_post_page/u575.svg" %}/>
+        <div id="u575_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u576" class="ax_default button">
+        <div id="u576_div" class=""></div>
+        <div id="u576_text" class="text ">
+          <p><span>👍</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u577" class="ax_default button">
+        <div id="u577_div" class=""></div>
+        <div id="u577_text" class="text ">
+          <p><span>👎</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u578" class="ax_default heading_1">
+        <div id="u578_div" class=""></div>
+        <div id="u578_text" class="text ">
+          <p><span>{{object.upvotes}}</span></p>
+        </div>
+      </div>
+
+
+      <!-- post content:(desc) -->
+      <div id="u579" class="ax_default paragraph">
+        <div id="u579_div" class=""></div>
+        <div id="u579_text" class="text ">
+            <br>
+          <p><span>post content: {{object.desc}}</span></p><p><span><br></span></p>
+            <br>
+            {% if request.user == object.user %}
+            <!--  only can edit when the browsing user is the one who created the post  -->
+                <a href="{% url 'forum-edit' object.id %}">Edit this post</a>
+                <form method="post" action="{% url 'forum-delete' object.id %}">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete this post">
+                </form>
+            {% endif  %}
+        </div>
+      </div>
+
+
+
+      <!-- a line -->
+      <div id="u580" class="ax_default line">
+        <img id="u580_img" class="img " src={% static "images/single_post_page/u575.svg" %}/>
+        <div id="u580_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u581" class="ax_default box_1">
+        <div id="u581_div" class=""></div>
+        <div id="u581_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- comment text area -->
+      <div id="u582" class="ax_default text_area">
+        <form id="u582_input" class="u582_input" method="post" action="{% url 'add-comment' object.id %}">
+            {% csrf_token %}
+            {{ form_comment }}
+            <input type="submit" name="Add Comment", value="add my comment">
+        </form>
+      </div>
+
+      <!-- comments counter -->
+      <div id="u584" class="ax_default heading_1">
+        <div id="u584_div" class=""></div>
+        <div id="u584_text" class="text ">
+          <p><span>🗨 {{object.views}}</span></p>
+        </div>
+      </div>
+
+
+
+
+
+          {% for comment in object.comment_set.all %}
+        <!-- Unnamed (Group) -->
+      <div id="u585" class="ax_default" data-left="203" data-top="785" data-width="670" data-height="103">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u586" class="ax_default box_2">
+          <div id="u586_div" class=""></div>
+          <div id="u586_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <div id="u587" class="ax_default heading_1">
+          <div id="u587_div" class=""></div>
+          <div id="u587_text" class="text ">
+            <p><span>{{comment.user}}</span></p>
+          </div>
+        </div>
+        <!-- comment content -->
+        <div id="u588" class="ax_default paragraph">
+          <div id="u588_div" class=""></div>
+          <div id="u588_text" class="text ">
+            <p><span>{{comment.desc}}</span> -
+              <span><i>{{comment.created_at | naturaltime}}</i>
+               {% if request.user == comment.user %}
+                <a href="{% url 'edit-comment' comment.id %}">Edit this comment</a>
+                <form method="post" action="{% url 'delete-comment' comment.id %}">
                 {% csrf_token %}
 <!--                <a href="{% url 'delete-comment' comment.id %}">Delete</a>-->
                 <input type="submit" name="Delete", value="Delete">
-            </form>
-        {% endif %}
-        <br><span style="font-size: 12px;"><i>by {{comment.user}}</i></span>
-    </p>
+                </form>
+                {% endif %}
+              </span></p>
+          </div>
+        </div>
+
+
   {% endfor %}
-</div>
-{% endblock %}
-</body>
+
+
+
+
+
+
+        <!-- Comment section -->
+
+
+
+      <!-- Unnamed (Group) -->
+      <div id="u594" class="ax_default" data-left="203" data-top="908" data-width="670" data-height="103">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u595" class="ax_default box_2">
+          <div id="u595_div" class=""></div>
+          <div id="u595_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u596" class="ax_default heading_1">
+          <div id="u596_div" class=""></div>
+          <div id="u596_text" class="text ">
+            <p><span>Caesar Zeppeli</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u597" class="ax_default paragraph">
+          <div id="u597_div" class=""></div>
+          <div id="u597_text" class="text ">
+            <p><span>留作参考 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u598" class="ax_default paragraph">
+          <div id="u598_div" class=""></div>
+          <div id="u598_text" class="text ">
+            <p><span>⯅</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u599" class="ax_default paragraph">
+          <div id="u599_div" class=""></div>
+          <div id="u599_text" class="text ">
+            <p><span>⯆</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u600" class="ax_default heading_1">
+          <div id="u600_div" class=""></div>
+          <div id="u600_text" class="text ">
+            <p><span>2</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u601" class="ax_default paragraph">
+          <div id="u601_div" class=""></div>
+          <div id="u601_text" class="text ">
+            <p><span>➥ Reply</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u602" class="ax_default paragraph">
+          <div id="u602_div" class=""></div>
+          <div id="u602_text" class="text ">
+            <p><span>💬 Show all replies&nbsp; </span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  {% endblock %}
+  </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post_Detail</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %} {{object.title}} {% endblock %}
+{% block content %}
+<div class="jumbotron">
+  <h1>{{object.title}}</h1>
+
+  {% if request.user == object.user %}
+    <!--  only can edit when the browsing user is the one who created the post  -->
+  <a href="{% url 'forum-edit' object.id %}">Edit</a>
+  <form method="post" action="{% url 'forum-delete' object.id %}">
+    {% csrf_token %} <input type="submit" value="Delete">
+  </form>
+  {% endif  %}
+  <p style="font-size: 20px;">{{ object.desc }}</p>
+  - <span><i>{{object.created_at | naturaltime}}</i></span>
+  <hr>
+
+    <p>Write my comment: </p>
+  <form method="post" action="{% url 'add-comment' object.id %}">
+        {% csrf_token %}
+        {{ form_comment }}
+        <input type="submit" name="Add Comment">
+    </form>
+
+    <hr>
+    <p>Comments: </p>
+  {% for comment in object.comment_set.all %}
+    <p>
+        {{comment.desc}}
+        - <span><i>{{comment.created_at | naturaltime}}</i></span>
+        {% if request.user == comment.user %}
+            <a href="{% url 'edit-comment' comment.id %}">Edit</a>
+            <form method="post" action="{% url 'delete-comment' comment.id %}">
+                {% csrf_token %}
+<!--                <a href="{% url 'delete-comment' comment.id %}">Delete</a>-->
+                <input type="submit" name="Delete", value="Delete">
+            </form>
+        {% endif %}
+        <br><span style="font-size: 12px;"><i>by {{comment.user}}</i></span>
+    </p>
+  {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
