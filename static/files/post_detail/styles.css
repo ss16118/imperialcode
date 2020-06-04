@@ -1236,9 +1236,11 @@
   align-self:flex-start;
   padding:0px 0px 0px 0px;
   box-sizing:border-box;
+  white-space:pre-wrap;
   width:100%;
 }
 #u579_text {
+  white-space:pre-wrap;
   border-width:0px;
   word-wrap:break-word;
   text-transform:none;

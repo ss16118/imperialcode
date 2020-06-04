@@ -107,12 +107,6 @@
                       });
                       editor.setSize("1268", "357");
                       editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
-
-
-                      function returnCode() {
-                        var code = document.getElementById("u278_input").value;
-                         document.getElementById("code_script").innerHTML = code;
-                      }
                   </script>
               </div>
 
@@ -171,10 +165,10 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u308" class="ax_default button">
+          <div id="u308" class="ax_default button" onclick="returnCode()">
             <div id="u308_div" class=""></div>
             <div id="u308_text" class="text ">
-              <button type="button" onclick="returnCode()">Test</button>
+                <p><span>Test</span></p>
             </div>
           </div>
 
@@ -426,6 +420,14 @@
         </div>
       </div>
     </div>
+    <script>
+        function returnCode() {
+            let userAnswer = document.getElementById("u278_input").innerHTML;
+            let currentURL = new URL(window.location.href);
+            currentURL.searchParams.set("answer", userAnswer);
+            window.location.href = currentURL.toString();
+        }
+    </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>
 </html>
