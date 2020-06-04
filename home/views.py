@@ -136,10 +136,13 @@ def question_solving_page(request):
             for i in range(len(code_segments)):
                 cached_segment = code_cache.get(pname, qindex, request.user.id)
                 if cached_segment is not None:
+                    all_code += "\n"
                     all_code += cached_segment
                     cached_segment = None
                 else:
+                    all_code += "\n"
                     all_code += code_segments[i].code
+            all_code += "\n"
             all_code += question[0].test_script
             response = requests.post('https://api.jdoodle.com/v1/execute',
                                      json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
