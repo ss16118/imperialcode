@@ -8,9 +8,10 @@ function addNewPostButtonOnClick() {
     newPostPanel.style.display = "flex";
 }
 
-function createPostPanel(num, author, title, createdAt, upvotes, commentNum, views) {
+function createPostPanel(link, num, author, title, createdAt, upvotes, commentNum, views) {
     let topPos = (INITIAL_POS_TOP + (num * (PANEL_HEIGHT + PADDING))) + "px";
     let panelHTML = [
+        `<a href="${link}">`,
         `<div id="u423" class="ax_default box_1" style="top:${topPos}">`,
           '<div id="u423_div" class="">',
             '<div id="u424" class="ax_default heading_1">',

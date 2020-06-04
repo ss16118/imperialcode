@@ -125,7 +125,7 @@
       <script>
           let panelsHTML = []
           {% for post in posts %}
-              panelsHTML.push(createPostPanel({{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
+              panelsHTML.push(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
           {% endfor %}
           panelsHTML.forEach(panelHTML => {
               console.log(panelHTML);
@@ -134,6 +134,7 @@
               document.getElementById("u420_div").append(html);
           });
       </script>
+
       <!-- New Post Form -->
       {% include "home/../global_components/new_post_panel.html" %}
     </div>
