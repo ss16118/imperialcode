@@ -29,9 +29,6 @@ class Post(models.Model):
             self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
             super(Post, self).save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse('forum-list')  # note: give a working redirect page
-
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

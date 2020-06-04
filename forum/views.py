@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from .form import CommentForm
 from .models import Post, Comment
@@ -67,6 +68,9 @@ class ForumUpdateView(OwnerProtectMixin, UpdateView):
     model = Post
     fields = ['title', 'desc']
     template_name = 'forum/post_update_form.html'
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('forum-detail', kwargs={'slug': self.object.slug})
 
 
 @method_decorator(login_required, name='dispatch')
