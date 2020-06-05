@@ -886,7 +886,7 @@
   position:absolute;
   left:0px;
   top:0px;
-  width:130px;
+  width:150px;
   height:18px;
   background:inherit;
   background-color:rgba(255, 255, 255, 0);
@@ -905,7 +905,7 @@
   position:absolute;
   left:203px;
   top:157px;
-  width:130px;
+  width:150px;
   height:18px;
   display:flex;
   font-family:'SF Pro Text Thin', 'SF Pro Text', sans-serif;
@@ -947,7 +947,7 @@
 #u573 {
   border-width:0px;
   position:absolute;
-  left:340px;
+  left:365px;
   top:157px;
   width:250px;
   height:18px;
@@ -991,7 +991,7 @@
 #u574 {
   border-width:0px;
   position:absolute;
-  left:618px;
+  left:635px;
   top:157px;
   width:60px;
   height:18px;

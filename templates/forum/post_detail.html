@@ -308,11 +308,12 @@
     <script>
         const INITIAL_TOP_POS = 165;
         const PADDING = 55;
+        const MIN_TOP_POS = 275;
         let postTextHeight = document.getElementById("post_content").getBoundingClientRect().height
         let bottomSeparator = document.getElementById("u580");
         let commentPanel = document.getElementById("u581");
 
-        bottomSeparator.style.top = INITIAL_TOP_POS + postTextHeight + PADDING  + "px";
+        bottomSeparator.style.top = Math.max(INITIAL_TOP_POS + postTextHeight + PADDING, MIN_TOP_POS)  + "px";
         commentPanel.style.top = bottomSeparator.offsetTop + PADDING - 30 + "px";
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
