@@ -120,10 +120,6 @@ def run_code(request):
     output = ""
     if request.method == "POST":
         all_code = request.POST.get("code", "")
-        f = open("logs/imperialcode_debug.log", "w")
-        f.write(all_code)
-        f.close()
-
         response = requests.post('https://api.jdoodle.com/v1/execute',
                                  json={'clientId': "e3762b799cdb4c3ee07e092f6041ce08",
                                        'clientSecret': '123904cc5aa37569cb7fecc393154e7e4d9d3375d08932ef4f7109affd2dda6b',
@@ -134,7 +130,6 @@ def run_code(request):
         try:
             # try except is used because the external api may not be reliable
             output = response.json()["output"]
-            print(output)
             output = re.sub('\( jdoodle.hs, jdoodle.o \)', '', output)
             output = re.sub('Linking jdoodle ...', '', output)
         except:
