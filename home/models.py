@@ -1,11 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 
-
-# Create your models here.
-
-# class User(models.Model):
-#     uname = models.CharField(max_length=30)
 class PastPaper(models.Model):
     title = models.CharField(max_length=100)
     language = models.CharField(max_length=32)
@@ -40,3 +37,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_desc
+
+
+class PastPaperProgress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
+    progress = ArrayField(models.PositiveIntegerField())

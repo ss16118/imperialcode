@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import PastPaper, Question, CodeSegment
+from home.models import PastPaper, Question, CodeSegment, PastPaperProgress
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -114,6 +114,26 @@ def problem_creation_page(request):
 def question_comment_page(request):
     return render(request, "home/question_comment_page.html")
 
+
+@login_required
+def past_paper_update_progress(request):
+    if request.method == "POST":
+        q_index = int(request.POST.get("index"))
+        pname = request.POST.get("pname")
+        progress = PastPaperProgress.objects.filter(paper__title=pname, user_id=request.user.id)
+        if progress:
+            user_progress = progress[0]
+            completed_questions = user_progress.progress
+            if q_index not in completed_questions:
+                completed_questions.append(q_index)
+                user_progress.progress = completed_questions
+                user_progress.save()
+        else:
+            paper_id = PastPaper.objects.filter(title=pname)[0].id
+            new_progress = PastPaperProgress(user_id=request.user.id, paper_id=paper_id, progress=[q_index])
+            new_progress.save()
+
+    return HttpResponse("", content_type="text/plain")
 
 @login_required
 def save_code(request):

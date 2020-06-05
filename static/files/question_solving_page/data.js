@@ -157,3 +157,12 @@ function createNavigationLabel(index, title) {
     ].join("\n");
     return labelHTML;
 }
+
+function passedTest(funcName, outputMessage) {
+    let pattern = new RegExp(`\\b${funcName}: (\\d+) \/ (\\d+)\\b`, "g");
+    let match = pattern.exec(outputMessage);
+    if (match !== null) {
+        return match[1].localeCompare(match[2]) == 0;
+    }
+    return false;
+}

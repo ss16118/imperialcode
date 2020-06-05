@@ -345,6 +345,7 @@
         let questions = [];
         let codeSegments = [];
         let changed = new Set();
+
         {% for question in questions %}
             questions.push({
                 "desc": `{{ question.desc }}`,
@@ -363,6 +364,10 @@
         let questionDescription = document.getElementById("u280_input");
         let outputArea = document.getElementById("u277_input");
         let testcaseArea = document.getElementById("u274_input");
+        let funcNames = [];
+        codeSegments.forEach(seg => {
+            funcNames.push(seg.substr(0, seg.indexOf(" ")));
+        });
 
         let displaySubquestion = function(index) {
             index = index >= questions.length ? questions.length - 1 : index;
@@ -415,9 +420,21 @@
                 dataType: "text",
                 success: function(data) {
                     outputArea.value = data;
+                    if (passedTest(funcNames[currentQuestionIndex + 1], data)) {
+                        // Update progress if the user passes all the testcases of this subquestion
+                        $.ajax({
+                            type: "POST",
+                            url: "/past_paper_update_progress/",
+                            data: {
+                                "pname": "{{ paper.title }}",
+                                "index": currentQuestionIndex,
+                                "csrfmiddlewaretoken": window.CSRF_TOKEN
+                            },
+                            success: function(_) {}
+                        });
+                    }
                 }
             });
-
             // Forces output area to be shown
             document.getElementById("u270").click();
             if (document.getElementById("u282_text").innerHTML.localeCompare("Hide console ⯅") == 0) {
@@ -441,7 +458,6 @@
                     success: function(data) {}
                 });
             });
-            // (e || window.event).returnValue = null;
             return null;
         };
 
