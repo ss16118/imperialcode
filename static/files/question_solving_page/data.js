@@ -150,7 +150,7 @@ function createNavigationLabel(index, title) {
     let labelHTML = [
         `<div id=u333 class="ax_default heading_3" style="top:${topPos}" onclick="displaySubquestion(${index})">`,
           '<div id="u333_div" class=""></div>',
-          '<div id="u333_text" class="text ">',
+          '<div id="u333_text" class="text subquestion">',
             `<p>Question ${index + 1}: ${title}</p>`,
           '</div>',
         '</div>'

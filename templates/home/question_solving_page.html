@@ -3,8 +3,8 @@
   {% load static %}
   <head>
     <title>Question Solving Page</title>
-    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <!-- Codemirror -->
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <script src={% static "codemirror/lib/codemirror.js" %}></script>
     <link rel="stylesheet" href={% static "codemirror/lib/codemirror.css" %}>
     <link rel="stylesheet" href={% static "codemirror/theme/dracula.css" %}>
@@ -39,7 +39,7 @@
     <script src={% static "resources/scripts/axure/style.js" %}></script>
     <script src={% static "resources/scripts/axure/adaptive.js" %}></script>
     <script src={% static "resources/scripts/axure/tree.js" %}></script>
-    <script src={% static "resources/scripts/axure/init.temp.js" %}></script>
+    <!-- <script src={% static "resources/scripts/axure/init.temp.js" %}></script> -->
     <script src={% static "resources/scripts/axure/legacy.js" %}></script>
     <script src={% static "resources/scripts/axure/viewer.js" %}></script>
     <script src={% static "resources/scripts/axure/math.js" %}></script>
@@ -108,6 +108,10 @@
                       });
                       editor.setSize("1268", "357");
                       editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
+                      editor.on("change", function(cm, change) {
+                          codeSegments[currentQuestionIndex + 1] = editor.getValue();
+                          changed.add(currentQuestionIndex + 1);
+                      });
                   </script>
               </div>
 
@@ -166,7 +170,7 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u308" class="ax_default button" onclick="runCode()">
+          <div id="u308" class="ax_default button">
             <div id="u308_div" class=""></div>
             <div id="u308_text" class="text ">
                 <p><span>Test</span></p>
@@ -174,7 +178,7 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u309" class="ax_default button">
+          <div id="u309" class="ax_default button" onclick="runCode()">
             <div id="u309_div" class=""></div>
             <div id="u309_text" class="text ">
               <p><span>Run</span></p>
@@ -340,6 +344,7 @@
         let currentQuestionIndex = 0;
         let questions = [];
         let codeSegments = [];
+        let changed = new Set();
         {% for question in questions %}
             questions.push({
                 "desc": `{{ question.desc }}`,
@@ -369,14 +374,27 @@
             codeEditor.setValue(decodedSegment);
             questionDescription.value = decodedDesc;
             testcaseArea.value = decodedTestcases;
+
+            let subquestionLabels = document.getElementsByClassName("subquestion");
+            for (i = 0; i < subquestionLabels.length; i++) {
+                subquestionLabels[i].className = subquestionLabels[i].className.replace(" selected", "");
+            }
+            subquestionLabels[index].className += " selected";
         };
+
+         // Create labels for the navigation panel
+        for (i = 0; i < questions.length; i++) {
+            let html = document.createElement("div");
+            let seg = codeSegments[i + 1];
+            html.innerHTML = createNavigationLabel(i, seg.substr(0, seg.indexOf(" ")));
+            document.getElementById("u329_div").append(html);
+        }
 
         displaySubquestion(0);
 
         function runCode() {
             let userAnswer = codeEditor.getValue();
-            // Save the current user answer
-            codeSegments[currentQuestionIndex + 1] = userAnswer;
+
             outputArea.value = "Running test...";
             let allCode = "";
             for (i = 0; i < codeSegments.length; i++) {
@@ -399,15 +417,33 @@
                     outputArea.value = data;
                 }
             });
-        }
 
-        // Create labels for the navigation panel
-        for (i = 0; i < questions.length; i++) {
-            let html = document.createElement("div");
-            let seg = codeSegments[i + 1];
-            html.innerHTML = createNavigationLabel(i, seg.substr(0, seg.indexOf(" ")));
-            document.getElementById("u329_div").append(html);
+            // Forces output area to be shown
+            document.getElementById("u270").click();
+            if (document.getElementById("u282_text").innerHTML.localeCompare("Hide console ⯅") == 0) {
+                document.getElementById("u282").click();
+            }
         }
+        // Save changed code on page unload
+        window.onbeforeunload = function(e) {
+            changed.forEach(i => {
+                $.ajax({
+                    type: "POST",
+                    url: "/save_code/",
+                    async: false,
+                    data: {
+                        "pname": "{{ paper.title }}",
+                        "index": i,
+                        "code": decode(codeSegments[i]),
+                        "csrfmiddlewaretoken": window.CSRF_TOKEN
+                    },
+                    dataType: "text",
+                    success: function(data) {}
+                });
+            });
+            // (e || window.event).returnValue = null;
+            return null;
+        };
 
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>

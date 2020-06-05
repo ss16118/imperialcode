@@ -26,8 +26,10 @@ urlpatterns = [
                   url(r'^expand', views.expand),
                   url(r'^Other', views.Other),
                   url(r'^reload', views.reload),
-                  url(r'^run_code/$', views.run_code),
                   url(r'^$', views.landing),
+                  # Specifically for ajax requests, does not serve html web page
+                  url(r'^run_code/$', views.run_code),
+                  url(r'^save_code/$', views.save_code)
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'

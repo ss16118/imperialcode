@@ -2169,6 +2169,7 @@
   width:100%;
 }
 #u308:hover {
+  cursor:pointer;
   background-color:rgba(129, 211, 248, 1);
   color:white;
 }
@@ -2180,19 +2181,8 @@
   text-transform:none;
 }
 #u309_div {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
   width:84px;
   height:40px;
-  background:inherit;
-  background-color:rgba(2, 167, 240, 1);
-  box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(121, 121, 121, 1);
-  border-radius:5px;
   -moz-box-shadow:none;
   -webkit-box-shadow:none;
   box-shadow:none;
@@ -2215,6 +2205,13 @@
   font-style:normal;
   font-size:15px;
   color:#FFFFFF;
+  background:inherit;
+  background-color:rgba(2, 167, 240, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:5px;
 }
 #u309 .text {
   position:absolute;
@@ -2223,28 +2220,14 @@
   box-sizing:border-box;
   width:100%;
 }
-#u309_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
+#u309:hover {
+  cursor: pointer;
   width:84px;
   height:40px;
-  background:inherit;
   background-color:rgba(129, 211, 248, 1);
   box-sizing:border-box;
-  border-width:1px;
-  border-style:solid;
-  border-color:rgba(121, 121, 121, 1);
+  border: 1px solid rgba(121, 121, 121, 1);
   border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
-  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
-  font-weight:700;
-  font-style:normal;
-  font-size:15px;
-  color:#FFFFFF;
 }
 #u309.mouseOver {
 }
@@ -3382,8 +3365,6 @@
 #u333_div.selected {
   border-width:0px;
   position:absolute;
-  left:0px;
-  top:0px;
   width:74px;
   height:18px;
   background:inherit;
@@ -3405,6 +3386,12 @@
   border-width:0px;
   white-space:nowrap;
   text-transform:none;
+}
+#u333_text.selected {
+  font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
+  text-decoration:underline;
+}
+.subquestion {
 }
 #u334_div {
   border-width:0px;

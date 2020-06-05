@@ -116,6 +116,16 @@ def question_comment_page(request):
 
 
 @login_required
+def save_code(request):
+    if request.method == "POST":
+        pname = request.POST.get("pname")
+        q_index = int(request.POST.get("index"))
+        code = request.POST.get("code")
+        code_cache.add(pname, q_index, request.user.id, code)
+    return HttpResponse("", content_type="text/plain")
+
+
+@login_required
 def run_code(request):
     output = ""
     if request.method == "POST":
@@ -141,39 +151,16 @@ def run_code(request):
 def question_solving_page(request):
     pname = request.GET.get("papername")
     paper = PastPaper.objects.filter(title=pname)[0]
-    '''
-    qindex = request.GET.get("question_index")
-    answer = request.GET.get("answer")
-    question = Question.objects.filter(paper__title=pname).filter(question_index=qindex)
-    if len(question) == 0:
-        desc = ""
-        code = ""
-        output = ""
-    else:
-        desc = question[0].question_desc
-        code = CodeSegment.objects.filter(id=str(question[0].code_segment))[0].code
-        output = ""
-        if answer is not None:
-            code_segments = CodeSegment.objects.filter(paper__title=pname).order_by('index')
-            corresponding_code_segment_id = question[0].code_segment.id
-            code_cache.add(pname, corresponding_code_segment_id, request.user.id, answer)
-            all_code = ""
-            for i in range(len(code_segments)):
-                cached_segment = code_cache.get(pname, code_segments[i].id, request.user.id)
-                if cached_segment is not None:
-                    all_code += "\n"
-                    all_code += cached_segment
-                else:
-                    all_code += "\n"
-                    all_code += code_segments[i].code
-            all_code += "\n"
-            all_code += question[0].test_script
-            f = open("f.hs", "w")
-            f.write(all_code)
-    '''
+
     questions = Question.objects.filter(paper__title=pname).order_by("question_index")
-    code_segments = CodeSegment.objects.filter(paper__title=pname).order_by("index")
-    code_segments = code_segments
+    code_segments_stored = CodeSegment.objects.filter(paper__title=pname).order_by("index")
+    code_segments = []
+    for i in range(len(code_segments_stored)):
+        cached_segment = code_cache.get(pname, code_segments_stored[i].index, request.user.id)
+        if cached_segment is not None:
+            code_segments.append(cached_segment)
+        else:
+            code_segments.append(code_segments_stored[i].code)
     questions_clean = []
     for question in questions:
         questions_clean.append({
@@ -182,7 +169,7 @@ def question_solving_page(request):
         })
     code_segments_clean = []
     for code_segment in code_segments:
-        code_segments_clean.append(code_segment.code.replace("\\", "\\\\").replace("`", "\`"))
+        code_segments_clean.append(code_segment.replace("\\", "\\\\").replace("`", "\`"))
     context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean}
     return render(request, "home/question_solving_page.html", context)
 
