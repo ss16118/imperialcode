@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 
+
 class PastPaper(models.Model):
     title = models.CharField(max_length=100)
     language = models.CharField(max_length=32)

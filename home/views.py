@@ -83,6 +83,8 @@ def past_papers_page(request):
         results = results.filter(status=request.GET.get("status"))
     selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
     selected_paper = PastPaper.objects.filter(title=selected_title)
+    user_progress = PastPaperProgress.objects.filter(user_id=request.user.id, paper__title=selected_title)
+    num_subquestions = len(Question.objects.filter(paper__title=selected_title))
     selected_paper_info = {}
     if len(selected_paper) == 0:
         selected_paper_info["title"] = ""
@@ -91,6 +93,7 @@ def past_papers_page(request):
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = 0
         selected_paper_info["upvotes"] = 0
+        selected_paper_info["progress"] = 0
     else:
         selected_paper_info["title"] = selected_paper[0].title
         selected_paper_info["desc"] = selected_paper[0].desc
@@ -98,6 +101,8 @@ def past_papers_page(request):
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
         selected_paper_info["upvotes"] = selected_paper[0].upvotes
+        selected_paper_info["progress"] = round((len(user_progress[0].progress) / num_subquestions) * 100, 2) \
+            if user_progress else 0
 
     selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
     context = {"display_papers": results, "selected_paper": selected_paper_info}
@@ -127,6 +132,7 @@ def past_paper_update_progress(request):
             if q_index not in completed_questions:
                 completed_questions.append(q_index)
                 user_progress.progress = completed_questions
+                print("User {} completed {} question {}".format(request.user.id, pname, q_index))
                 user_progress.save()
         else:
             paper_id = PastPaper.objects.filter(title=pname)[0].id
@@ -134,6 +140,7 @@ def past_paper_update_progress(request):
             new_progress.save()
 
     return HttpResponse("", content_type="text/plain")
+
 
 @login_required
 def save_code(request):

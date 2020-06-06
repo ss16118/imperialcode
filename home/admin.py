@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import PastPaper, Question, CodeSegment
+from home.models import PastPaper, Question, CodeSegment, PastPaperProgress
 from forum.models import Post, Comment
 
 
@@ -17,3 +17,8 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(CodeSegment)
 class CodeSegmentAdmin(admin.ModelAdmin):
     list_display = ["id",'index', 'code', 'paper']
+
+
+@admin.register(PastPaperProgress)
+class PastPaperProgressAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "paper", "progress"]
