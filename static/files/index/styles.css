@@ -1866,6 +1866,11 @@
   box-sizing:border-box;
   width:100%;
 }
+#u50:hover {
+  cursor:pointer;
+  color:#02A7F0;
+  font-family: 'SF Pro Display Bold', 'SF Pro Display', sans-serif;
+}
 #u50_img.mouseOver {
 }
 #u50.mouseOver {
@@ -1903,6 +1908,11 @@
   padding:2px 2px 2px 2px;
   box-sizing:border-box;
   width:100%;
+}
+#u51:hover {
+  cursor: pointer;
+  color:#02A7F0;
+  font-family: 'SF Pro Display Bold', 'SF Pro Display', sans-serif;
 }
 #u51_img.mouseOver {
 }
@@ -1974,6 +1984,11 @@
   font-style:normal;
   font-size:25px;
   color:#027DB4;
+}
+#u53:hover {
+  cursor: pointer;
+  color:#02A7F0;
+  font-family: 'SF Pro Display Bold', 'SF Pro Display', sans-serif;
 }
 #u53 .text {
   position:absolute;

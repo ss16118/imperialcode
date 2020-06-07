@@ -1,4 +1,4 @@
-﻿$axure.loadCurrentPage(
+﻿/* $axure.loadCurrentPage(
     (function () {
         var _ = function () {
             var r = {}, a = arguments;
@@ -188,3 +188,4 @@
             nB = "610337db23fd4287bd97cae5036a70f3", nC = "u103", nD = "2d426dbeb52d4d11bebcd3911855c1eb", nE = "u104";
         return _creator();
     })());
+*/

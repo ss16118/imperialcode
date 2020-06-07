@@ -262,8 +262,9 @@
       </div>
       <!-- Bootstrap progress bar -->
       <div class="progress" style="position:absolute; left:1250px; top:526px; width:124px; height:18px">
-        <div class="progress-bar progress-bar-striped bg-info" role="progressbar" aria-valuenow="{{ selected_paper.progress }}"
-             aria-valuemin="0" aria-valuemax="100" style="width:{{ selected_paper.progress }}%; color:black">
+        <div id="paper_progress_bar" class="progress-bar progress-bar-striped bg-info" role="progressbar"
+             aria-valuenow="{{ selected_paper.progress }}" aria-valuemin="0" aria-valuemax="100"
+             style="width:{{ selected_paper.progress }}%; color:black">
             {{ selected_paper.progress }}%
         </div>
       </div>
@@ -364,6 +365,7 @@
         function clearFilters() {
             window.location.href = "/past_papers_page.html"
         }
+        let paper_progress_bar = document.getElementById("paper_progress_bar");
 
         function startQuestionPaperOnClick() {
             // If there is a paper selected

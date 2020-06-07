@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
 
 
-class PastPaper(models.Model):
+class Problem(models.Model):
     title = models.CharField(max_length=100)
     language = models.CharField(max_length=32)
     spec_path = models.CharField(max_length=300)
@@ -23,7 +23,7 @@ class PastPaper(models.Model):
 class CodeSegment(models.Model):
     index = models.IntegerField()
     code = models.TextField()
-    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
@@ -34,13 +34,21 @@ class Question(models.Model):
     question_index = models.IntegerField(default=0)
     code_segment = models.ForeignKey(CodeSegment, on_delete=models.CASCADE, default="")
     test_script = models.TextField(default="")
-    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE, default="")
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE, default="")
 
     def __str__(self):
         return self.question_desc
 
 
-class PastPaperProgress(models.Model):
+class UserProgress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    paper = models.ForeignKey(PastPaper, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    stopped_at = models.PositiveIntegerField(default=0)
     progress = ArrayField(models.PositiveIntegerField())
+
+
+'''
+class ActionLog(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    time = models.DateTimeField(auto_now_add=True)
+'''

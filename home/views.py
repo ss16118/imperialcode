@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import PastPaper, Question, CodeSegment, PastPaperProgress
+from home.models import Problem, Question, CodeSegment, UserProgress
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -67,7 +67,7 @@ def index(request):
 
 
 def past_papers_page(request):
-    results = PastPaper.objects.all()
+    results = Problem.objects.all()
     if request.GET.get("keywords") is not None:
         kw = request.GET.get("keywords")
         results = results.filter(Q(title__contains=kw) | Q(desc__contains=kw))
@@ -82,9 +82,9 @@ def past_papers_page(request):
     if request.GET.get("status") is not None:
         results = results.filter(status=request.GET.get("status"))
     selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
-    selected_paper = PastPaper.objects.filter(title=selected_title)
-    user_progress = PastPaperProgress.objects.filter(user_id=request.user.id, paper__title=selected_title)
-    num_subquestions = len(Question.objects.filter(paper__title=selected_title))
+    selected_paper = Problem.objects.filter(title=selected_title)
+    user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)
+    num_subquestions = len(Question.objects.filter(problem__title=selected_title))
     selected_paper_info = {}
     if len(selected_paper) == 0:
         selected_paper_info["title"] = ""
@@ -125,18 +125,17 @@ def past_paper_update_progress(request):
     if request.method == "POST":
         q_index = int(request.POST.get("index"))
         pname = request.POST.get("pname")
-        progress = PastPaperProgress.objects.filter(paper__title=pname, user_id=request.user.id)
+        progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
         if progress:
             user_progress = progress[0]
             completed_questions = user_progress.progress
             if q_index not in completed_questions:
                 completed_questions.append(q_index)
                 user_progress.progress = completed_questions
-                print("User {} completed {} question {}".format(request.user.id, pname, q_index))
                 user_progress.save()
         else:
-            paper_id = PastPaper.objects.filter(title=pname)[0].id
-            new_progress = PastPaperProgress(user_id=request.user.id, paper_id=paper_id, progress=[q_index])
+            paper_id = Problem.objects.filter(title=pname)[0].id
+            new_progress = UserProgress(user_id=request.user.id, paper_id=paper_id, stopped_at=0, progress=[q_index])
             new_progress.save()
 
     return HttpResponse("", content_type="text/plain")
@@ -149,6 +148,24 @@ def save_code(request):
         q_index = int(request.POST.get("index"))
         code = request.POST.get("code")
         code_cache.add(pname, q_index, request.user.id, code)
+    return HttpResponse("", content_type="text/plain")
+
+
+@login_required
+def record_current_question(request):
+    if request.method == "POST":
+        pname = request.POST.get("pname")
+        index = int(request.POST.get("index"))
+        progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
+        print("Stopped at question {} for paper {}".format(index, pname))
+        if progress:
+            user_progress = progress[0]
+            user_progress.stopped_at = index
+            user_progress.save()
+        else:
+            paper_id = Problem.objects.filter(title=pname)[0].id
+            new_progress = UserProgress(user_id=request.user.id, paper_id=paper_id, stopped_at=index, progress=[])
+            new_progress.save()
     return HttpResponse("", content_type="text/plain")
 
 
@@ -177,11 +194,12 @@ def run_code(request):
 @login_required
 def question_solving_page(request):
     pname = request.GET.get("papername")
-    paper = PastPaper.objects.filter(title=pname)[0]
+    paper = Problem.objects.filter(title=pname)[0]
 
-    questions = Question.objects.filter(paper__title=pname).order_by("question_index")
-    code_segments_stored = CodeSegment.objects.filter(paper__title=pname).order_by("index")
+    questions = Question.objects.filter(problem__title=pname).order_by("question_index")
+    code_segments_stored = CodeSegment.objects.filter(problem__title=pname).order_by("index")
     code_segments = []
+    progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
     for i in range(len(code_segments_stored)):
         cached_segment = code_cache.get(pname, code_segments_stored[i].index, request.user.id)
         if cached_segment is not None:
@@ -197,7 +215,8 @@ def question_solving_page(request):
     code_segments_clean = []
     for code_segment in code_segments:
         code_segments_clean.append(code_segment.replace("\\", "\\\\").replace("`", "\`"))
-    context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean}
+    context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean,
+               "stopped_at": progress[0].stopped_at if progress else 0}
     return render(request, "home/question_solving_page.html", context)
 
 

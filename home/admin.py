@@ -1,11 +1,11 @@
 from django.contrib import admin
-from home.models import PastPaper, Question, CodeSegment, PastPaperProgress
+from home.models import Problem, Question, CodeSegment, UserProgress
 from forum.models import Post, Comment
 
 
 # Register your models here.
-@admin.register(PastPaper)
-class PastPaperAdmin(admin.ModelAdmin):
+@admin.register(Problem)
+class ProblemAdmin(admin.ModelAdmin):
     list_display = ['title', 'language', 'year', 'desc', 'difficulty', 'upvotes']
 
 
@@ -16,9 +16,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(CodeSegment)
 class CodeSegmentAdmin(admin.ModelAdmin):
-    list_display = ["id",'index', 'code', 'paper']
+    list_display = ["id",'index', 'code', 'problem']
 
 
-@admin.register(PastPaperProgress)
-class PastPaperProgressAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "paper", "progress"]
+@admin.register(UserProgress)
+class UserProgressAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "problem", "stopped_at", "progress"]

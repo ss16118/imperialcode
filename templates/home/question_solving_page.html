@@ -395,7 +395,7 @@
             document.getElementById("u329_div").append(html);
         }
 
-        displaySubquestion(0);
+        displaySubquestion({{ stopped_at }});
 
         function runCode() {
             let userAnswer = codeEditor.getValue();
@@ -458,6 +458,17 @@
                     dataType: "text",
                     success: function(data) {}
                 });
+            });
+            $.ajax({
+                type: "POST",
+                url: "/record_current_question/",
+                async: false,
+                data: {
+                    "pname": "{{ paper.title }}",
+                    "index": currentQuestionIndex,
+                    "csrfmiddlewaretoken": window.CSRF_TOKEN
+                },
+                success: function (data) {}
             });
             return null;
         };
