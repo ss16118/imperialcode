@@ -5,6 +5,9 @@ const EDITOR_EXPAND_HEIGHT = 581;
 const DEFAULT_X = 713;
 const EXPAND_X = 19;
 
+const PROGRESS_WARNING_MESSAGE =
+    `Warning: you have not completed all the previous subquestions.\n---------------------------------------------\n`;
+
 function testcaseConsoleOnclick() {
     let testcaseButton = document.getElementById("u269_div");
     let outputButton = document.getElementById("u270_div");
@@ -165,4 +168,13 @@ function passedTest(funcName, outputMessage) {
         return match[1].localeCompare(match[2]) == 0;
     }
     return false;
+}
+
+function finishedPrevSubquestions(finishedSubquestions, currentSubquestion) {
+    for (let i = 0; i < currentSubquestion; i++) {
+        if (!finishedSubquestions.includes(i)) {
+            return false;
+        }
+    }
+    return true;
 }

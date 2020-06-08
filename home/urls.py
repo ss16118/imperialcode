@@ -1,7 +1,10 @@
 from django.conf.urls import url
+from django.urls import path
+
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+
 
 urlpatterns = [   
                   url(r'^sign_up/',views.sign_up),
@@ -32,7 +35,9 @@ urlpatterns = [
                   url(r'^save_code/$', views.save_code),
                   url(r'^past_paper_update_progress/$', views.past_paper_update_progress),
                   url(r'^record_current_question/$', views.record_current_question),
-                  url(r'^comment_detail', views.comment_detail)
+                  url(r'^comment_detail', views.comment_detail),
+                  url(r'^vote/up/$', views.vote_up),
+                  url(r'^vote/down/$', views.vote_down)
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'

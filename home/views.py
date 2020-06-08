@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment
+from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -63,7 +63,13 @@ def forum_page(request):
 
 @login_required
 def index(request):
-    return render(request, "home/index.html")
+    progress = UserProgress.objects.filter(user_id=request.user.id).latest("last_modified")
+    problem_title = ""
+    if progress:
+        problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
+        print("Last modified {}".format(problem_title))
+    context = {"last_modified_problem": problem_title}
+    return render(request, "home/index.html", context)
 
 
 def past_papers_page(request):
@@ -233,8 +239,13 @@ def question_solving_page(request):
     code_segments_clean = []
     for code_segment in code_segments:
         code_segments_clean.append(code_segment.replace("\\", "\\\\").replace("`", "\`"))
-    context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean,
-               "stopped_at": progress[0].stopped_at if progress else 0}
+    context = {
+        "paper": paper,
+        "questions": questions_clean,
+        "code_segments": code_segments_clean,
+        "stopped_at": progress[0].stopped_at if progress else 0,
+        "finished_subquestions": progress[0].progress if progress else []
+    }
     return render(request, "home/question_solving_page.html", context)
 
 
@@ -292,3 +303,23 @@ def server_error_view(request, *args, **kwargs):
     response = render(request, "home/404.html")
     response.status_code = 500
     return response
+
+
+# voting system
+# /vote/up
+def vote_up(request):
+    user_id = request.user.id
+    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
+    selected_problem = Problem.objects.filter(title=selected_title)
+    selected_problem.upvotes += 1
+    selected_problem.save()
+
+
+
+# /vote/down
+def vote_down(request):
+    user_id = request.user.id
+    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
+    selected_problem = Problem.objects.filter(title=selected_title)
+    selected_problem.upvotes -= 1
+    selected_problem.save()
