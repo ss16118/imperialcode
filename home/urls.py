@@ -35,7 +35,7 @@ urlpatterns = [
                   url(r'^save_code/$', views.save_code),
                   url(r'^past_paper_update_progress/$', views.past_paper_update_progress),
                   url(r'^record_current_question/$', views.record_current_question),
-                  url(r'^vote/up/$', views.vote_up),
+                  url(r'^vote/up/?$', views.vote_up, name='vote_up'),
                   url(r'^vote/down/$', views.vote_down),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

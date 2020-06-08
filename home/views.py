@@ -285,9 +285,9 @@ def server_error_view(request, *args, **kwargs):
 # voting system
 # /vote/up
 def vote_up(request):
-    user_id = request.user.id
-    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
-    selected_problem = Problem.objects.filter(title=selected_title)
+    problem_id = request.GET.get("id") if request.GET.get("id") is not None else ""
+    print(problem_id)
+    selected_problem = Problem.objects.get(id=problem_id)
     selected_problem.upvotes += 1
     selected_problem.save()
 
@@ -295,8 +295,8 @@ def vote_up(request):
 
 # /vote/down
 def vote_down(request):
-    user_id = request.user.id
-    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
-    selected_problem = Problem.objects.filter(title=selected_title)
+    problem_id = request.GET.get("id") if request.GET.get("id") is not None else ""
+    print(problem_id)
+    selected_problem = Problem.objects.get(id=problem_id)
     selected_problem.upvotes -= 1
     selected_problem.save()
