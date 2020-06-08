@@ -23,7 +23,4 @@ class CodeSegmentAdmin(admin.ModelAdmin):
 class UserProgressAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "problem", "stopped_at", "progress"]
 
-@admin.register(UserProgress)
-class QuestionCommentAdmin(admin.ModelAdmin):
-    list_display = ["id", "question", "parent_comment","user" , "upvotes", "created_at"]
 
