@@ -31,7 +31,8 @@ urlpatterns = [
                   url(r'^run_code/$', views.run_code),
                   url(r'^save_code/$', views.save_code),
                   url(r'^past_paper_update_progress/$', views.past_paper_update_progress),
-                  url(r'^record_current_question/$', views.record_current_question)
+                  url(r'^record_current_question/$', views.record_current_question),
+                  url(r'^upvote/$', views.upvote, name='upvote'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'
