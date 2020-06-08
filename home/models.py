@@ -5,6 +5,36 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Problem(models.Model):
+    class Category:
+        NONE = "None"
+        RECURSION = "Recursion"
+        DP = "Dynamic Programming"
+        CONTROL_FLOW = "Control Flow"
+        DIVIDE_AND_CONQUER = "Divide and Conquer"
+        TREE = "Tree"
+        OPTIONS = (
+            (NONE, "None"),
+            (RECURSION, "Recursion"),
+            (DP, "Dynamic programming"),
+            (CONTROL_FLOW, "Control Flow"),
+            (DIVIDE_AND_CONQUER, "Divide and Conquer"),
+            (TREE, "Tree")
+        )
+
+    class Type:
+        NONE = "None"
+        EXAM = "Exam"
+        USER_PROVIDED = "User Provided"
+        TUTORIAL = "Tutorial"
+        UNASSESSED = "Unassessed Exercise"
+        OPTIONS = (
+            (NONE, "None"),
+            (EXAM, "Exam"),
+            (USER_PROVIDED, "User Provided"),
+            (TUTORIAL, "Tutorial"),
+            (UNASSESSED, "Unassessed Exercise")
+        )
+
     title = models.CharField(max_length=100)
     language = models.CharField(max_length=32)
     spec_path = models.CharField(max_length=300)
@@ -14,6 +44,8 @@ class Problem(models.Model):
         MaxValueValidator(3),
         MinValueValidator(1)
     ])
+    category = models.CharField(max_length=50, choices=Category.OPTIONS, default=Category.NONE)
+    type = models.CharField(max_length=50, choices=Type.OPTIONS, default=Type.NONE)
     upvotes = models.IntegerField()
 
     def __str__(self):

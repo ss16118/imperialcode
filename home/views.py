@@ -134,8 +134,8 @@ def past_paper_update_progress(request):
                 user_progress.progress = completed_questions
                 user_progress.save()
         else:
-            paper_id = Problem.objects.filter(title=pname)[0].id
-            new_progress = UserProgress(user_id=request.user.id, paper_id=paper_id, stopped_at=0, progress=[q_index])
+            problem_id = Problem.objects.filter(title=pname)[0].id
+            new_progress = UserProgress(user_id=request.user.id, problem_id=problem_id, stopped_at=0, progress=[q_index])
             new_progress.save()
 
     return HttpResponse("", content_type="text/plain")
@@ -163,8 +163,8 @@ def record_current_question(request):
             user_progress.stopped_at = index
             user_progress.save()
         else:
-            paper_id = Problem.objects.filter(title=pname)[0].id
-            new_progress = UserProgress(user_id=request.user.id, paper_id=paper_id, stopped_at=index, progress=[])
+            problem_id = Problem.objects.filter(title=pname)[0].id
+            new_progress = UserProgress(user_id=request.user.id, problem_id=problem_id, stopped_at=index, progress=[])
             new_progress.save()
     return HttpResponse("", content_type="text/plain")
 
