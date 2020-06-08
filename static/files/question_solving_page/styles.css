@@ -4949,3 +4949,26 @@
 .bar-block:last-child {
   border-radius: 0 5px 5px 0;
 }
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid lightskyblue;
+  border-bottom: 16px solid lightskyblue;
+  width: 120px;
+  height: 120px;
+  position:fixed;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  top: 179px;
+  left: 1000px;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

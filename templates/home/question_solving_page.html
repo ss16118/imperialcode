@@ -232,6 +232,7 @@
     <div id="block_progress_bar" class="bar">
     </div>
 
+    <div id="loader" class="loader" style="display: none"></div>
 
     <!-- Editor settings button (Rectangle) -->
     <div id="u351" class="ax_default paragraph" data-label="Editor settings button" title="Editor settings"
@@ -251,8 +252,7 @@
     </div>
 
     <!-- Editor setting panel (Group) -->
-    <div id="u353" class="ax_default ax_default_hidden" data-label="Editor setting panel" style="display:none; visibility: hidden" data-left="566" data-top="222" data-width="405" data-height="271">
-      <!-- Unnamed (Rectangle) -->
+    <div id="u353" class="ax_default ax_default_hidden" data-label="Editor setting panel" style="display:none; visibility: hidden" data-left="566" data-top="222" data-width="405" data-height="271">      <!-- Unnamed (Rectangle) -->
       <div id="u354" class="ax_default box_1">
         <div id="u354_div" class=""></div>
         <div id="u354_text" class="text " style="display:none; visibility: hidden">
@@ -479,6 +479,7 @@
         }
         // Save changed code on page unload
         window.onbeforeunload = function(e) {
+            document.getElementById("loader").style.display = "flex";
             changed.forEach(i => {
                 $.ajax({
                     type: "POST",
