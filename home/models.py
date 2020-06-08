@@ -79,6 +79,18 @@ class UserProgress(models.Model):
     progress = ArrayField(models.PositiveIntegerField())
 
 
+class QuestionComment(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    desc = models.TextField(default="")
+    upvotes = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.desc
+
+
 '''
 class ActionLog(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
