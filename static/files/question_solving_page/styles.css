@@ -4923,3 +4923,29 @@
   word-wrap:break-word;
   text-transform:none;
 }
+.bar {
+  background-color: white;
+  position: absolute;
+  width: 669px;
+  height: 20px;
+  left: 102px;
+  top: 53px;
+}
+.bar-block {
+  background-color: lightgray;
+  display: inline-block;
+  width: 10%;
+  height: 20px;
+  border-style: solid;
+  border-color: deepskyblue;
+  border-width: 0px;
+}
+.bar-block:hover {
+  cursor:pointer;
+}
+.bar-block:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.bar-block:last-child {
+  border-radius: 0 5px 5px 0;
+}

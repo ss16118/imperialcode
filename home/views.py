@@ -215,8 +215,13 @@ def question_solving_page(request):
     code_segments_clean = []
     for code_segment in code_segments:
         code_segments_clean.append(code_segment.replace("\\", "\\\\").replace("`", "\`"))
-    context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean,
-               "stopped_at": progress[0].stopped_at if progress else 0}
+    context = {
+        "paper": paper,
+        "questions": questions_clean,
+        "code_segments": code_segments_clean,
+        "stopped_at": progress[0].stopped_at if progress else 0,
+        "finished_subquestions": progress[0].progress if progress else []
+    }
     return render(request, "home/question_solving_page.html", context)
 
 

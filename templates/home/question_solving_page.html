@@ -197,7 +197,7 @@
         <!-- Navigation Bar -->
         {% include "home/../global_components/navbar.html" %}
         <!-- Navigation Bar -->
-        <div id="u311" style="display:none; visibility:hidden;"></div>
+        <div id="u311" style="display:none; visibility:hidden;">/div>
       </div>
 
       <!-- Subquestions panel (Group) -->
@@ -228,6 +228,10 @@
         -->
       </div>
     </div>
+    <!-- Blocked Progress Bar -->
+    <div id="block_progress_bar" class="bar">
+    </div>
+
 
     <!-- Editor settings button (Rectangle) -->
     <div id="u351" class="ax_default paragraph" data-label="Editor settings button" title="Editor settings"
@@ -346,6 +350,7 @@
         let codeSegments = [];
         let changed = new Set();
         let currentUrl = new URL(window.location.href);
+        let finishedSubquestions = [];
 
         {% for question in questions %}
             questions.push({
@@ -355,6 +360,9 @@
         {% endfor %}
         {% for segment in code_segments %}
             codeSegments[{{ forloop.counter0 }}]= `{{ segment }}`;
+        {% endfor %}
+        {% for subquestion in finished_subquestions %}
+            finishedSubquestions[{{ forloop.counter0 }}] = {{ subquestion }};
         {% endfor %}
 
         let decode = function(encodedString) {
@@ -387,14 +395,27 @@
                 subquestionLabels[i].className = subquestionLabels[i].className.replace(" selected", "");
             }
             subquestionLabels[index].className += " selected";
+            let subquestionBlocks = document.getElementsByClassName("bar-block");
+            for (i = 0; i < subquestionBlocks.length; i++) {
+                subquestionBlocks[i].style.borderWidth = "0px";
+            }
+            subquestionBlocks[index].style.borderWidth = "2px";
         };
 
          // Create labels for the navigation panel
+        let barWidth = (85 / questions.length).toPrecision(2);
+        let marginWidth = (10 / questions.length).toPrecision(2);
         for (i = 0; i < questions.length; i++) {
             let html = document.createElement("div");
             let seg = codeSegments[i + 1];
-            html.innerHTML = createNavigationLabel(i, seg.substr(0, seg.indexOf(" ")));
+            let title = seg.substr(0, seg.indexOf(" "));
+            html.innerHTML = createNavigationLabel(i, title);
             document.getElementById("u329_div").append(html);
+
+            let progressBlock = `<div class="bar-block" title=${title} style="width:${barWidth}%;margin-right:${marginWidth}%;${finishedSubquestions.includes(i) ? 'background-color:lightblue' : ''}" onclick=displaySubquestion(${i})></div>`;
+            let progressBlockHTML = document.createElement("div");
+            progressBlockHTML.innerHTML = progressBlock;
+            document.getElementById("block_progress_bar").append(progressBlockHTML.firstChild);
         }
 
         displaySubquestion({{ stopped_at }});
@@ -427,9 +448,15 @@
                 },
                 dataType: "text",
                 success: function(data) {
+                    let finished = finishedPrevSubquestions(finishedSubquestions, currentQuestionIndex);
+                    data = finished ? data : PROGRESS_WARNING_MESSAGE + data;
+                    outputArea.style.color = finished ? "black" : "red";
                     outputArea.value = data;
                     if (passedTest(funcNames[currentQuestionIndex + 1], data)) {
                         // Update progress if the user passes all the testcases of this subquestion
+                        finishedSubquestions.push(currentQuestionIndex);
+                        let subquestionBlocks = document.getElementsByClassName("bar-block");
+                        subquestionBlocks[currentQuestionIndex].style.backgroundColor = "lightblue";
                         $.ajax({
                             type: "POST",
                             url: "/past_paper_update_progress/",
@@ -464,7 +491,7 @@
                         "csrfmiddlewaretoken": window.CSRF_TOKEN
                     },
                     dataType: "text",
-                    success: function(data) {}
+                    success: function(_) {}
                 });
             });
             $.ajax({
@@ -476,7 +503,7 @@
                     "index": currentQuestionIndex,
                     "csrfmiddlewaretoken": window.CSRF_TOKEN
                 },
-                success: function (data) {}
+                success: function (_) {}
             });
             return null;
         };
