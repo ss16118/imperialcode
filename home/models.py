@@ -78,6 +78,7 @@ class UserProgress(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     stopped_at = models.PositiveIntegerField(default=0)
     progress = ArrayField(models.PositiveIntegerField())
+    last_modified = models.DateTimeField(auto_now=True)
 
 
 class QuestionComment(models.Model):
@@ -90,7 +91,6 @@ class QuestionComment(models.Model):
 
     def __str__(self):
         return self.desc
-
 
 class UserVotes(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

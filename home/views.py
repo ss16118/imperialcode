@@ -63,7 +63,13 @@ def forum_page(request):
 
 @login_required
 def index(request):
-    return render(request, "home/index.html")
+    progress = UserProgress.objects.filter(user_id=request.user.id).latest("last_modified")
+    problem_title = ""
+    if progress:
+        problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
+        print("Last modified {}".format(problem_title))
+    context = {"last_modified_problem": problem_title}
+    return render(request, "home/index.html", context)
 
 
 def past_papers_page(request):

@@ -254,7 +254,7 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u53" class="ax_default button">
+      <div id="u53" class="ax_default button" onclick="continueQuestion()">
         <img id="u53_img" class="img " src={% static "images/index/u50.svg" %}/>
         <div id="u53_text" class="text ">
           <p><span>ᐅ</span></p><p><span>Continue where you</span></p><p><span>left off</span></p>
@@ -665,6 +665,11 @@
         </div>
       </div>
     </div>
+    <script>
+        function continueQuestion() {
+            window.location.href = "question_solving_page?papername={{ last_modified_problem }}";
+        }
+    </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>
 </html>
