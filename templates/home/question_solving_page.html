@@ -162,7 +162,7 @@
           </div>
 
           <!-- Unnamed (Rectangle) -->
-          <div id="u307" class="ax_default button">
+          <div id="u307" class="ax_default button" onclick="goto_discuss()">
             <div id="u307_div" class=""></div>
             <div id="u307_text" class="text ">
               <p><span>💬 Discuss</span></p>
@@ -345,6 +345,7 @@
         let questions = [];
         let codeSegments = [];
         let changed = new Set();
+        let currentUrl = new URL(window.location.href);
 
         {% for question in questions %}
             questions.push({
@@ -365,6 +366,7 @@
         let outputArea = document.getElementById("u277_input");
         let testcaseArea = document.getElementById("u274_input");
         let funcNames = [];
+        
         codeSegments.forEach(seg => {
             funcNames.push(seg.substr(0, seg.indexOf(" ")));
         });
@@ -396,6 +398,12 @@
         }
 
         displaySubquestion({{ stopped_at }});
+
+        
+        function goto_discuss(){
+          currentUrl.searchParams.set("question_index", currentQuestionIndex);
+          window.location.href = currentUrl.toString().replace("question_solving_page","question_comment_page")
+        }
 
         function runCode() {
             let userAnswer = codeEditor.getValue();

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Problem, Question, CodeSegment, UserProgress
+from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment
 from forum.models import Post, Comment
 
 
@@ -23,4 +23,7 @@ class CodeSegmentAdmin(admin.ModelAdmin):
 class UserProgressAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "problem", "stopped_at", "progress"]
 
+@admin.register(QuestionComment)
+class QuestionCommentAdmin(admin.ModelAdmin):
+    list_display = ["id", "question", "parent_comment","user" , "upvotes", "created_at"]
 
