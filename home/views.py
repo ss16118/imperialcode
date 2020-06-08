@@ -8,6 +8,7 @@ from home.codeCache import CodeCache
 import requests
 from django.http import HttpResponse
 from django.db.models import Q
+from django.urls import resolve
 import re
 
 # logger = logging.getLogger(__name__)
@@ -251,7 +252,10 @@ def question_solving_page(request):
 
 def comment_detail(request):
     comment_id = int(request.GET.get("id"))
-    return HttpResponse(comment_id)
+    comment = QuestionComment.objects.filter(id= comment_id)[0]
+    prev_page = request.META.get('HTTP_REFERER')
+    context = {"post":comment, "prev_page" : str(prev_page)}
+    return render(request, "home/comment_detail.html", context)
 
 
 def signup_page(request):
