@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import Problem, Question, CodeSegment, UserProgress
+from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -117,7 +117,25 @@ def problem_creation_page(request):
 
 @login_required
 def question_comment_page(request):
-    return render(request, "home/question_comment_page.html")
+    # if request.method == "POST":
+    #     pname = request.POST["papername"]
+    #     qindex = int(request.POST["question_index"])
+    # else:
+    pname = request.GET.get("papername")
+    qindex = int(request.GET.get("question_index"))
+    qname = pname + " question " + str(qindex)
+    question = Question.objects.filter(question_index= qindex, problem__title= pname)[0]
+    question_id = question.id
+    if request.method == "POST":
+        comment_title = request.POST["post_title"]
+        content = request.POST["post_content"]
+        comment = QuestionComment(question = question, parent_comment= None, user = request.user,
+             title= comment_title, desc = content)
+        comment.save()
+    comments = QuestionComment.objects.filter(question = question_id)
+    context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex}
+
+    return render(request, "home/question_comment_page.html", context)
 
 
 @login_required
@@ -218,6 +236,11 @@ def question_solving_page(request):
     context = {"paper": paper, "questions": questions_clean, "code_segments": code_segments_clean,
                "stopped_at": progress[0].stopped_at if progress else 0}
     return render(request, "home/question_solving_page.html", context)
+
+
+def comment_detail(request):
+    comment_id = int(request.GET.get("id"))
+    return HttpResponse(comment_id)
 
 
 def signup_page(request):

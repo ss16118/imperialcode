@@ -81,11 +81,13 @@ class UserProgress(models.Model):
 
 class QuestionComment(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE)
+    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, default="")
     desc = models.TextField(default="")
     upvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return self.desc
