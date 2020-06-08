@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
-from home.models import Problem, Question, CodeSegment, UserProgress
+from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -274,3 +274,23 @@ def server_error_view(request, *args, **kwargs):
     response = render(request, "home/404.html")
     response.status_code = 500
     return response
+
+
+# voting system
+# /vote/up
+def vote_up(request):
+    user_id = request.user.id
+    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
+    selected_problem = Problem.objects.filter(title=selected_title)
+    selected_problem.upvotes += 1
+    selected_problem.save()
+
+
+
+# /vote/down
+def vote_down(request):
+    user_id = request.user.id
+    selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
+    selected_problem = Problem.objects.filter(title=selected_title)
+    selected_problem.upvotes -= 1
+    selected_problem.save()
