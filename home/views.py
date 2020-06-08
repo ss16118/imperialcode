@@ -269,11 +269,3 @@ def server_error_view(request, *args, **kwargs):
     response = render(request, "home/404.html")
     response.status_code = 500
     return response
-
-
-# voting system:
-def upvote(request, photo_id):
-    problem = Problem.objects.get(pk=photo_id)
-    problem.upvotes += 1
-    problem.save()
-    return HttpResponse('past_papers_page')
