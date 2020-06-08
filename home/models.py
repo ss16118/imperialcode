@@ -94,6 +94,7 @@ class QuestionComment(models.Model):
     def __str__(self):
         return self.desc
 
+
 class UserVotes(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)

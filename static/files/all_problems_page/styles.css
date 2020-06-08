@@ -965,7 +965,7 @@
   left:0px;
   top:0px;
   width:200px;
-  height:19px;
+  height:22px;
   padding:3px 2px 3px 2px;
   font-family:'Arial Normal', 'Arial', sans-serif;
   font-weight:400;
@@ -1004,7 +1004,7 @@
   left:0px;
   top:0px;
   width:200px;
-  height:19px;
+  height:22px;
   background:inherit;
   background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
@@ -1022,7 +1022,7 @@
   left:497px;
   top:191px;
   width:200px;
-  height:19px;
+  height:22px;
   display:flex;
 }
 #u231 .text {
@@ -1330,7 +1330,7 @@
   left:0px;
   top:0px;
   width:200px;
-  height:19px;
+  height:22px;
   padding:3px 2px 3px 2px;
   font-family:'Arial Normal', 'Arial', sans-serif;
   font-weight:400;
@@ -1369,7 +1369,7 @@
   left:0px;
   top:0px;
   width:200px;
-  height:19px;
+  height:22px;
   background:inherit;
   background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
@@ -1387,7 +1387,7 @@
   left:189px;
   top:233px;
   width:200px;
-  height:19px;
+  height:22px;
   display:flex;
 }
 #u237 .text {
@@ -1424,7 +1424,7 @@
   left:0px;
   top:0px;
   width:949px;
-  height:532px;
+  height:435px;
   padding:3px 2px 3px 2px;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
@@ -1443,7 +1443,7 @@
   left:0px;
   top:0px;
   width:949px;
-  height:532px;
+  height:435px;
   padding:3px 2px 3px 2px;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
@@ -1463,7 +1463,7 @@
   left:0px;
   top:0px;
   width:949px;
-  height:532px;
+  height:435px;
   background:inherit;
   background-color:rgba(255, 255, 255, 1);
   box-sizing:border-box;
@@ -1481,7 +1481,7 @@
   left:85px;
   top:301px;
   width:949px;
-  height:532px;
+  height:435px;
   display:flex;
 }
 #u238 .text {
@@ -1818,7 +1818,9 @@
 }
 #u243_img.mouseOver {
 }
-#u243.mouseOver {
+#u243:hover {
+  cursor:pointer;
+  background-color:#81D3F8;
 }
 #u243_text {
   border-width:0px;
@@ -1855,7 +1857,9 @@
 }
 #u244_img.mouseOver {
 }
-#u244.mouseOver {
+#u244:hover {
+  cursor:pointer;
+  background-color:#81D3F8;
 }
 #u244_text {
   border-width:0px;
@@ -2037,13 +2041,14 @@
   position:absolute;
   left:1105px;
   top:319px;
-  width:265px;
+  width:361px;
   height:36px;
   display:flex;
   font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
-  font-size:30px;
+  font-size:20px;
+  overflow: hidden;
 }
 #u248 .text {
   position:absolute;
@@ -2708,7 +2713,7 @@
   border-width:0px;
   position:absolute;
   left:1078px;
-  top:795px;
+  top:87px;
   width:415px;
   height:39px;
   display:flex;
@@ -2749,4 +2754,55 @@
   border-width:0px;
   word-wrap:break-word;
   text-transform:none;
+}
+#year_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:74px;
+  height:38px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+}
+#year_label {
+  border-width:0px;
+  position:absolute;
+  left:1105px;
+  top:351px;
+  width:74px;
+  height:20px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:15px;
+}
+#year_label .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+#year_text {
+  border-width:0px;
+  white-space:nowrap;
+  text-transform:none;
+}
+#overall_progress {
+  height: 95px;
+  position: absolute;
+  width: 200px;
+  margin: 0px auto;
+  left: 1197px;
+  top: 140px;
 }

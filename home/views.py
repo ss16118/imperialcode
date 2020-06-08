@@ -54,7 +54,76 @@ def sign_up(request):
 
 @login_required
 def all_problems_page(request):
-    return render(request, "home/all_problems_page.html")
+    results = Problem.objects.all()
+    problem_progress = UserProgress.objects.filter(user_id=request.user.id)
+    if request.GET.get("keywords") is not None:
+        kw = request.GET.get("keywords")
+        results = results.filter(Q(title__contains=kw) | Q(desc__contains=kw))
+        if kw.isdigit():
+            results = results.filter(id=kw)
+    if request.GET.get("lang") is not None:
+        results = results.filter(language=request.GET.get("lang"))
+    if request.GET.get("diff") is not None:
+        results = results.filter(difficulty=request.GET.get("diff"))
+    if request.GET.get("cat") is not None:
+        results = results.filter(category=request.GET.get("cat"))
+    if request.GET.get("type") is not None:
+        results = results.filter(type=request.GET.get("type"))
+    if request.GET.get("status") is not None:
+        status = request.GET.get("status")
+        if status == "Todo":
+            results = results.exclude(id__in=problem_progress)
+        else:
+            temp_solved = []
+            temp_in_progress = []
+            for single_process in problem_progress.iterator():
+                if len(Question.objects.filter(problem_id=single_process.problem_id)) == len(single_process.progress):
+                    temp_solved.append(single_process.problem_id)
+                else:
+                    temp_in_progress.append(single_process.problem_id)
+            if status == "In Progress":
+                results = results.filter(id__in=temp_in_progress)
+            elif status == "Solved":
+                results = results.filter(id__in=temp_solved)
+
+    num_todo = len(Problem.objects.all().exclude(id__in=problem_progress))
+    temp_solved = []
+    temp_in_progress = []
+    for single_process in problem_progress.iterator():
+        if len(Question.objects.filter(problem_id=single_process.problem_id)) == len(single_process.progress):
+            temp_solved.append(single_process.problem_id)
+        else:
+            temp_in_progress.append(single_process.problem_id)
+    num_in_progress = len(Problem.objects.all().filter(id__in=temp_in_progress))
+    num_solved = len(Problem.objects.all().filter(id__in=temp_solved))
+    num_total = num_todo + num_in_progress + num_solved
+    overall_progress = [num_total, num_todo, num_in_progress, num_solved]
+
+    selected_title = request.GET.get("p") if request.GET.get("p") else ""
+    selected_problems = Problem.objects.filter(title=selected_title)
+    user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)
+    num_subquestions = len(Question.objects.filter(problem__title=selected_title))
+    selected_problem_info = {}
+    if len(selected_problems) == 0:
+        selected_problem_info["title"] = ""
+        selected_problem_info["desc"] = ""
+        selected_problem_info["year"] = 0
+        selected_problem_info["difficulty"] = 0
+        selected_problem_info["upvotes"] = 0
+        selected_problem_info["progress"] = 0
+    else:
+        selected_problem_info["title"] = selected_problems[0].title
+        selected_problem_info["desc"] = selected_problems[0].desc
+        selected_problem_info["year"] = selected_problems[0].year
+        selected_problem_info["difficulty"] = selected_problems[0].difficulty
+        selected_problem_info["upvotes"] = selected_problems[0].upvotes
+        selected_problem_info["progress"] = round((len(user_progress[0].progress) / num_subquestions) * 100, 2) \
+            if user_progress else 0
+    selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
+    context = {"display_problems": results,
+               "selected_problem": selected_problem_info,
+               "overall_progress": overall_progress}
+    return render(request, "home/all_problems_page.html", context)
 
 
 @login_required
@@ -64,9 +133,10 @@ def forum_page(request):
 
 @login_required
 def index(request):
-    progress = UserProgress.objects.filter(user_id=request.user.id).latest("last_modified")
+    progress = UserProgress.objects.filter(user_id=request.user.id)
     problem_title = ""
     if progress:
+        progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
         print("Last modified {}".format(problem_title))
     context = {"last_modified_problem": problem_title}
@@ -74,7 +144,7 @@ def index(request):
 
 
 def past_papers_page(request):
-    results = Problem.objects.all()
+    results = Problem.objects.filter(type=Problem.Type.EXAM, category=Problem.Category.NONE)
     if request.GET.get("keywords") is not None:
         kw = request.GET.get("keywords")
         results = results.filter(Q(title__contains=kw) | Q(desc__contains=kw))
@@ -87,7 +157,23 @@ def past_papers_page(request):
     if request.GET.get("diff") is not None:
         results = results.filter(difficulty=request.GET.get("diff"))
     if request.GET.get("status") is not None:
-        results = results.filter(status=request.GET.get("status"))
+        status = request.GET.get("status")
+        problem_progress = UserProgress.objects.filter(user_id=request.user.id)
+        if status == "Todo":
+            results = results.exclude(id__in=problem_progress)
+        else:
+            temp_solved = []
+            temp_in_progress = []
+            for single_process in problem_progress.iterator():
+                if len(Question.objects.filter(problem_id=single_process.problem_id)) == len(single_process.progress):
+                    temp_solved.append(single_process.problem_id)
+                else:
+                    temp_in_progress.append(single_process.problem_id)
+            if status == "In Progress":
+                results = results.filter(id__in=temp_in_progress)
+            elif status == "Solved":
+                results = results.filter(id__in=temp_solved)
+
     selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
     selected_paper = Problem.objects.filter(title=selected_title)
     user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)

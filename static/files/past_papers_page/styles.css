@@ -1608,13 +1608,14 @@
   position:absolute;
   left:1013px;
   top:150px;
-  width:177px;
+  width:361px;
   height:38px;
   display:flex;
   font-family:'SF Pro Text Display', 'SF Pro Text', sans-serif;
   font-weight:300;
   font-style:normal;
   font-size:20px;
+  overflow: hidden;
 }
 #u195 .text {
   position:absolute;

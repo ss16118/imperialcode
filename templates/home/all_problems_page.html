@@ -41,6 +41,7 @@
     <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
     <script src={% static "data/document.js" %}></script>
     <script src={% static "files/all_problems_page/data.js" %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif'%}"; };
       $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
@@ -96,7 +97,7 @@
       <!-- Unnamed (Text Field) -->
       <div id="u232" class="ax_default text_field">
         <div id="u232_div" class=""></div>
-        <input id="u232_input" type="search" value="" class="u232_input"/>
+        <input id="u232_input" type="search" value="" class="u232_input" placeholder="Search problem title, description, or IDs"/>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -146,14 +147,9 @@
       <div id="u238" class="ax_default list_box">
         <div id="u238_div" class=""></div>
         <select id="u238_input" size="2" class="u238_input">
-          <option class="u238_input_option" value="Haskell Sequences">Haskell Sequences</option>
-          <option class="u238_input_option" value="Haskell Cryptography">Haskell Cryptography</option>
-          <option class="u238_input_option" value="Haskell Macroprocessor">Haskell Macroprocessor</option>
-          <option class="u238_input_option" value="Haskell LSystem">Haskell LSystem</option>
-          <option class="u238_input_option" value="Java Red Black Tree">Java Red Black Tree</option>
-          <option class="u238_input_option" value="Java Spread Sheet">Java Spread Sheet</option>
-          <option class="u238_input_option" value="Java Recursive Tree">Java Recursive Tree</option>
-          <option class="u238_input_option" value="Java Turtle Interpreter">Java Turtle Interpreter</option>
+            {% for problem in display_problems %}
+                <option class="u238_input_option" onclick='displayInfo("{{ problem.title }}")'>{{ problem.title }}</option>
+            {% endfor %}
         </select>
       </div>
 
@@ -197,7 +193,7 @@
       </div>
 
       <!-- Unnamed (Shape) -->
-      <div id="u243" class="ax_default button">
+      <div id="u243" class="ax_default button" onclick="searchProblemsButtonOnClick()">
         <img id="u243_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
         <div id="u243_text" class="text ">
           <p><span>Search</span></p>
@@ -205,7 +201,7 @@
       </div>
 
       <!-- Unnamed (Shape) -->
-      <div id="u244" class="ax_default button">
+      <div id="u244" class="ax_default button" onclick="clearFilters()">
         <img id="u244_img" class="img " src={% static "images/past_papers_page/u200.svg" %}/>
         <div id="u244_text" class="text ">
           <p><span>Clear Filter</span></p>
@@ -240,22 +236,33 @@
       <div id="u248" class="ax_default heading_1">
         <div id="u248_div" class=""></div>
         <div id="u248_text" class="text ">
-          <p><span>Haskell Sequences</span></p>
+          <p><span>{{ selected_problem.title }}</span></p>
         </div>
       </div>
 
       <!-- Unnamed (Text Area) -->
       <div id="u249" class="ax_default text_area disabled">
         <div id="u249_div" class="disabled"></div>
-        <textarea id="u249_input" class="u249_input" disabled>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.
-</textarea>
+        <textarea id="u249_input" class="u249_input" disabled>{{ selected_problem.desc }}</textarea>
+      </div>
+
+          <!-- Unnamed (Rectangle) -->
+      <div id="year_label" class="ax_default heading_1">
+        <div id="year_div" class=""></div>
+        <div id="year_text" class="text ">
+          <p><span>
+              {% if not selected_problem.year == 0 %}
+                  {{selected_problem.year}}
+              {% endif %}
+          </span></p>
+        </div>
       </div>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u250" class="ax_default heading_1">
         <div id="u250_div" class=""></div>
         <div id="u250_text" class="text ">
-          <p><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;">Difficulty: </span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;font-style:normal;">★</span><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;"> </span></p>
+          <p><span style="font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;font-weight:300;">Difficulty: {{ selected_problem.difficulty }}</span></p>
         </div>
       </div>
 
@@ -316,18 +323,22 @@
       </div>
 
       <!-- Unnamed (Image) -->
+        <!--
       <div id="u258" class="ax_default image">
         <img id="u258_img" class="img " src={% static "images/all_problems_page/u258.png" %}/>
         <div id="u258_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
       </div>
-
+      -->
+      <div id="overall_progress">
+        <canvas id="progress_chart" width="200" height="97"></canvas>
+      </div>
       <!-- Unnamed (Rectangle) -->
       <div id="u259" class="ax_default label">
         <div id="u259_div" class=""></div>
         <div id="u259_text" class="text ">
-          <p><span>Todo 32/50</span></p>
+          <p><span>Todo {{ overall_progress.1 }}/{{ overall_progress.0 }}</span></p>
         </div>
       </div>
 
@@ -335,7 +346,7 @@
       <div id="u260" class="ax_default label">
         <div id="u260_div" class=""></div>
         <div id="u260_text" class="text ">
-          <p><span>Solved 15/50</span></p>
+          <p><span>In Progress {{ overall_progress.2 }}/{{ overall_progress.0 }}</span></p>
         </div>
       </div>
 
@@ -343,7 +354,7 @@
       <div id="u261" class="ax_default label">
         <div id="u261_div" class=""></div>
         <div id="u261_text" class="text ">
-          <p><span>Attempted 3/50</span></p>
+          <p><span>Solved {{ overall_progress.3 }}/{{ overall_progress.0 }}</span></p>
         </div>
       </div>
 
@@ -356,13 +367,14 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
+      <!--
       <div id="u263" class="ax_default button">
         <div id="u263_div" class=""></div>
         <div id="u263_text" class="text ">
           <p><span>I want to leave a comment / solution</span></p>
         </div>
       </div>
-
+      -->
       <!-- Unnamed (Rectangle) -->
       <div id="u264" class="ax_default button">
         <div id="u264_div" class=""></div>
@@ -371,6 +383,80 @@
         </div>
       </div>
     </div>
+    <script>
+        var ctx = document.getElementById("progress_chart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Todo", "In Progress", "Solved"],
+                datasets: [{
+                    data: [{{overall_progress.1}}, {{ overall_progress.2 }}, {{ overall_progress.3 }}],
+                    text: "ff",
+                    backgroundColor: [
+                        '#027DB4',
+                        '#02A7F0',
+                        '#81D3F8'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                rotation: 1 * Math.PI,
+                circumference: 1 * Math.PI
+            }
+        });
+
+
+        let problemsList = document.getElementById("u238_input");
+        problemsList.value = "{{ selected_problem.title }}";
+
+        let currentUrl = new URL(window.location.href);
+        let keywordsFilter = document.getElementById("u232_input");
+        let languageFilter = document.getElementById("u230_input");
+        let difficultyFilter = document.getElementById("u237_input");
+        let categoryFilter = document.getElementById("u231_input");
+        let typeFilter = document.getElementById("u239_input");
+        let statusFilter = document.getElementById("u241_input");
+
+        let filters = ["keywords", "lang", "diff", "cat", "type", "status"]
+        let filterFields = [keywordsFilter, languageFilter, difficultyFilter, categoryFilter, typeFilter, statusFilter];
+
+        for (let i = 0; i < filterFields.length; i++) {
+            if (currentUrl.searchParams.get(filters[i])) {
+                filterFields[i].value = currentUrl.searchParams.get(filters[i]);
+            }
+        }
+
+        function searchProblemsButtonOnClick() {
+            let baseUrl = new URL("/all_problems_page", window.location.origin);
+            if (keywordsFilter.value.localeCompare("") != 0) {
+                baseUrl.searchParams.append("keywords", keywordsFilter.value);
+            }
+            for (let i = 1; i < filterFields.length; i++) {
+                let val = filterFields[i].value;
+                if (val.localeCompare("All") != 0) {
+                    baseUrl.searchParams.append(filters[i], val);
+                }
+            }
+            window.location.href = baseUrl.toString();
+        }
+
+        function clearFilters() {
+            window.location.href = "/all_problems_page.html";
+        }
+
+        function displayInfo(title) {
+            if (currentUrl.searchParams.get("p") !== null) {
+                currentUrl.searchParams.set("p", title);
+            } else {
+                currentUrl.searchParams.append("p", title);
+            }
+            window.location.href = currentUrl.toString();
+        }
+    </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>
 </html>
