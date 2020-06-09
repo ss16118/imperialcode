@@ -215,10 +215,6 @@ def problem_creation_page(request):
 
 @login_required
 def question_comment_page(request):
-    # if request.method == "POST":
-    #     pname = request.POST["papername"]
-    #     qindex = int(request.POST["question_index"])
-    # else:
     pname = request.GET.get("papername")
     qindex = int(request.GET.get("question_index"))
     qname = pname + " question " + str(qindex)
@@ -311,7 +307,6 @@ def run_code(request):
 def question_solving_page(request):
     pname = request.GET.get("papername")
     paper = Problem.objects.filter(title=pname)[0]
-
     questions = Question.objects.filter(problem__title=pname).order_by("question_index")
     code_segments_stored = CodeSegment.objects.filter(problem__title=pname).order_by("index")
     code_segments = []
@@ -345,6 +340,8 @@ def question_solving_page(request):
 def comment_detail(request):
     comment_id = int(request.GET.get("id"))
     comment = QuestionComment.objects.filter(id= comment_id)[0]
+    comment.views += 1
+    comment.save()
     prev_page = request.META.get('HTTP_REFERER')
     context = {"post":comment, "prev_page" : str(prev_page)}
     return render(request, "home/comment_detail.html", context)
