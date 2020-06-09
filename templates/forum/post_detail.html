@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   {% load static %}
+  {% load humanize %}
   <head>
     <title>Single Post Page</title>
     <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
@@ -47,7 +48,7 @@
       $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
     </script>
   </head>
-  <body>
+  <body style="width: 95%">
   {% load humanize %}
     <div id="base" class="">
 
@@ -183,55 +184,15 @@
                     <textarea name="comment_content" id="u618_input" class="u618_input" placeholder="Enter your comment"></textarea>
                 </div>
                 <div id="u619" class="ax_default button">
-                    <img id="u619_img" class="img " src={% static "images/single_post_page/u619.svg" %}/>
                     <div id="u619_text" class="text ">
-                        <p><span>✉ Post</span></p>
+                        <input type="submit" value="✉ Post" style="background-color: transparent; border: none;"/>
                     </div>
               </div>
             </form>
           </div>
-
         </div>
       </div>
-
-
-      {% for comment in post.comment_set.all %}
-        <!-- Unnamed (Group) -->
-      <div id="u585" class="ax_default" data-left="203" data-top="785" data-width="670" data-height="103">
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u586" class="ax_default box_2">
-          <div id="u586_div" class=""></div>
-          <div id="u586_text" class="text " style="display:none; visibility: hidden">
-            <p></p>
-          </div>
-        </div>
-
-        <div id="u587" class="ax_default heading_1">
-          <div id="u587_div" class=""></div>
-          <div id="u587_text" class="text ">
-            <p><span>{{comment.user}}</span></p>
-          </div>
-        </div>
-        <!-- comment content -->
-        <div id="u588" class="ax_default paragraph">
-          <div id="u588_div" class=""></div>
-          <div id="u588_text" class="text ">
-            <p><span>{{comment.desc}}</span> -
-              <span><i>{{comment.created_at | naturaltime}}</i>
-               {% if request.user == comment.user %}
-                <a href="{% url 'edit-comment' comment.id %}">Edit this comment</a>
-                <form method="post" action="{% url 'delete-comment' comment.id %}">
-                {% csrf_token %}
-<!--                <a href="{% url 'delete-comment' comment.id %}">Delete</a>-->
-                <input type="submit" name="Delete", value="Delete">
-                </form>
-                {% endif %}
-              </span></p>
-          </div>
-        </div>
-  {% endfor %}
-    </div>
+    <div id="u621" class="ax_default" data-left="203" data-top="785" data-width="670" data-height="103"></div>
     <script>
         const INITIAL_TOP_POS = 165;
         const PADDING = 55;
@@ -242,6 +203,61 @@
 
         bottomSeparator.style.top = Math.max(INITIAL_TOP_POS + postTextHeight + PADDING, MIN_TOP_POS)  + "px";
         commentPanel.style.top = bottomSeparator.offsetTop + PADDING - 30 + "px";
+
+        const COMMENT_INITIAL_TOP_POS = commentPanel.offsetTop + 200;
+
+        let comments = [];
+        {% for comment in comments %}
+            comments.push({
+                "user": "{{ comment.user }}",
+                "content": `{{ comment.desc }}`,
+                "createdAt": "{{ comment.created_at | naturaltime }}",
+                "upvotes": {{ comment.upvotes }}
+            });
+        {% endfor %}
+
+        let currentTop = COMMENT_INITIAL_TOP_POS;
+        let mainContainer = document.getElementById("u621");
+        const COMMENT_PADDING = 20;
+        for (let i = 0; i< comments.length; i++) {
+            let comment = comments[i];
+            let panel = createCommentPanel(i, currentTop,
+                comment["user"], comment["content"], comment["createdAt"], comment["upvotes"]);
+            currentTop += COMMENT_PANEL_DEFAULT_HEIGHT + COMMENT_PADDING;
+            mainContainer.appendChild(panel);
+        }
+
+        /* Ajust the size of the panel and positions of the components inside each panel */
+        let preHeightOffset = 0;
+        for (let i = 0; i < comments.length; i++) {
+            let textParagraph = document.getElementById(`comment_content_${i}`);
+            let textHeight = textParagraph.getBoundingClientRect().height;
+            let optimalHeight = Math.max(COMMENT_CONTENT_DEFAULT_HEIGHT, textHeight);
+            let heightDiff = optimalHeight - COMMENT_CONTENT_DEFAULT_HEIGHT;
+            let container = document.getElementById(`comment_${i}`);
+            let containerDiv = document.getElementById(`comment_div_${i}`);
+
+            if (preHeightOffset > 0) {
+                container.style.top = container.offsetTop + preHeightOffset + "px";
+            }
+
+            if (heightDiff > 0) {
+                preHeightOffset += heightDiff;
+                container.style.height = COMMENT_PANEL_DEFAULT_HEIGHT + heightDiff + "px";
+                containerDiv.style.height = COMMENT_PANEL_DEFAULT_HEIGHT + heightDiff + "px";
+
+                let upvoteButton = document.getElementById(`comment_upvote_${i}`);
+                let downvoteButton = document.getElementById(`comment_downvote_${i}`);
+                let upvotesLabel = document.getElementById(`comment_upvotes_label_${i}`);
+                let replyButton = document.getElementById(`comment_reply_button_${i}`);
+                let timeLabel = document.getElementById(`comment_time_${i}`);
+
+                let componentsList = [upvoteButton, downvoteButton, upvotesLabel, replyButton, timeLabel];
+                componentsList.forEach(component => {
+                    component.style.top = COMPONENT_DEFAULT_TOP + heightDiff + "px";
+                });
+            }
+        }
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </div>

@@ -52,9 +52,22 @@ class ForumDetailView(DetailView):
         context['form_comment'] = CommentForm()
         return context
     '''
+    def post(self, request, pk):
+        context ={}
+        if request.method == "POST":
+            comment_content = request.POST["comment_content"]
+            post = Post.objects.get(id=pk)
+            new_comment = Comment(user_id=request.user.id, forum_id=post.id, desc=comment_content)
+            new_comment.save()
+            comments = Comment.objects.filter(forum_id=post.id)
+            context["post"] = post
+            context["comments"] = comments
+        return render(request, "forum/post_detail.html", context=context)
+
     def get(self, request, slug):
         post = Post.objects.filter(slug=slug)[0]
-        context = {"post": post}
+        comments = Comment.objects.filter(forum_id=post.id)
+        context = {"post": post, "comments": comments}
         return render(request, "forum/post_detail.html", context=context)
 
 
