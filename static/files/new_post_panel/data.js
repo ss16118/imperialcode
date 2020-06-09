@@ -1,3 +1,6 @@
+let newPostContent = "";
+let tempTextArea = null;
+
 function expandNewPostButtonOnClick() {
     let expandButton = document.getElementById("u474");
     let closeButton = document.getElementById("u475");
@@ -52,4 +55,30 @@ function closeButtonOnClick() {
     let newPostPanel = document.getElementById("u471");
     newPostPanel.style.visibility = "hidden";
     newPostPanel.style.display = "none";
+}
+
+function togglePreview() {
+    let previewButtonText = document.getElementById("u516_text");
+    let contentAreaContainer = document.getElementById("u479");
+    let isEditMode = previewButtonText.innerText.localeCompare("Preview") == 0;
+
+    if (isEditMode) {
+        let contentArea = document.getElementById("u479_input");
+        newPostContent = contentArea.value;
+        tempTextArea = contentArea;
+        let displayBlock = document.createElement("div");
+        displayBlock.id = "temp";
+        displayBlock.style.padding = "1em";
+        displayBlock.style.zIndex = 1500;
+        displayBlock.innerHTML = marked(newPostContent);
+        contentAreaContainer.removeChild(contentArea);
+        contentAreaContainer.appendChild(displayBlock);
+        previewButtonText.innerHTML = "Edit";
+    } else {
+        let displayBlock = document.getElementById("temp");
+        tempTextArea.value = newPostContent;
+        contentAreaContainer.removeChild(displayBlock);
+        contentAreaContainer.appendChild(tempTextArea);
+        previewButtonText.innerHTML = "Preview";
+    }
 }

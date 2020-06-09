@@ -42,6 +42,7 @@
     <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
     <script src={% static "data/document.js" %}></script>
     <script src={% static "files/post_detail/data.js" %}></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
       $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
@@ -197,10 +198,11 @@
         const INITIAL_TOP_POS = 165;
         const PADDING = 55;
         const MIN_TOP_POS = 275;
-        let postTextHeight = document.getElementById("post_content").getBoundingClientRect().height
+        let postContent = document.getElementById("post_content");
+        postContent.innerHTML = marked(postContent.innerHTML);
+        let postTextHeight = postContent.getBoundingClientRect().height;
         let bottomSeparator = document.getElementById("u580");
         let commentPanel = document.getElementById("u581");
-
         bottomSeparator.style.top = Math.max(INITIAL_TOP_POS + postTextHeight + PADDING, MIN_TOP_POS)  + "px";
         commentPanel.style.top = bottomSeparator.offsetTop + PADDING - 30 + "px";
 
