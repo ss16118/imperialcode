@@ -426,19 +426,20 @@
         function register_vote(type) {
             type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
             diff = type - userVote;
+            let upvoteLabel = document.getElementById("u208_text");
+            upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
+            userVote = type;
+            displayVote()
             $.ajax({
                 type: "POST",
                 url: "/register_problem_vote/",
+                async: false,
                 data: {
                     "pname": "{{ selected_paper.title }}",
                     "type": type,
                     "csrfmiddlewaretoken": window.CSRF_TOKEN
                 },
                 success: function(_) {
-                    let upvoteLabel = document.getElementById("u208_text");
-                    upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
-                    userVote = type;
-                    displayVote()
                 }
             });
         }

@@ -349,6 +349,7 @@ def comment_detail(request):
     context = {"post":comment, "prev_page" : str(prev_page)}
     return render(request, "home/comment_detail.html", context)
 
+
 def random_problem(request):
     results = Problem.objects.filter(~Q(type = Problem.Type.EXAM), category=Problem.Category.NONE)
     if len(results) == 0:
@@ -357,6 +358,7 @@ def random_problem(request):
     problem = results[r]
     name = problem.title
     return redirect("/question_solving_page?papername=" + name)
+
 
 def signup_page(request):
     return render(request, "home/signup_page.html")
