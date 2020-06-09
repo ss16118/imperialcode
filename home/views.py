@@ -7,8 +7,7 @@ from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
 from django.http import HttpResponse
-from django.db.models import Q
-from django.urls import resolve
+from django.db.models import Q, Sum
 import re
 import random
 
@@ -117,7 +116,7 @@ def all_problems_page(request):
         selected_problem_info["desc"] = selected_problems[0].desc
         selected_problem_info["year"] = selected_problems[0].year
         selected_problem_info["difficulty"] = selected_problems[0].difficulty
-        selected_problem_info["upvotes"] = 0
+        selected_problem_info["upvotes"] = __get_problem_votes(selected_problems[0].id)
         selected_problem_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
     selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
@@ -180,6 +179,7 @@ def past_papers_page(request):
     user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)
     num_subquestions = len(Question.objects.filter(problem__title=selected_title))
     selected_paper_info = {}
+    user_vote = UserVotes.objects.filter(user_id=request.user.id, problem__title=selected_title)
     if len(selected_paper) == 0:
         selected_paper_info["title"] = ""
         selected_paper_info["desc"] = ""
@@ -188,15 +188,17 @@ def past_papers_page(request):
         selected_paper_info["difficulty"] = 0
         selected_paper_info["upvotes"] = 0
         selected_paper_info["progress"] = 0
+        selected_paper_info["user_vote"] = 0
     else:
         selected_paper_info["title"] = selected_paper[0].title
         selected_paper_info["desc"] = selected_paper[0].desc
         selected_paper_info["year"] = selected_paper[0].year
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
-        selected_paper_info["upvotes"] = 0
+        selected_paper_info["upvotes"] = __get_problem_votes(selected_paper[0].id)
         selected_paper_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
+        selected_paper_info["user_vote"] = user_vote[0].vote if user_vote else 0
 
     selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
     context = {"display_papers": results, "selected_paper": selected_paper_info}
@@ -415,11 +417,17 @@ def register_problem_vote(request):
         pname = request.POST.get("pname")
         vote_type = int(request.POST.get("type"))
         problem = Problem.objects.get(title=pname)
-        user_vote = UserVotes.objects.get(user_id=request.user.id, problem=problem.id)
+        user_vote = UserVotes.objects.filter(user_id=request.user.id, problem=problem.id)
         if user_vote:
-            user_vote.vote = vote_type
-            user_vote.save()
+            user_vote[0].vote = vote_type
+            user_vote[0].save()
         else:
-            new_vote = UserVotes(user=request.user.id, problem_id=problem.id, vote=vote_type)
+            new_vote = UserVotes(user_id=request.user.id, problem_id=problem.id, vote=vote_type)
             new_vote.save()
     return HttpResponse("", content_type="text/plain")
+
+
+def __get_problem_votes(problem_id):
+    total_votes = UserVotes.objects.filter(problem_id=problem_id).aggregate(Sum("vote"))["vote__sum"]
+    return total_votes if total_votes else 0
+    

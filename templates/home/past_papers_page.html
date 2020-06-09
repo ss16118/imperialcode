@@ -259,6 +259,7 @@
           <p><span>Completion: </span></p>
         </div>
       </div>
+      {% if selected_paper.title != "" %}
       <!-- Bootstrap progress bar -->
       <div class="progress" style="position:absolute; left:1250px; top:526px; width:124px; height:18px">
         <div id="paper_progress_bar" class="progress-bar progress-bar-striped bg-info" role="progressbar"
@@ -267,6 +268,7 @@
             {{ selected_paper.progress }}%
         </div>
       </div>
+      {% endif %}
       <!-- Unnamed (Rectangle) -->
       <div id="u205" class="ax_default box_1">
         <div id="u205_div" class=""></div>
@@ -276,16 +278,21 @@
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u206" class="ax_default image" onclick="register_vote(1)">
-        <img id="u206_img" class="img " src={% static "images/past_papers_page/default_upvote.png" %}/>
+      {% if selected_paper.title != "" %}
+      <div id="u206" class="ax_default image" onclick="register_vote(UP)">
+        <img id="u206_img" class="img " src={% static "images/past_papers_page/default_upvote.png" %}
+                onmouseover="this.src='{% static 'images/past_papers_page/u206.png' %}';"
+                onmouseout="this.src='{% static 'images/past_papers_page/default_upvote.png' %}';"/>
         <div id="u206_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u207" class="ax_default image">
-        <img id="u207_img" class="img " src={% static "images/past_papers_page/default_downvote.png" %}/>
+      <div id="u207" class="ax_default image" onclick="register_vote(DOWN)">
+        <img id="u207_img" class="img " src={% static "images/past_papers_page/default_downvote.png" %}
+                onmouseover="this.src='{% static 'images/past_papers_page/u207.png' %}';"
+                onmouseout="this.src='{% static 'images/past_papers_page/default_downvote.png' %}';"/>
         <div id="u207_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
@@ -298,6 +305,7 @@
           {{selected_paper.upvotes}}
         </div>
       </div>
+      {% endif %}
 
       <!-- Unnamed (Image) -->
       <div id="u209" class="ax_default image">
@@ -328,6 +336,53 @@
 
         let pastPapersList = document.getElementById("u192_input");
         pastPapersList.value = "{{ selected_paper.title }}";
+
+        /* Vote display */
+        const UP = 1;
+        const NO_VOTE = 0;
+        const DOWN = -1;
+        let userVote = {{ selected_paper.user_vote }};
+        let upvoteButton = document.getElementById("u206_img");
+        let downvoteButton = document.getElementById("u207_img");
+
+        let toggleUpvoteButton = function(activate) {
+            let defaultPath = "{% static 'images/past_papers_page/default_upvote.png' %}";
+            let activatePath = "{% static 'images/past_papers_page/u206.png' %}";
+            upvoteButton.src = activate ? activatePath : defaultPath;
+            upvoteButton.onmouseover = function () {
+                upvoteButton.src = activate ? defaultPath : activatePath;
+            };
+            upvoteButton.onmouseout = function () {
+                upvoteButton.src = activate ? activatePath : defaultPath;
+            }
+        }
+        let toggleDownvoteButton = function(activate) {
+            let defaultPath = "{% static 'images/past_papers_page/default_downvote.png' %}";
+            let activatePath = "{% static 'images/past_papers_page/u207.png' %}";
+            downvoteButton.src = activate ? activatePath : defaultPath;
+            downvoteButton.onmouseover = function () {
+                downvoteButton.src = activate ? defaultPath : activatePath;
+            };
+            downvoteButton.onmouseout = function () {
+                downvoteButton.src = activate ? activatePath : defaultPath;
+            }
+        }
+
+
+        function displayVote() {
+            if (userVote == UP) {
+                toggleDownvoteButton(false);
+                toggleUpvoteButton(true);
+            } else if (userVote == DOWN) {
+                toggleDownvoteButton(true);
+                toggleUpvoteButton(false);
+            } else {
+                toggleDownvoteButton(false);
+                toggleUpvoteButton(false);
+            }
+        }
+        displayVote();
+        /* Vote display */
 
         function displayInfo(title) {
             if (currentUrl.searchParams.get("p") !== null) {
@@ -369,6 +424,8 @@
         }
 
         function register_vote(type) {
+            type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
+            diff = type - userVote;
             $.ajax({
                 type: "POST",
                 url: "/register_problem_vote/",
@@ -379,7 +436,9 @@
                 },
                 success: function(_) {
                     let upvoteLabel = document.getElementById("u208_text");
-                    upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + type;
+                    upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
+                    userVote = type;
+                    displayVote()
                 }
             });
         }

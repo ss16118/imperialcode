@@ -2124,6 +2124,10 @@
   height:17px;
   display:flex;
 }
+#u206:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
 #u206 .text {
   position:absolute;
   align-self:center;
@@ -2153,6 +2157,10 @@
   width:18px;
   height:17px;
   display:flex;
+}
+#u207:hover {
+  cursor:pointer;
+  background-color: lightgray;
 }
 #u207 .text {
   position:absolute;
