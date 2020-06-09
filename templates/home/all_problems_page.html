@@ -225,7 +225,7 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u247" class="ax_default button">
+      <div id="u247" class="ax_default button" onclick="startQuestionPaperOnClick()">
         <div id="u247_div" class=""></div>
         <div id="u247_text" class="text ">
           <p><span>Start</span></p>
@@ -455,6 +455,16 @@
                 currentUrl.searchParams.append("p", title);
             }
             window.location.href = currentUrl.toString();
+        }
+
+
+        function startQuestionPaperOnClick() {
+            // If there is a paper selected
+            if (currentUrl.searchParams.get("p") !== null) {
+                window.location.href = `/question_solving_page?papername=` + currentUrl.searchParams.get("p").toString();
+            } else {
+                alert("Please select a problem to start!");
+            }
         }
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
