@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.urls import resolve
 import re
+import random
 
 # logger = logging.getLogger(__name__)
 # logging.basicConfig(filename="logs/imperialcode_debug.log", level=logging.DEBUG)
@@ -344,6 +345,14 @@ def comment_detail(request):
     context = {"post":comment, "prev_page" : str(prev_page)}
     return render(request, "home/comment_detail.html", context)
 
+def random_problem(request):
+    results = Problem.objects.filter(~Q(type = Problem.Type.EXAM), category=Problem.Category.NONE)
+    if len(results) == 0:
+        return redirect("/")
+    r = random.randint(0, len(results) - 1)
+    problem = results[r]
+    name = problem.title
+    return redirect("/question_solving_page?papername=" + name)
 
 def signup_page(request):
     return render(request, "home/signup_page.html")

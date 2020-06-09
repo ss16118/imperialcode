@@ -37,7 +37,8 @@ urlpatterns = [
                   url(r'^record_current_question/$', views.record_current_question),
                   url(r'^comment_detail', views.comment_detail),
                   url(r'^vote/up/?$', views.vote_up),
-                  url(r'^vote/down/?$', views.vote_down)
+                  url(r'^vote/down/?$', views.vote_down),
+                  url(r'^random_problem', views.random_problem)
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'
