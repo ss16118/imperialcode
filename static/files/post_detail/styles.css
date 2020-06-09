@@ -2870,3 +2870,43 @@ div.time_label_text {
 .u622:last-child {
   padding-bottom: 20px;
 }
+#u641_img {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:71px;
+  height:31px;
+}
+#u641 {
+  border-width:0px;
+  position:absolute;
+  left:528px;
+  top:133px;
+  width:70px;
+  height:30px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:12px;
+  color:#000000;
+}
+#u641 .text {
+  position:absolute;
+  align-self:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
+}
+#u641_img.mouseOver {
+}
+#u641:hover {
+  cursor:pointer;
+  background-color: #F2F2F2;
+}
+#u641_text {
+  border-width:0px;
+  word-wrap:break-word;
+  text-transform:none;
+}

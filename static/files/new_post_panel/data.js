@@ -9,9 +9,11 @@ function expandNewPostButtonOnClick() {
     let dummyImage = document.getElementById("u478");
     let descriptionArea = document.getElementById("u479");
     let divider = document.getElementById("u480");
+    let previewButton = document.getElementById("u516");
     let panel = document.getElementById("u473");
 
-    let components = [expandButton, closeButton, postButton, titleField, dummyImage, descriptionArea, divider, panel];
+    let components = [expandButton, closeButton, postButton, titleField, dummyImage,
+        descriptionArea, divider, panel, previewButton];
     let expanded = expandButton.innerHTML.localeCompare("⮟") == 0;
 
     let posDif = expanded ? 277 : -277;
