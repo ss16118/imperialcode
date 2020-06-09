@@ -118,7 +118,7 @@ def all_problems_page(request):
         selected_problem_info["year"] = selected_problems[0].year
         selected_problem_info["difficulty"] = selected_problems[0].difficulty
         selected_problem_info["upvotes"] = selected_problems[0].upvotes
-        selected_problem_info["progress"] = round((len(user_progress[0].progress) / num_subquestions) * 100, 2) \
+        selected_problem_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
     selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
     context = {"display_problems": results,
@@ -195,7 +195,7 @@ def past_papers_page(request):
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
         selected_paper_info["upvotes"] = selected_paper[0].upvotes
-        selected_paper_info["progress"] = round((len(user_progress[0].progress) / num_subquestions) * 100, 2) \
+        selected_paper_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
 
     selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
@@ -408,12 +408,13 @@ def server_error_view(request, *args, **kwargs):
 # voting system
 # /vote/up
 def vote_up(request):
-    problem_id = request.GET.get("id") if request.GET.get("id") is not None else ""
-    print(problem_id)
-    selected_problem = Problem.objects.get(id=problem_id)
-    selected_problem.upvotes += 1
-    selected_problem.save()
-
+    if request.method == "POST":
+        pname = request.POST.get("pname")
+        print("Paper {} upvoted".format(pname))
+        selected_problem = Problem.objects.get(title=pname)
+        selected_problem.upvotes += 1
+        selected_problem.save()
+    return HttpResponse("", content_type="text/plain")
 
 
 # /vote/down
@@ -423,3 +424,4 @@ def vote_down(request):
     selected_problem = Problem.objects.get(id=problem_id)
     selected_problem.upvotes -= 1
     selected_problem.save()
+    return HttpResponse("", content_type="text/plain")

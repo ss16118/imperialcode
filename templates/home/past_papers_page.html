@@ -44,7 +44,6 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -277,7 +276,7 @@
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u206" class="ax_default image">
+      <div id="u206" class="ax_default image" onclick="voteUp()">
         <img id="u206_img" class="img " src={% static "images/past_papers_page/u206.png" %}/>
         <div id="u206_text" class="text " style="display:none; visibility: hidden">
           <p></p>
@@ -296,7 +295,7 @@
       <div id="u208" class="ax_default heading_1">
         <div id="u208_div" class=""></div>
         <div id="u208_text" class="text ">
-          <p><span>{{selected_paper.upvotes}}</span></p>
+          <p>{{selected_paper.upvotes}}</p>
         </div>
       </div>
 
@@ -307,16 +306,9 @@
           <p></p>
         </div>
       </div>
-
-      <!-- COUNTING UPVOTES (testing stage) -->
-      <div id="u210" class="ax_default heading_1">
-        <div id="u210_div" class=""></div>
-        <div id="u210_text" class="text ">
-          <p><span>{{selected_paper.upvotes}} <a href="vote/up/?id={{selected_paper.id}}">up</a></span></p>
-        </div>
-      </div>
     </div>
     <script>
+        window.CSRF_TOKEN = "{{ csrf_token }}";
         let currentUrl = new URL(window.location.href);
 
         const DEFAULT_KEYWORDS = "";
@@ -375,6 +367,22 @@
                 alert("Please select a paper to start!");
             }
         }
+
+        function voteUp() {
+            $.ajax({
+                type: "POST",
+                url: "/vote_up/",
+                data: {
+                    "pname": "{{ selected_paper.title }}",
+                    "csrfmiddlewaretoken": window.CSRF_TOKEN
+                },
+                success: function(_) {
+                    let upvoteLabel = document.getElementById("u208_text");
+                    console.log(upvoteLabel.innerHTML);
+                }
+            });
+        }
+
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>
