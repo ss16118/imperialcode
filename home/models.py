@@ -47,7 +47,6 @@ class Problem(models.Model):
     ])
     category = models.CharField(max_length=50, choices=Category.OPTIONS, default=Category.NONE)
     type = models.CharField(max_length=50, choices=Type.OPTIONS, default=Type.NONE)
-    upvotes = models.IntegerField()
 
     def __str__(self):
         return self.title
@@ -96,8 +95,17 @@ class QuestionComment(models.Model):
 
 
 class UserVotes(models.Model):
+    UP = 1
+    NO_VOTE = 0
+    DOWN = -1
+    VOTE_OPTIONS = (
+        (UP, 1),
+        (NO_VOTE, 0),
+        (DOWN, -1)
+    )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)
 
 '''
 class ActionLog(models.Model):

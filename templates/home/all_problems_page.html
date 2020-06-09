@@ -42,6 +42,13 @@
     <script src={% static "data/document.js" %}></script>
     <script src={% static "files/all_problems_page/data.js" %}></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif'%}"; };
       $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
@@ -225,7 +232,7 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u247" class="ax_default button">
+      <div id="u247" class="ax_default button" onclick="startQuestionPaperOnClick()">
         <div id="u247_div" class=""></div>
         <div id="u247_text" class="text ">
           <p><span>Start</span></p>
@@ -266,7 +273,16 @@
         </div>
       </div>
 
+      <!-- Bootstrap progress bar -->
+      <div class="progress" style="position:absolute; left:1342px; top:570px; width:124px; height:18px">
+        <div id="paper_progress_bar" class="progress-bar progress-bar-striped bg-info" role="progressbar"
+             aria-valuenow="{{ selected_problem.progress }}" aria-valuemin="0" aria-valuemax="100"
+             style="width:{{ selected_problem.progress }}%; color:black">
+            {{ selected_problem.progress }}%
+        </div>
+      </div>
       <!-- Unnamed (Image) -->
+
       <div id="u251" class="ax_default image">
         <img id="u251_img" class="img " src={% static "images/past_papers_page/u206.png" %}/>
         <div id="u251_text" class="text " style="display:none; visibility: hidden">
@@ -299,12 +315,14 @@
       </div>
 
       <!-- Unnamed (Image) -->
+      <!--
       <div id="u255" class="ax_default image">
         <img id="u255_img" class="img " src={% static "images/past_papers_page/u203.png" %}/>
         <div id="u255_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
       </div>
+      -->
 
       <!-- Unnamed (Rectangle) -->
       <div id="u256" class="ax_default heading_1">
@@ -455,6 +473,16 @@
                 currentUrl.searchParams.append("p", title);
             }
             window.location.href = currentUrl.toString();
+        }
+
+
+        function startQuestionPaperOnClick() {
+            // If there is a paper selected
+            if (currentUrl.searchParams.get("p") !== null) {
+                window.location.href = `/question_solving_page?papername=` + currentUrl.searchParams.get("p").toString();
+            } else {
+                alert("Please select a problem to start!");
+            }
         }
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
