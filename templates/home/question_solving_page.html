@@ -120,7 +120,7 @@
                 <iframe id="u279_input" src="{{ paper.spec_path }}" data-label="Spec" scrolling="auto" frameborder="1"
                         webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </div>
-
+              
               <!-- Single question (Text Area) -->
               <div id="u280" class="ax_default text_area disabled" data-label="Single question">
                 <div id="u280_div" class="disabled"></div>
@@ -161,6 +161,7 @@
             </div>
           </div>
 
+          {% if not is_empty %}
           <!-- Unnamed (Rectangle) -->
           <div id="u307" class="ax_default button" onclick="goto_discuss()">
             <div id="u307_div" class=""></div>
@@ -168,7 +169,7 @@
               <p><span>💬 Discuss</span></p>
             </div>
           </div>
-
+          {% endif %}
           <!-- Unnamed (Rectangle) -->
           <div id="u308" class="ax_default button">
             <div id="u308_div" class=""></div>
