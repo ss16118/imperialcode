@@ -356,7 +356,11 @@ def single_post_page(request):
 
 @login_required
 def user_info_page(request):
-    return render(request, "home/user_info_page.html")
+    user = request.user
+    context = {
+        "current_user": user
+    }
+    return render(request, "home/user_info_page.html", context)
 
 
 def start(request):
