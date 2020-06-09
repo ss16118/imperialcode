@@ -47,7 +47,6 @@ class Problem(models.Model):
     ])
     category = models.CharField(max_length=50, choices=Category.OPTIONS, default=Category.NONE)
     type = models.CharField(max_length=50, choices=Type.OPTIONS, default=Type.NONE)
-    upvotes = models.IntegerField()
 
     def __str__(self):
         return self.title

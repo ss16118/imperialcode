@@ -5,7 +5,7 @@ from home.models import Problem, Question, CodeSegment, UserProgress, QuestionCo
 # Register your models here.
 @admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
-    list_display = ['title', 'language', 'year', 'desc', 'difficulty', 'upvotes']
+    list_display = ['title', 'language', 'year', 'desc', 'difficulty']
 
 
 @admin.register(Question)

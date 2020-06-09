@@ -117,7 +117,7 @@ def all_problems_page(request):
         selected_problem_info["desc"] = selected_problems[0].desc
         selected_problem_info["year"] = selected_problems[0].year
         selected_problem_info["difficulty"] = selected_problems[0].difficulty
-        selected_problem_info["upvotes"] = selected_problems[0].upvotes
+        selected_problem_info["upvotes"] = 0
         selected_problem_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
     selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
@@ -194,7 +194,7 @@ def past_papers_page(request):
         selected_paper_info["year"] = selected_paper[0].year
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
-        selected_paper_info["upvotes"] = selected_paper[0].upvotes
+        selected_paper_info["upvotes"] = 0
         selected_paper_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
             if user_progress else 0
 
@@ -405,23 +405,17 @@ def server_error_view(request, *args, **kwargs):
     return response
 
 
-# voting system
-# /vote/up
-def vote_up(request):
+# register problem vote
+def register_problem_vote(request):
     if request.method == "POST":
         pname = request.POST.get("pname")
-        print("Paper {} upvoted".format(pname))
-        selected_problem = Problem.objects.get(title=pname)
-        selected_problem.upvotes += 1
-        selected_problem.save()
-    return HttpResponse("", content_type="text/plain")
-
-
-# /vote/down
-def vote_down(request):
-    problem_id = request.GET.get("id") if request.GET.get("id") is not None else ""
-    print(problem_id)
-    selected_problem = Problem.objects.get(id=problem_id)
-    selected_problem.upvotes -= 1
-    selected_problem.save()
+        vote_type = int(request.POST.get("type"))
+        problem = Problem.objects.get(title=pname)
+        user_vote = UserVotes.objects.get(user_id=request.user.id, problem=problem.id)
+        if user_vote:
+            user_vote.vote = vote_type
+            user_vote.save()
+        else:
+            new_vote = UserVotes(user=request.user.id, problem_id=problem.id, vote=vote_type)
+            new_vote.save()
     return HttpResponse("", content_type="text/plain")
