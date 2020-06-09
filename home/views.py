@@ -137,6 +137,7 @@ def forum_page(request):
 def index(request):
     progress = UserProgress.objects.filter(user_id=request.user.id)
     problem_title = ""
+    upvoted_questions = Problem.objects.all()
     if progress:
         progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
