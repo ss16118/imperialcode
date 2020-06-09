@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
+
+from forum.models import Post
 from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
@@ -366,8 +368,12 @@ def single_post_page(request):
 @login_required
 def user_info_page(request):
     user = request.user
+    post_set = Post.objects.filter(user=user)
+
     context = {
-        "current_user": user
+        "current_user": user,
+        "user_posts": post_set
+        # tried to add a new model for activity but decided to hold it for now
     }
     return render(request, "home/user_info_page.html", context)
 
