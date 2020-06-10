@@ -27,7 +27,7 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if self.pk is None:
             self.slug = slugify(self.title) + '-' + time.strftime("%Y%m%d%H%M%S")
-            super(Post, self).save(*args, **kwargs)
+        super(Post, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):

@@ -64,10 +64,7 @@ class ForumDetailView(DetailView):
             post.title = post_title
             post.desc = post_content
             post.save()
-            comments = Comment.objects.filter(forum_id=post.id)
-            context["post"] = post
-            context["comments"] = comments
-        return HttpResponse("", content_type="text/plain");
+        return HttpResponse("", content_type="text/plain")
 
     def get(self, request, slug):
         post = Post.objects.filter(slug=slug)[0]
