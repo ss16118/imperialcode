@@ -104,6 +104,91 @@
   height:513px;
 }
 </style>
+
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Button used to open the chat form - fixed at the bottom of the page */
+    .open-button {
+      background-color: lightskyblue;
+      color: black;
+      padding: 3px 5px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: absolute;
+      left: 151px;
+      top: 216px;
+      height: 25px;
+      width: 150px;
+      z-index: 8;
+    }
+
+    /* The popup chat - hidden by default */
+    .chat-popup {
+      display: none;
+      position: absolute;
+      top: 255px;
+      left: 49px;
+      width: 400px;
+      height: auto;
+      border: 3px solid dimgray;
+      z-index: 9;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      max-width: 600px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    /* Full-width textarea */
+    .form-container textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #f1f1f1;
+      resize: none;
+      max-height: 10px;
+    }
+
+    /* When the textarea gets focus, do something */
+    .form-container textarea:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+
+    /* Set a style for the submit/send button */
+    .form-container .btn {
+      background-color: cornflowerblue;
+      color: black;
+      padding: 4px 8px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 2px;
+      opacity: 0.8;
+    }
+
+    /* Add a red background color to the cancel button */
+    .form-container .cancel {
+      background-color: lightgray;
+    }
+
+    /* Add some hover effects to buttons */
+    .form-container .btn:hover, .open-button:hover {
+      opacity: 1;
+    }
+  </style>
 <!--  end inline styles-->
 
 
@@ -201,15 +286,32 @@
               </div>
             </div>
 
+
             <!-- Unnamed (Rectangle) -->
-            <a href="{% url 'password_change' %}">
-            <div id="u110" class="ax_default button">
-              <div id="u110_div" class=""></div>
-              <div id="u110_text" class="text ">
-                <p><span>Change password</span></p>
-              </div>
-            </div>
-            </a>
+                <button class="open-button" onclick="openForm()">Change My Password</button>
+
+                <div class="chat-popup" id="myForm">
+                  <form action="/action_page.php" class="form-container">
+                    <label><b>your old password: </b></label>
+                    <textarea placeholder="Type message.." name="msg" required></textarea>
+                    <label><b>your old password: </b></label>
+                    <textarea placeholder="Type message.." name="msg" required></textarea>
+                    <label><b>confitm your new password: </b></label>
+                    <textarea placeholder="Type message.." name="msg" required></textarea>
+                    <button type="submit" class="btn">Confirm</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                  </form>
+                </div>
+
+
+            <script>
+              function openForm() {
+                document.getElementById("myForm").style.display = "block";
+              }
+              function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+              }
+            </script>
 
             <!-- Unnamed (Rectangle) -->
             <div id="u111" class="ax_default heading_1">
@@ -489,6 +591,7 @@
           <p><span>Settings</span></p>
         </div>
       </div>
+
       <script>
         function openTab(evt, tabName) {
           // clean the active class
