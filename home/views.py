@@ -141,6 +141,7 @@ def index(request):
     upvotes = []
     for problem in all_problems:
         total = sum([uv.vote for uv in UserVotes.objects.filter(problem = problem)])
+        problem.difficulty = problem.difficulty * "★"
         upvotes.append((total, problem))
     upvotes.sort(key=lambda x:x[0], reverse=True)
     most_upvoted = upvotes[:min(len(upvotes),9)]
