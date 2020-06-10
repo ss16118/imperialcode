@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
   {% load static %}
   <head>
@@ -8,6 +8,9 @@
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "files/user_info_page/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
     <script src={% static "resources/scripts/axure/axQuery.js" %}></script>
     <script src={% static "resources/scripts/axure/globals.js" %}></script>
@@ -46,15 +49,79 @@
       $axure.utils.getReloadPath = function() { return "{% static 'resources/reload.html' %}"; };
     </script>
   </head>
+
+
+<!--  inline styles -->
+<style>
+* {box-sizing: border-box}
+
+/* Style the tab */
+.tab {
+  float: left;
+  background-color: #f1f1f1;
+  border-width:0px;
+  position:absolute;
+  left:96px;
+  top:136px;
+  width:255px;
+  height:40px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: white;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: lightskyblue;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: lightskyblue;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  position: absolute;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+
+  left:401px;
+  top:136px;
+  width:603px;
+  height:513px;
+}
+</style>
+<!--  end inline styles-->
+
+
   <body>
     <div id="base" class="">
 
       {% include "home/../global_components/navbar.html" %}
       <div id="u82" style="display:none; visibility:hidden;"></div>
 
-      <!-- Settings area (Dynamic Panel) -->
-      <div id="u99" class="ax_default" data-label="Settings area">
-        <div id="u99_state0" class="panel_state" data-label="Basic info setting" style="">
+      <!-- tabs implementation -->
+      <div class="tab" data-label="Settings area">
+        <button class="tablinks active" onclick="openTab(event, 'My Account')">🐵 My Account</button>
+        <button class="tablinks" onclick="openTab(event, 'Posts')">📄 Posts</button>
+        <button class="tablinks" onclick="openTab(event, 'Activities')">🖊️ Activities</button>
+        <button class="tablinks" onclick="openTab(event, 'Notifications')">🔔 Notifications</button>
+      </div>
+
+      <div id="My Account" class="tabcontent fade in active">
           <div id="u99_state0_content" class="panel_state_content">
 
             <!-- Unnamed (Rectangle) -->
@@ -151,8 +218,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <div id="u99_state1" class="panel_state" data-label="Posts setting" style="visibility: hidden;">
+
+      </div>
+
+      <div id="Posts" class="tabcontent fade ">】
           <div id="u99_state1_content" class="panel_state_content">
 
             <!-- Unnamed (Rectangle) -->
@@ -170,118 +239,11 @@
                 <p><span>My Posts</span></p>
               </div>
             </div>
+          </div>、
+      </div>
 
-            <!-- Unnamed (Group) -->
-            <div id="u114" class="ax_default" data-left="49" data-top="95" data-width="505" data-height="42">
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u115" class="ax_default box_2">
-                <div id="u115_div" class=""></div>
-                <div id="u115_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u116" class="ax_default heading_1">
-                <div id="u116_div" class=""></div>
-                <div id="u116_text" class="text ">
-                  <p><span>Post title 1</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u117" class="ax_default heading_1">
-                <div id="u117_div" class=""></div>
-                <div id="u117_text" class="text ">
-                  <p><span>▲ 12</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u118" class="ax_default heading_1">
-                <div id="u118_div" class=""></div>
-                <div id="u118_text" class="text ">
-                  <p><span>🗨 3</span></p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Unnamed (Group) -->
-            <div id="u119" class="ax_default" data-left="49" data-top="139" data-width="505" data-height="42">
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u120" class="ax_default box_2">
-                <div id="u120_div" class=""></div>
-                <div id="u120_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u121" class="ax_default heading_1">
-                <div id="u121_div" class=""></div>
-                <div id="u121_text" class="text ">
-                  <p><span>Post title 2</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u122" class="ax_default heading_1">
-                <div id="u122_div" class=""></div>
-                <div id="u122_text" class="text ">
-                  <p><span>▲ 3</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u123" class="ax_default heading_1">
-                <div id="u123_div" class=""></div>
-                <div id="u123_text" class="text ">
-                  <p><span>🗨 0</span></p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Unnamed (Group) -->
-            <div id="u124" class="ax_default" data-left="49" data-top="183" data-width="505" data-height="42">
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u125" class="ax_default box_2">
-                <div id="u125_div" class=""></div>
-                <div id="u125_text" class="text " style="display:none; visibility: hidden">
-                  <p></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u126" class="ax_default heading_1">
-                <div id="u126_div" class=""></div>
-                <div id="u126_text" class="text ">
-                  <p><span>Post title 3</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u127" class="ax_default heading_1">
-                <div id="u127_div" class=""></div>
-                <div id="u127_text" class="text ">
-                  <p><span>▲ 5</span></p>
-                </div>
-              </div>
-
-              <!-- Unnamed (Rectangle) -->
-              <div id="u128" class="ax_default heading_1">
-                <div id="u128_div" class=""></div>
-                <div id="u128_text" class="text ">
-                  <p><span>🗨 1</span></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="u99_state2" class="panel_state" data-label="Activities setting" style="visibility: hidden;">
-          <div id="u99_state2_content" class="panel_state_content">
+      <div id="Activities" class="tabcontent fade ">
+        <div id="u99_state2_content" class="panel_state_content">
 
             <!-- Unnamed (Rectangle) -->
             <div id="u129" class="ax_default box_1">
@@ -439,9 +401,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <div id="u99_state3" class="panel_state" data-label="Notifications setting" style="visibility: hidden;">
-          <div id="u99_state3_content" class="panel_state_content">
+      </div>
+
+      <div id="Notifications" class="tabcontent fade ">
+        <div id="u99_state3_content" class="panel_state_content">
 
             <!-- Unnamed (Rectangle) -->
             <div id="u151" class="ax_default box_1">
@@ -515,32 +478,8 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
-
-      <!-- Unnamed (Rectangle) -->
-      <div id="u161" class="ax_default button selected" selectiongroup="Settings Group">
-        <img id="u161_img" class="img " src={% static "images/user_info_page/u161_selected.svg" %}/>
-        <div id="u161_text" class="text ">
-          <p><span>My Account</span></p>
-        </div>
-      </div>
-
-      <!-- Unnamed (Rectangle) -->
-      <div id="u162" class="ax_default button" selectiongroup="Settings Group">
-        <img id="u162_img" class="img " src={% static "images/user_info_page/u161.svg" %}/>
-        <div id="u162_text" class="text ">
-          <p><span>📄 Posts</span></p>
-        </div>
-      </div>
-
-      <!-- Unnamed (Rectangle) -->
-      <div id="u163" class="ax_default button" selectiongroup="Settings Group">
-        <img id="u163_img" class="img " src={% static "images/user_info_page/u161.svg" %}/>
-        <div id="u163_text" class="text ">
-          <p><span style="color:#000000;">🔔 </span><span>Notifications</span></p>
-        </div>
-      </div>
+<!--   tabs implementation   -->
 
       <!-- Unnamed (Rectangle) -->
       <div id="u164" class="ax_default heading_1">
@@ -549,14 +488,42 @@
           <p><span>Settings</span></p>
         </div>
       </div>
+      <script>
+        function openTab(evt, tabName) {
+          // clean the active class
+          var tabs = ['My Account', 'Posts', 'Activities', 'Notifications'];
+          var x;
+          for (x of tabs) {
+            if (document.getElementById(x).classList.contains('avtive')) {
+              document.getElementById(x).classList.remove('avtive')
+              document.getElementById(x).classList.remove('in')
+            }
+          }
 
-      <!-- Unnamed (Rectangle) -->
-      <div id="u165" class="ax_default button" selectiongroup="Settings Group">
-        <img id="u165_img" class="img " src={% static "images/user_info_page/u161.svg" %}/>
-        <div id="u165_text" class="text ">
-          <p><span>🖊️Activities</span></p>
-        </div>
-      </div>
+          document.getElementById(tabName).classList.add('in')
+          document.getElementById(tabName).classList.add('active')
+
+          // Declare all variables
+          var i, tabcontent, tablinks;
+
+          // Get all elements with class="tabcontent" and hide them
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+
+          // Get all elements with class="tablinks" and remove the class "active"
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+
+          // Show the current tab, and add an "active" class to the link that opened the tab
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+      </script>
+
     </div>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>

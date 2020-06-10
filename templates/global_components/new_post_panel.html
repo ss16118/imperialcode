@@ -5,6 +5,7 @@
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "files/new_post_panel/styles.css" %} type="text/css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="text/javascript" src={% static "files/new_post_panel/data.js" %}></script>
     <title>Title</title>
 </head>
@@ -37,7 +38,13 @@
             <p><span>Close</span></p>
           </div>
         </div>
-
+        <!-- PreviewButton (Rectangle) -->
+        <div id="u516" class="ax_default button" data-label="PreviewButton" onclick="togglePreview()">
+          <div id="u516_div" class=""></div>
+          <div id="u516_text" class="text ">
+            <p><span>Preview</span></p>
+          </div>
+        </div>
       <form action="" method="POST">
           {% csrf_token %}
         <!-- Post title field (Text Field) -->
@@ -57,9 +64,9 @@
         </div>
 
         <!-- Unnamed (Text Area) -->
-        <div id="u479" class="ax_default text_area">
+        <div id="u479" class="ax_default text_area" style="overflow: auto">
           <div id="u479_div" class=""></div>
-          <textarea id="u479_input" name="post_content" class="u479_input"></textarea>
+          <textarea id="u479_input" name="post_content" class="u479_input" style="padding:1em;"></textarea>
         </div>
 
         <!-- Unnamed (Line) -->
@@ -73,7 +80,7 @@
           <!-- Unnamed (Rectangle) -->
         <div id="u476" class="ax_default button">
           <div id="u476_text" class="text " type="submit"></div>
-          <input id="u476_div" class="" type="submit" value="✉ Post" onsubmit="window.location.reload()"/>
+          <input id="u476_div" class="" type="submit" value="✉ Post"/>
         </div>
       </form>
       </div>

@@ -45,7 +45,8 @@ function createPostPanel(link, num, author, title, createdAt, upvotes, commentNu
               '</div>',
             '</div>',
           '</div>',
-        '<\div>'
+        '</div>',
+        '</a>'
     ].join("\n");
     return panelHTML;
 }
