@@ -1,5 +1,5 @@
 ﻿﻿<!DOCTYPE html>
-<html>
+<html lang="en">
   {% load static %}
   <head>
     <title>User Info Page</title>
@@ -60,7 +60,8 @@
       <!-- tabs implementation -->
       <div class="tab" data-label="Settings area">
         <button class="tablinks active" onclick="openTab(event, 'My Account')">🐵 My Account</button>
-        <button class="tablinks" onclick="openTab(event, 'Posts')">📄 Posts / Comments</button>
+        <button class="tablinks" onclick="openTab(event, 'Posts')">📄 Forum Posts / Comments</button>
+        <button class="tablinks" onclick="openTab(event, 'Question Comments')">Question Comments</button>
         <button class="tablinks" onclick="openTab(event, 'Activities')">🖊️ Activities</button>
         <button class="tablinks" onclick="openTab(event, 'Notifications')">🔔 Notifications</button>
       </div>
@@ -193,26 +194,35 @@
       </div>
 
       <div id="Posts" class="tabcontent fade ">
-          <div id="u99_state1_content" class="panel_state_content">
+        <div id="" class="ax_default box_1 post_container ">
+          <div id="post_comments_container" class="post_container_div ">
 
-            <!-- Unnamed (Rectangle) -->
-            <div id="u112" class="ax_default box_1">
-              <div id="u112_div" class=""></div>
-              <div id="u112_text" class="text " style="display:none; visibility: hidden">
-                <p></p>
+            <div id="" class="ax_default heading_1 u113">
+              <div id="" class="u113_div"></div>
+              <div id="" class="text u113_text">
+                <p><span>My Forum Posts</span></p>
               </div>
             </div>
 
+          </div>
+        </div>
+      </div>
+
+      <div id="Question Comments" class="tabcontent fade ">
+          <div id="u99_state1_content" class="panel_state_content">
             <!-- Unnamed (Rectangle) -->
-            <div id="u113" class="ax_default heading_1">
-              <div id="u113_div" class=""></div>
-              <div id="u113_text" class="text ">
-                <p><span>My Posts / Comments</span></p>
+            <div id="" class="ax_default box_1 post_container ">
+              <div id="" class="post_container_div ">
+                <div id="u113" class="ax_default heading_1">
+                  <div id="u113_div" class=""></div>
+                  <div id="u113_text" class="text ">
+                    <p><span>My Question Comments</span></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
       </div>
-
       <div id="Activities" class="tabcontent fade ">
         <div id="u99_state2_content" class="panel_state_content">
 
@@ -461,9 +471,35 @@
       </div>
 
       <script>
+
+        let container = document.getElementById("post_comments_container");
+        {% for post in user_posts %}
+            container.appendChild(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.title }}", {{ post.upvotes }}, 0));
+        {% endfor %}
+
+        initialTopPos += {{ user_posts|length }} * (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) + 15;
+
+        let forumCommentLabelHTML = [
+            `<div id="" class="ax_default heading_1 u113" style="top:${initialTopPos}px">`,
+              '<div id="" class="u113_div"></div>',
+              '<div id="" class="text u113_text">',
+                '<p><span>My Forum Comments</span></p>',
+              '</div>',
+            '</div>'
+        ].join("\n");
+
+        let tempLabel = document.createElement("div");
+        tempLabel.innerHTML = forumCommentLabelHTML;
+        container.appendChild(tempLabel.firstChild);
+
+        initialTopPos += DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING;
+
+        {% for comment in  user_comments %}
+            container.appendChild(createPostPanel("{% url 'forum-detail' comment.post_slug %}", {{ forloop.counter0 }}, "Comment on {{ comment.post_title }}", "{{ comment.upvotes }}", 0));
+        {% endfor %}
         function openTab(evt, tabName) {
           // clean the active class
-          var tabs = ['My Account', 'Posts', 'Activities', 'Notifications'];
+          var tabs = ['My Account', 'Posts', 'Question Comments', 'Activities', 'Notifications'];
           var x;
           for (x of tabs) {
             if (document.getElementById(x).classList.contains('active')) {

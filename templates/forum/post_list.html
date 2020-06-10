@@ -80,7 +80,7 @@
       <!-- Unnamed (Text Field) -->
       <div id="u430" class="ax_default text_field">
         <div id="u430_div" class=""></div>
-        <input id="u430_input" type="search" value="" class="u430_input"/>
+        <input id="u430_input" type="search" value="" class="u430_input" placeholder="Search post title, description, or IDs"/>
       </div>
 
       <!-- Unnamed (Shape) -->
@@ -128,16 +128,12 @@
           {% for post in posts %}
               panelsHTML.push(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, {{ post.num_comments }}, {{ post.views }}));
           {% endfor %}
+
           panelsHTML.forEach(panelHTML => {
               let html = document.createElement("div");
               html.innerHTML = panelHTML;
               document.getElementById("u420_div").append(html);
           });
-
-          let allLinks = document.links;
-          for (let i = 0; i < allLinks.length; i++) {
-              console.log(allLinks[i]);
-          }
       </script>
 
       <!-- New Post Form -->

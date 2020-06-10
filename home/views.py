@@ -3,7 +3,7 @@ import logging
 from django.contrib.auth import authenticate, login as loginuser
 from django.contrib.auth.models import User as Authuser
 
-from forum.models import Post
+from forum.models import Post, Comment
 from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
@@ -388,10 +388,22 @@ def single_post_page(request):
 def user_info_page(request):
     user = request.user
     post_set = Post.objects.filter(user=user)
-
+    comment_set = Comment.objects.filter(user=user)
+    comments = []
+    for comment in comment_set.iterator():
+        corresponding_post = Post.objects.get(id=comment.forum_id)
+        comments.append({
+            "post_slug": corresponding_post.slug,
+            "post_title": corresponding_post.title,
+            "upvotes": 0,
+            "created_at": comment.created_at
+        })
+    question_comment_set = QuestionComment.objects.filter(user=user)
     context = {
         "current_user": user,
-        "user_posts": post_set
+        "user_posts": post_set,
+        "user_comments": comments,
+        "question_comments": question_comment_set
         # tried to add a new model for activity but decided to hold it for now
     }
     return render(request, "home/user_info_page.html", context)
