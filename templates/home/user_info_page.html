@@ -3,6 +3,7 @@
   {% load static %}
   <head>
     <title>User Info Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
@@ -50,164 +51,16 @@
     </script>
   </head>
 
-
-<!--  inline styles -->
-<style>
-* {box-sizing: border-box}
-
-/* Style the tab */
-.tab {
-  float: left;
-  background-color: #f1f1f1;
-  border-width:0px;
-  position:absolute;
-  left:96px;
-  top:136px;
-  width:255px;
-  height:40px;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  display: block;
-  background-color: white;
-  color: black;
-  padding: 22px 16px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: lightskyblue;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: lightskyblue;
-}
-
-/* Style the tab content */
-.tabcontent {
-  float: left;
-  position: absolute;
-  padding: 0px 12px;
-  border: 1px solid #ccc;
-
-  left:401px;
-  top:136px;
-  width:603px;
-  height:513px;
-}
-</style>
-
-
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    /* Button used to open the chat form - fixed at the bottom of the page */
-    .open-button {
-      background-color: lightskyblue;
-      color: black;
-      padding: 3px 5px;
-      border: none;
-      cursor: pointer;
-      opacity: 0.8;
-      position: absolute;
-      left: 151px;
-      top: 216px;
-      height: 25px;
-      width: 150px;
-      z-index: 8;
-    }
-
-    /* The popup chat - hidden by default */
-    .chat-popup {
-      display: none;
-      position: absolute;
-      top: 255px;
-      left: 49px;
-      width: 400px;
-      height: auto;
-      border: 3px solid dimgray;
-      z-index: 9;
-    }
-
-    /* Add styles to the form container */
-    .form-container {
-      max-width: 600px;
-      padding: 10px;
-      background-color: white;
-    }
-
-    /* Full-width textarea */
-    .form-container textarea {
-      width: 100%;
-      padding: 15px;
-      margin: 5px 0 22px 0;
-      border: none;
-      background: #f1f1f1;
-      resize: none;
-      max-height: 10px;
-    }
-
-    /* When the textarea gets focus, do something */
-    .form-container textarea:focus {
-      background-color: #ddd;
-      outline: none;
-    }
-
-    /* Set a style for the submit/send button */
-    .form-container .btn {
-      background-color: cornflowerblue;
-      color: black;
-      padding: 4px 8px;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      margin-bottom: 2px;
-      opacity: 0.8;
-    }
-
-    /* Add a red background color to the cancel button */
-    .form-container .cancel {
-      background-color: lightgray;
-    }
-
-    /* Add some hover effects to buttons */
-    .form-container .btn:hover, .open-button:hover {
-      opacity: 1;
-    }
-
-    .modal-backdrop {
-      /* bug fix - no overlay */
-      display: none;
-    }
-  </style>
-  <!--  end inline styles-->
-
-
   <body>
     <div id="base" class="">
 
       {% include "home/../global_components/navbar.html" %}
-      {% include "home/../global_components/navbar_multidevice.html" %}
       <div id="u82" style="display:none; visibility:hidden;"></div>
 
       <!-- tabs implementation -->
       <div class="tab" data-label="Settings area">
         <button class="tablinks active" onclick="openTab(event, 'My Account')">🐵 My Account</button>
-        <button class="tablinks" onclick="openTab(event, 'Posts')">📄 Posts</button>
+        <button class="tablinks" onclick="openTab(event, 'Posts')">📄 Posts / Comments</button>
         <button class="tablinks" onclick="openTab(event, 'Activities')">🖊️ Activities</button>
         <button class="tablinks" onclick="openTab(event, 'Notifications')">🔔 Notifications</button>
       </div>
@@ -339,7 +192,7 @@
 
       </div>
 
-      <div id="Posts" class="tabcontent fade ">】
+      <div id="Posts" class="tabcontent fade ">
           <div id="u99_state1_content" class="panel_state_content">
 
             <!-- Unnamed (Rectangle) -->
@@ -354,10 +207,10 @@
             <div id="u113" class="ax_default heading_1">
               <div id="u113_div" class=""></div>
               <div id="u113_text" class="text ">
-                <p><span>My Posts</span></p>
+                <p><span>My Posts / Comments</span></p>
               </div>
             </div>
-          </div>、
+          </div>
       </div>
 
       <div id="Activities" class="tabcontent fade ">
@@ -613,8 +466,8 @@
           var tabs = ['My Account', 'Posts', 'Activities', 'Notifications'];
           var x;
           for (x of tabs) {
-            if (document.getElementById(x).classList.contains('avtive')) {
-              document.getElementById(x).classList.remove('avtive')
+            if (document.getElementById(x).classList.contains('active')) {
+              document.getElementById(x).classList.remove('active')
               document.getElementById(x).classList.remove('in')
             }
           }

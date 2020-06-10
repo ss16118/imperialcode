@@ -100,7 +100,7 @@
       <div id="u584" class="ax_default heading_1">
         <div id="u584_div" class=""></div>
         <div id="u584_text" class="text ">
-          <p><span>🗨 {{post.views}}</span></p>
+          <p><span>🗨 {{ comments|length }}</span></p>
         </div>
       </div>
 
@@ -254,6 +254,7 @@
         /* Ajust the size of the panel and positions of the components inside each panel */
         let preHeightOffset = 0;
         for (let i = 0; i < comments.length; i++) {
+            let commentContentContainer = document.getElementById(`comment_content_container_${i}`);
             let textParagraph = document.getElementById(`comment_content_${i}`);
             let textHeight = textParagraph.getBoundingClientRect().height;
             let optimalHeight = Math.max(COMMENT_CONTENT_DEFAULT_HEIGHT, textHeight);

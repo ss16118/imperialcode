@@ -15,8 +15,19 @@ class ForumListView(SuccessMessageMixin, ListView):
     context_object_name = "objPosts"
 
     def get(self, request):
-        context = {"posts": Post.objects.order_by('-created_at')}
-        print(len(context['posts']))
+        posts = []
+        for post in Post.objects.order_by('-created_at').iterator():
+            num_comments = len(Comment.objects.filter(forum_id=post.id))
+            posts.append({
+                "slug": post.slug,
+                "title": post.title,
+                "user": post.user,
+                "created_at": post.created_at,
+                "upvotes": post.upvotes,
+                "num_comments": num_comments,
+                "views": post.views
+            })
+        context = {"posts": posts, "num_comments": num_comments}
         return render(request, "forum/post_list.html", context)
 
     def post(self, request):
@@ -68,7 +79,9 @@ class ForumDetailView(DetailView):
 
     def get(self, request, slug):
         post = Post.objects.filter(slug=slug)[0]
-        comments = Comment.objects.filter(forum_id=post.id)
+        post.views += 1
+        post.save()
+        comments = Comment.objects.filter(forum_id=post.id).order_by("-created_at")
         context = {"post": post, "comments": comments}
         return render(request, "forum/post_detail.html", context=context)
 
@@ -109,6 +122,7 @@ class CommentCreateView(SuccessMessageMixin, CreateView):
         context = {}
         if request.method == "POST":
             comment_content = request.POST["comment_content"]
+            comment_content = comment_content.replace("`", "\`")
             post = Post.objects.get(id=pk)
             new_comment = Comment(user_id=request.user.id, forum_id=post.id, desc=comment_content)
             new_comment.save()
