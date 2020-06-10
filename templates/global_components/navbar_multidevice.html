@@ -12,7 +12,6 @@
     "data/styles.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static
     "files/navbar/styles.css" %} type="text/css" rel="stylesheet"/>
-
 </head>
 
 <style>
@@ -26,7 +25,7 @@
         left: 0;
         background-color: aliceblue;
         overflow-x: hidden; /* Disable horizontal scroll */
-        padding-top: 25px; /* Place content 60px from the top */
+        padding-top: 50px; /* Place content 60px from the top */
         transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
     }
 
@@ -48,8 +47,8 @@
     /* Position and style the close button (top right corner) */
     .sidebar .closebtn {
         position: absolute;
-        top: 6px;
-        right: 25px;
+        top: 0;
+        right: 10px;
         font-size: 36px;
         margin-left: 50px;
     }
@@ -87,6 +86,46 @@
         }
     }
 
+    #logo_img {
+        border-width: 0px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 170px;
+        height: 25px;
+    }
+
+    #logo {
+        border-width: 0px;
+        position: absolute;
+        left: 30px;
+        top: 25px;
+        width: 175px;
+        height: 25px;
+        display: flex;
+    }
+
+    #logo .text {
+        position: absolute;
+        align-self: center;
+        padding: 2px 2px 2px 2px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    #logo_img.mouseOver {
+    }
+
+    #logo.mouseOver {
+    }
+
+    #logo_text {
+        border-width: 0px;
+        word-wrap: break-word;
+        text-transform: none;
+        visibility: hidden;
+    }
+
 
 </style>
 
@@ -94,6 +133,21 @@
 
 <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <div>
+        <a href="{% url 'home_page' %}">
+            <div id="logo" class="ax_default image">
+                <img id="logo_img" class="img " src={% static "images/index/u14.png" %}
+                onmouseover="this.src='{% static 'images/index/u14_mouseOver.png' %}';"
+                onmouseout="this.src='{% static 'images/index/u14.png' %}';"
+                />
+                <div id="logo_text" class="text " style="display:none; visibility: hidden">
+                    <p></p>
+                </div>
+            </div>
+        </a>
+    </div>
+
     <a href="{% url 'forum-list' %}">💬 Forum</a>
     <a href="{% url 'past_papers_page' %}">📝 Pastpaper</a>
     <a href="{% url 'all_problems_page' %}">✒️ Problems</a>
