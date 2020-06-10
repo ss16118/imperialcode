@@ -188,8 +188,13 @@
     .form-container .btn:hover, .open-button:hover {
       opacity: 1;
     }
+
+    .modal-backdrop {
+      /* bug fix - no overlay */
+      display: none;
+    }
   </style>
-<!--  end inline styles-->
+  <!--  end inline styles-->
 
 
   <body>
@@ -288,20 +293,30 @@
 
 
             <!-- Unnamed (Rectangle) -->
-                <button class="open-button" onclick="openForm()">Change My Password</button>
+            <button type="button" class="open-button" data-toggle="modal" data-target="#myModal">Change My Password</button>
 
-                <div class="chat-popup" id="myForm">
-                  <form action="/action_page.php" class="form-container">
-                    <label><b>your old password: </b></label>
-                    <textarea placeholder="Type message.." name="msg" required></textarea>
-                    <label><b>your old password: </b></label>
-                    <textarea placeholder="Type message.." name="msg" required></textarea>
-                    <label><b>confitm your new password: </b></label>
-                    <textarea placeholder="Type message.." name="msg" required></textarea>
-                    <button type="submit" class="btn">Confirm</button>
-                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                  </form>
+            <div class="modal fade" id="myModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div>
+                    <form action="(change password action later in BE)" class="form-container">
+                      <label><b>your old password: </b></label>
+                      <textarea placeholder="Type message.." name="msg" required></textarea>
+                      <label><b>your old password: </b></label>
+                      <textarea placeholder="Type message.." name="msg" required></textarea>
+                      <label><b>confitm your new password: </b></label>
+                      <textarea placeholder="Type message.." name="msg" required></textarea>
+                      <button type="submit" class="btn">Confirm</button>
+
+                    </form>
+                  </div>
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
                 </div>
+              </div>
+            </div>
 
 
             <script>
