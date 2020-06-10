@@ -137,11 +137,22 @@ def forum_page(request):
 def index(request):
     progress = UserProgress.objects.filter(user_id=request.user.id)
     problem_title = ""
+    all_problems = Problem.objects.all()
+    upvotes = []
+    for problem in all_problems:
+        total = sum([uv.vote for uv in UserVotes.objects.filter(problem = problem)])
+        upvotes.append((total, problem))
+    upvotes.sort(key=lambda x:x[0], reverse=True)
+    most_upvoted = upvotes[:min(len(upvotes),9)]
+    obj = type('obj', (object,), {'language' : '','title':'', "difficulty":""})
+    for i in range (9 - len(most_upvoted)):
+        most_upvoted.append(('', obj))
+
     if progress:
         progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
         print("Last modified {}".format(problem_title))
-    context = {"last_modified_problem": problem_title}
+    context = {"last_modified_problem": problem_title, "most_upvoted": most_upvoted}
     return render(request, "home/index.html", context)
 
 
@@ -215,10 +226,6 @@ def problem_creation_page(request):
 
 @login_required
 def question_comment_page(request):
-    # if request.method == "POST":
-    #     pname = request.POST["papername"]
-    #     qindex = int(request.POST["question_index"])
-    # else:
     pname = request.GET.get("papername")
     qindex = int(request.GET.get("question_index"))
     qname = pname + " question " + str(qindex)
@@ -311,7 +318,6 @@ def run_code(request):
 def question_solving_page(request):
     pname = request.GET.get("papername")
     paper = Problem.objects.filter(title=pname)[0]
-
     questions = Question.objects.filter(problem__title=pname).order_by("question_index")
     code_segments_stored = CodeSegment.objects.filter(problem__title=pname).order_by("index")
     code_segments = []
@@ -345,6 +351,8 @@ def question_solving_page(request):
 def comment_detail(request):
     comment_id = int(request.GET.get("id"))
     comment = QuestionComment.objects.filter(id= comment_id)[0]
+    comment.views += 1
+    comment.save()
     prev_page = request.META.get('HTTP_REFERER')
     context = {"post":comment, "prev_page" : str(prev_page)}
     return render(request, "home/comment_detail.html", context)
