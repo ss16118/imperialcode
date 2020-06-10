@@ -238,7 +238,7 @@ def question_comment_page(request):
         comment = QuestionComment(question = question, parent_comment= None, user = request.user,
              title= comment_title, desc = content)
         comment.save()
-    comments = QuestionComment.objects.filter(question = question_id)
+    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None)
     context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex}
 
     return render(request, "home/question_comment_page.html", context)
@@ -354,8 +354,13 @@ def comment_detail(request):
     comment = QuestionComment.objects.filter(id= comment_id)[0]
     comment.views += 1
     comment.save()
+    if request.method == "POST":
+        new_comment = QuestionComment(question= comment.question, parent_comment=comment,
+        user= comment.user,title="", desc= request.POST["comment_content"])
+        new_comment.save()
     prev_page = request.META.get('HTTP_REFERER')
-    context = {"post":comment, "prev_page" : str(prev_page)}
+    comments = QuestionComment.objects.filter(parent_comment= comment)
+    context = {"post":comment, "prev_page" : str(prev_page), "comments":comments}
     return render(request, "home/comment_detail.html", context)
 
 
