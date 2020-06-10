@@ -137,12 +137,22 @@ def forum_page(request):
 def index(request):
     progress = UserProgress.objects.filter(user_id=request.user.id)
     problem_title = ""
-    upvoted_questions = Problem.objects.all()
+    all_problems = Problem.objects.all()
+    upvotes = []
+    for problem in all_problems:
+        total = sum([uv.vote for uv in UserVotes.objects.filter(problem = problem)])
+        upvotes.append((total, problem))
+    upvotes.sort(key=lambda x:x[0], reverse=True)
+    most_upvoted = upvotes[:min(len(upvotes),9)]
+    obj = type('obj', (object,), {'language' : '','title':'', "difficulty":""})
+    for i in range (9 - len(most_upvoted)):
+        most_upvoted.append(('', obj))
+
     if progress:
         progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
         print("Last modified {}".format(problem_title))
-    context = {"last_modified_problem": problem_title}
+    context = {"last_modified_problem": problem_title, "most_upvoted": most_upvoted}
     return render(request, "home/index.html", context)
 
 
