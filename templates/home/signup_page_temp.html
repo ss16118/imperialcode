@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title> Sign Up Page </title>
+	</head>
+	<body bgcolor = "#f0f4f4">
+    <form action="." method="post" >
+	  <div class = "log_in_frame">
+      {%csrf_token%}
+		<p strong style = "text-align: center; font-size: 30px; font-family: Times New Roman; font-weight: bold">Sign Up Now!</p>
+		<p align = "center"><input id="username" name="username" type="text" placeholder="user name" style = "text-align: center"></p>
+		<p align = "center"><input id="password" name="password" type="password" placeholder="password" style = "text-align: center"></p>
+		<p align = "center"><input id="confirmpassword" name ="confirmpassword" type="password" placeholder="confirm password" style = "text-align: center"></p>
+		<div align = "center">
+			<input type="submit" value="sign_up" style = "text-align: center">
+		</div>
+		<div style = "text-align:center; color:red; margin-top : 20px">
+			{{msg}}
+		</div>
+  </div>
+  </form>
+	</body>
+
+</html>

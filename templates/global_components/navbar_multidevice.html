@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>NavBar</title>
+
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
+    <link href={% static
+    "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static
+    "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static
+    "files/navbar/styles.css" %} type="text/css" rel="stylesheet"/>
+
+</head>
+
+<style>
+    /* The sidebar menu */
+    .sidebar {
+        height: 100%; /* 100% Full-height */
+        width: 0; /* 0 width - change this with JavaScript */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 40px;
+        left: 0;
+        background-color: aliceblue;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 25px; /* Place content 60px from the top */
+        transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+    }
+
+    /* The sidebar links */
+    .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 17px;
+        color: dimgray;
+        display: block;
+        transition: 0.3s;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidebar a:hover {
+        color: black;
+    }
+
+    /* Position and style the close button (top right corner) */
+    .sidebar .closebtn {
+        position: absolute;
+        top: 6px;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    /* The button used to open the sidebar */
+    .openbtn {
+        font-size: 15px;
+        position: absolute;
+        top: 40px;
+        cursor: pointer;
+        background-color: lightgray;
+        color: black;
+        padding: 10px 15px;
+        border: none;
+    }
+
+    .openbtn:hover {
+        background-color: lightblue;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+    #main {
+        transition: margin-left .5s; /* If you want a transition effect */
+        padding: 0;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+        .sidebar {
+            padding-top: 15px;
+        }
+
+        .sidebar a {
+            font-size: 18px;
+        }
+    }
+
+
+</style>
+
+<body>
+
+<div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="{% url 'forum-list' %}">💬 Forum</a>
+    <a href="{% url 'past_papers_page' %}">📝 Pastpaper</a>
+    <a href="{% url 'all_problems_page' %}">✒️ Problems</a>
+
+    <div>
+        <span>
+            <a href="">🔔 Notifications</a>
+            <a href="{% url 'user_info_page' %}">👤 My Account</a>
+        </span>
+        <a href="{% url 'logout'%}?next={% url 'landing_page' %}">
+            <p><span>↲ Sign out</span></p>
+        </a>
+    </div>
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openNav()">&#9776; Menu</button>
+</div>
+
+<script>
+    /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+    function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+
+</script>
+
+</body>
+</html>
