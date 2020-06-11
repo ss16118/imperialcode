@@ -318,6 +318,8 @@ def run_code(request):
 @login_required
 def question_solving_page(request):
     pname = request.GET.get("papername")
+    if len(Problem.objects.filter(title=pname))==0:
+        return redirect('/')
     paper = Problem.objects.filter(title=pname)[0]
     questions = Question.objects.filter(problem__title=pname).order_by("question_index")
     code_segments_stored = CodeSegment.objects.filter(problem__title=pname).order_by("index")
