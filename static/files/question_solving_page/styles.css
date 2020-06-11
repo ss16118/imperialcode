@@ -2097,20 +2097,8 @@
   box-sizing:border-box;
   width:100%;
 }
-#u307_div.mouseOver {
-  border-width:0px;
-  position:absolute;
-  left:0px;
-  top:0px;
-  width:81px;
-  height:40px;
-  background:inherit;
-  background-color:rgba(129, 211, 248, 0);
-  border:none;
-  border-radius:5px;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  box-shadow:none;
+#u307:hover {
+  cursor:pointer;
   font-family:'SF Pro Display Bold', 'SF Pro Display', sans-serif;
   font-weight:700;
   font-style:normal;

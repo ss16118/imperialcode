@@ -275,8 +275,8 @@ def question_comment_page(request):
         comment = QuestionComment(question=question, parent_comment=None, user=request.user,
                                   title=comment_title, desc=content)
         comment.save()
-    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None).order_by('-created_at')
-    context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex, "user_agent":user_agent}
+    comments = QuestionComment.objects.filter(question=question_id, parent_comment=None).order_by('-created_at')
+    context = {"qname": qname, "posts": comments, "pname": pname, "qindex": qindex, "user_agent": user_agent}
 
     return render(request, "home/question_comment_page.html", context)
 
@@ -390,6 +390,9 @@ def question_solving_page(request):
     return render(request, "home/question_solving_page.html", context)
 
 
+prev_page = ""
+
+
 def comment_detail(request):
     user_agent = get_user_agent(request)
     comment_id = int(request.GET.get("id"))
@@ -401,12 +404,15 @@ def comment_detail(request):
         comment.title = new_title
         comment.desc = new_content
     comment.save()
+    global prev_page
     if request.method == "POST":
+        comment_content = request.POST["comment_content"]
         new_comment = QuestionComment(question=comment.question, parent_comment=comment,
-                                      user=comment.user, title="", desc=request.POST["comment_content"])
+                                      user=request.user, title="", desc=comment_content.replace("`", "\`"))
         new_comment.save()
-    prev_page = request.META.get('HTTP_REFERER')
-    sub_comments = QuestionComment.objects.filter(parent_comment=comment)
+    else:
+        prev_page = request.META.get('HTTP_REFERER')
+    sub_comments = QuestionComment.objects.filter(parent_comment=comment).order_by("-created_at")
     context = {"post": comment, "prev_page": str(prev_page), "comments": sub_comments, "user_agent": user_agent}
     return render(request, "home/comment_detail.html", context)
 

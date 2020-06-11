@@ -251,11 +251,11 @@
             mainContainer.appendChild(panel);
         }
 
-        /* Ajust the size of the panel and positions of the components inside each panel */
+        /* Adjust the size of the panel and positions of the components inside each panel */
         let preHeightOffset = 0;
         for (let i = 0; i < comments.length; i++) {
             let commentContentContainer = document.getElementById(`comment_content_container_${i}`);
-            let textParagraph = document.getElementById(`comment_content_${i}`);
+            let textParagraph = document.getElementById(`comment_content_text_${i}`);
             let textHeight = textParagraph.getBoundingClientRect().height;
             let optimalHeight = Math.max(COMMENT_CONTENT_DEFAULT_HEIGHT, textHeight);
             let heightDiff = optimalHeight - COMMENT_CONTENT_DEFAULT_HEIGHT;

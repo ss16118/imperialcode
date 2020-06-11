@@ -57,7 +57,7 @@ function createCommentPanel(index, topPos, author, commentContent, createdAt, up
     let descendants = commentPanel.querySelectorAll("*");
     for (let i = 0; i < descendants.length; i++) {
         if (descendants[i].id === `comment_content_${index}`) {
-            descendants[i].innerHTML = marked(commentContent);
+            descendants[i].innerHTML = marked(decode(commentContent));
         }
     }
     return commentPanel;
@@ -95,14 +95,14 @@ function toggleCommentPreview() {
       tempEditCommentContent = contentArea.value;
       tempTextArea = contentArea;
       let displayBlock = createMarkdownBlock("temp_comment", tempEditCommentContent, contentArea.style.height);
-      contentAreaContainer.removeChild(contentArea);
+      contentArea.style.display = "none";
       contentAreaContainer.appendChild(displayBlock);
       previewButtonText.innerHTML = "Edit";
   } else {
       let displayBlock = document.getElementById("temp_comment");
       tempTextArea.value = tempEditCommentContent;
       contentAreaContainer.removeChild(displayBlock);
-      contentAreaContainer.appendChild(tempTextArea);
+      tempTextArea.style.display = "flex";
       previewButtonText.innerHTML = "Preview";
   }
 }
@@ -138,3 +138,7 @@ function activateTab() {
     }
   });
 }
+
+let decode = function(encodedString) {
+    return $("<p/>").html(encodedString).text();
+};
