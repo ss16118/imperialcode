@@ -1389,7 +1389,7 @@
 #u43 {
   border-width:0px;
   position:absolute;
-  left:1122px;
+  left:1115px;
   top:529px;
   width:241px;
   height:19px;
@@ -1419,7 +1419,7 @@
   width:161px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1490,7 +1490,7 @@
   width:122px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1561,7 +1561,7 @@
   width:114px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1632,7 +1632,7 @@
   width:153px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1703,7 +1703,7 @@
   width:161px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -1774,7 +1774,7 @@
   width:114px;
   height:26px;
   background:inherit;
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(255, 255, 255, 0);
   box-sizing:border-box;
   border-width:1px;
   border-style:solid;
@@ -3708,4 +3708,8 @@
   border-width:0px;
   word-wrap:break-word;
   text-transform:none;
+}
+div.category_button:hover {
+  cursor: pointer;
+  background-color: lightgrey;
 }
