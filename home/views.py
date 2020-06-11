@@ -1,6 +1,9 @@
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 import logging
-from django.contrib.auth import authenticate, login as loginuser
+from django.contrib.auth import authenticate, login as loginuser, update_session_auth_hash
+from django.contrib.auth.views import PasswordResetForm
 from django.contrib.auth.models import User as Authuser
 
 from forum.models import Post
@@ -452,4 +455,19 @@ def register_problem_vote(request):
 def __get_problem_votes(problem_id):
     total_votes = UserVotes.objects.filter(problem_id=problem_id).aggregate(Sum("vote"))["vote__sum"]
     return total_votes if total_votes else 0
-    
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'home/user_info_page.html', {
+        'form': form
+    })

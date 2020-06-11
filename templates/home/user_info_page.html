@@ -299,14 +299,19 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div>
-                    <form action="(change password action later in BE)" class="form-container">
-                      <label><b>your old password: </b></label>
-                      <textarea placeholder="Type message.." name="msg" required></textarea>
-                      <label><b>your old password: </b></label>
-                      <textarea placeholder="Type message.." name="msg" required></textarea>
-                      <label><b>confitm your new password: </b></label>
-                      <textarea placeholder="Type message.." name="msg" required></textarea>
-                      <button type="submit" class="btn">Confirm</button>
+                    <form method="post" action="{% url 'change_password' %}" class="form-container">
+                      {% csrf_token %}
+                      {{ form.as_p}}
+<!--                      <input class="mt-3" type="submit" value="Change Password"/>-->
+<!--                      <input type="hidden" name="next" value="{{ next }}"/>-->
+
+<!--                      <label><b>your old password: </b></label>-->
+<!--                      <textarea placeholder="Your old password" name="msg" required></textarea>-->
+<!--                      <label><b>your new password: </b></label>-->
+<!--                      <textarea placeholder="Your new password" name="msg" required></textarea>-->
+<!--                      <label><b>confitm your new password: </b></label>-->
+<!--                      <textarea placeholder="Confirm your new password" name="msg" required></textarea>-->
+                      <button type="submit" class="btn">Change password</button>
 
                     </form>
                   </div>
