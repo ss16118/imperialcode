@@ -247,7 +247,7 @@ def question_comment_page(request):
         comment = QuestionComment(question=question, parent_comment=None, user=request.user,
                                   title=comment_title, desc=content)
         comment.save()
-    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None)
+    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None).order_by('-created_at')
     context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex, "user_agent":user_agent}
 
     return render(request, "home/question_comment_page.html", context)
