@@ -1,25 +1,134 @@
 ﻿<!DOCTYPE html>
 <html>
+  {% load static %}
+  <head>
+    <title>Landing Page</title>
+    <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
+    <link href={% static "files/signup_page/styles.css" %} type="text/css" rel="stylesheet"/>
 
-	<head>
-		<title> Sign Up Page </title>
-	</head>
-	<body bgcolor = "#f0f4f4">
-    <form action="." method="post" >
-	  <div class = "log_in_frame">
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
+      $axure.utils.getOtherPath = function() { return  "{% static 'resources/Other.html' %}"; };
+      $axure.utils.getReloadPath = function() { return  "{% static 'resources/reload.html' %}"; };
+    </script>
+  </head>
+
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Image) -->
+      <div id="u0" class="ax_default image">
+        <img id="u0_img" class="img " src={% static "images/landing_page/u0.png" %}/>
+        <div id="u0_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u1" class="ax_default box_1">
+        <div id="u1_div" class=""></div>
+        <div id="u1_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u2" class="ax_default image">
+        <img id="u2_img" class="img " src={% static "images/landing_page/u2.png" %}/>
+        <div id="u2_text" class="text " style="display:none; visibility: hidden">
+          <p></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u3" class="ax_default heading_1">
+        <div id="u3_div" class=""></div>
+        <div id="u3_text" class="text ">
+          <p><span>ImperialCode Sign Up</span></p>
+        </div>
+      </div>
+
+    <form action="." method="POST">
       {%csrf_token%}
-		<p strong style = "text-align: center; font-size: 30px; font-family: Times New Roman; font-weight: bold">Sign Up Now!</p>
-		<p align = "center"><input id="username" name="username" type="text" placeholder="user name" style = "text-align: center"></p>
-		<p align = "center"><input id="password" name="password" type="password" placeholder="password" style = "text-align: center"></p>
-		<p align = "center"><input id="confirmpassword" name ="confirmpassword" type="password" placeholder="confirm password" style = "text-align: center"></p>
-		<div align = "center">
-			<input type="submit" value="sign_up" style = "text-align: center">
-		</div>
-		<div style = "text-align:center; color:red; margin-top : 20px">
+
+      <div id="username_block" class="ax_default text_field">
+        <div id="username_div" class=""></div>
+          <input id="username" name="username" type="text" placeholder="user name" style = "text-align: center">
+      </div>
+
+      <div id="password_block" class="ax_default text_field">
+        <div id="password_div" class=""></div>
+        <input id="password" name="password" type="password" placeholder="password" style = "text-align: center">
+	  </div>
+
+      <div id="confirmpassword_block" class="ax_default text_field">
+        <div id="confirmpassword_div" class=""></div>
+        <input id="confirmpassword" name="confirmpassword" type="password" placeholder="confirmpassword" style = "text-align: center">
+	  </div>
+
+
+
+
+
+      <!-- Unnamed (Shape) -->
+      <div id="u8" class="ax_default primary_button">
+        <img id="u8_img" class="img " src={% static "images/landing_page/u8.svg" %}/>
+        <div id="u8_text" class="text " type="submit">
+          <p><span><input id='signup_submit' type="submit" value="Sign Up Now!" style="text-align:center;"/></span></p>
+        </div>
+      </div>
+
+      <div id="signup_message">
 			{{msg}}
 		</div>
-  </div>
-  </form>
-	</body>
+    </form>
 
+      <a href="{% url 'landing_page' %}">
+        <div id="u9" class="ax_default button">
+          <img id="u9_img" class="img " src={% static "images/landing_page/u9.svg" %}/>
+          <div id="u9_text" class="text ">
+            <p><span>back to login page</span></p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u6" class="ax_default label">
+        <div id="u6_div" class=""></div>
+        <div id="u6_text" class="text ">
+          <p><span>Password</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u77" class="ax_default label">
+        <div id="u77_div" class=""></div>
+        <div id="u77_text" class="text ">
+          <p><span>Confirm your Password</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u7" class="ax_default label">
+        <div id="u7_div" class=""></div>
+        <div id="u7_text" class="text ">
+          <p><span>Username</span></p>
+        </div>
+      </div>
+
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u10" class="ax_default heading_2">
+        <div id="u10_div" class=""></div>
+        <div id="u10_text" class="text ">
+          <p><span>A coding practice platform for Imperial students</span></p>
+        </div>
+      </div>
+    </div>
+    <script src={% static "resources/scripts/axure/ios.js" %}></script>
+  </body>
 </html>
