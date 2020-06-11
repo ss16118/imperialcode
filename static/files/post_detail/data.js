@@ -4,7 +4,13 @@ const COMPONENT_DEFAULT_TOP = 74;
 let tempEditPostContent = "";
 let tempEditCommentContent = "";
 let tempTextArea = null;
-function createCommentPanel(index, topPos, author, commentContent, createdAt, upvotes) {
+let commentContents = {};
+let commentMarkdownBlocks = {};
+let editCommentContents = {};
+let commentContentEditors = {};
+let commentIds = [];
+let mainPostId = 0;
+function createCommentPanel(index, topPos, author, commentContent, createdAt, upvotes, editable) {
     let panelHTML = [
         `<div id="comment_${index}" class="ax_default box_2 u622" style="top: ${topPos}px;">`,
           `<div id="comment_div_${index}" class="u622_div ">`,
@@ -49,20 +55,151 @@ function createCommentPanel(index, topPos, author, commentContent, createdAt, up
               '<div id="" class="text u628_text">',
                 '<p><span>➥ Reply</span></p>',
               '</div>',
+            '</div>'];
+    panelHTML = editable ? panelHTML.concat([
+          `<div id="comment_preview_${index}" class="ax_default button comment_preview" onclick="commentTogglePreview(${index})">`,
+            '<div id="" class="comment_preview_div"></div>',
+            `<div id="comment_preview_text_${index}" class="text comment_preview_text">`,
+              'Preview',
             '</div>',
           '</div>',
-        '</div>'
-    ].join("\n");
+          `<div id="comment_edit_${index}" class="ax_default label comment_edit" onclick="commentToggleEdit(${index})">`,
+            '<div id="" class="comment_edit_div"></div>',
+            `<div id="comment_edit_${index}" class="text comment_edit_text">`,
+              '✒️Edit',
+            '</div>',
+          '</div>',
+          `<div id="save_comment_${index}" class="ax_default label save_comment" onclick="saveCommentContent(${index})">`,
+            '<div id="" class="save_comment_div"></div>',
+              '<div id="" class="text save_comment_text">',
+                '<p><span>Save</span></p>',
+            '</div>',
+          '</div>',
+          `<div id="comment_delete_${index}" class="ax_default label comment_delete" onclick="deleteComment(${commentIds[index]})">`,
+            '<div id="" class="text comment_delete_text"></div>',
+            '<input type="submit" id="" class="comment_delete_div " value="🗑 Delete">',
+          '</div>',
+        '</div>', '</div>'
+        ]) :
+        panelHTML.concat('</div>', '</div>');
+    commentContent = decode(commentContent);
+    if (editable) {
+        commentContents[index] = commentContent;
+    }
     let commentPanel = document.createElement("div");
-    commentPanel.innerHTML = panelHTML;
+    commentPanel.innerHTML = panelHTML.join("\n");
+
     let descendants = commentPanel.querySelectorAll("*");
     for (let i = 0; i < descendants.length; i++) {
         if (descendants[i].id === `comment_content_${index}`) {
-            descendants[i].innerHTML = marked(decode(commentContent));
+            descendants[i].innerHTML = marked(commentContent);
         }
     }
     return commentPanel;
 }
+
+let deleteComment = function(id) {
+    $.ajax({
+        type: "POST",
+        url: "/delete_comment/",
+        async: false, // Just to be safe
+        data: {
+            "id": id,
+            "csrfmiddlewaretoken": window.CSRF_TOKEN
+        },
+        success: function(data) {
+            if (id != mainPostId) {
+                window.location.reload();
+            } else {
+                // Go back one page if the main post is deleted
+                document.getElementById("u570").click();
+            }
+        }
+    });
+}
+
+let saveCommentContent = function(index) {
+    $.ajax({
+        type: "POST",
+        url: "/save_comment/",
+        async: false, // Just to be safe
+        data: {
+            "id": commentIds[index],
+            "content": commentContentEditors[index].value,
+            "csrfmiddlewaretoken": window.CSRF_TOKEN
+        },
+        success: function(data) {
+            window.location.reload();
+        }
+    });
+};
+
+
+let commentTogglePreview = function(index) {
+    let commentPreviewButtonText = document.getElementById(`comment_preview_text_${index}`);
+    let isEditMode = commentPreviewButtonText.innerText.localeCompare("Preview") === 0;
+    let commentContentContainer = document.getElementById(`comment_content_container_${index}`);
+
+    if (isEditMode) {
+        commentPreviewButtonText.innerHTML = "Edit";
+        let tempContent = commentContentEditors[index].value;
+        editCommentContents[index] = tempContent;
+        let tempCommentContentBlock = createMarkdownBlock(`temp_content_md_${index}`, tempContent,
+                commentContentEditors[index].style.height, false);
+        commentContentContainer.appendChild(tempCommentContentBlock);
+        commentContentContainer.removeChild(commentContentEditors[index]);
+    } else {
+        commentPreviewButtonText.innerHTML = "Preview";
+        let commentContentEditor = commentContentEditors[index];
+        commentContentEditor.value = editCommentContents[index];
+        commentContentContainer.appendChild(commentContentEditor);
+        commentContentContainer.removeChild(document.getElementById(`temp_content_md_${index}`));
+    }
+}
+
+
+let commentToggleEdit = function(index) {
+    let commentEditButtonText = document.getElementById(`comment_edit_${index}`);
+    let isEditMode = commentEditButtonText.innerHTML.localeCompare("Cancel") == 0;
+    let commentPreviewButton = document.getElementById(`comment_preview_${index}`);
+    let commentSaveButton = document.getElementById(`save_comment_${index}`);
+    let commentDeleteButton = document.getElementById(`comment_delete_${index}`);
+    let commentContentContainer = document.getElementById(`comment_content_container_${index}`);
+
+    if (isEditMode) {
+        commentEditButtonText.innerHTML = "✒️Edit";
+        commentDeleteButton.style.display = "flex";
+        commentPreviewButton.style.display = "none";
+        commentSaveButton.style.display = "none";
+        document.getElementById(`comment_preview_text_${index}`).innerHTML = "Preview";
+
+        let commentContentEditor = document.getElementById(`comment_editor_${index}`);
+
+        if (commentContentEditor !== null) {
+            commentContentContainer.removeChild(commentContentEditor);
+        } else {
+            commentContentContainer.removeChild(document.getElementById(`temp_content_md_${index}`));
+        }
+        commentContentContainer.appendChild(commentMarkdownBlocks[index]);
+    } else {
+        commentEditButtonText.innerHTML = "Cancel";
+        commentDeleteButton.style.display = "none";
+        commentPreviewButton.style.display = "flex";
+        commentSaveButton.style.display = "flex";
+
+        // Create a textarea that surrounds the comment content
+        let commentContentEditor = document.createElement("textarea");
+        let commentContentBlock = commentMarkdownBlocks[index];
+        commentContentEditor.style.height = commentContentBlock.getBoundingClientRect().height + 10 + "px";
+        commentContentEditor.id = `comment_editor_${index}`;
+        commentContentEditor.classList += "comment_editor";
+        commentContentEditor.value = commentContents[index];
+        commentContentEditors[index] = commentContentEditor;
+
+        commentContentContainer.appendChild(commentContentEditor);
+        commentContentContainer.removeChild(commentContentBlock);
+    }
+};
 
 function togglePostPreview() {
   let previewButtonText = document.getElementById("post_content_preview_text");
@@ -107,10 +244,12 @@ function toggleCommentPreview() {
       previewButtonText.innerHTML = "Preview";
   }
 }
-function createMarkdownBlock(id, textContent, blockHeight) {
+function createMarkdownBlock(id, textContent, blockHeight, padding=true) {
     let displayBlock = document.createElement("div");
     displayBlock.id = id;
-    displayBlock.style.padding = "1em";
+    if (padding) {
+        displayBlock.style.padding = "1em";
+    }
     displayBlock.style.zIndex = "1000";
     displayBlock.style.height = blockHeight;
     displayBlock.style.overflow = "auto";

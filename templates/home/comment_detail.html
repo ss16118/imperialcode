@@ -167,14 +167,11 @@
             <p><span>Save</span></p>
           </div>
         </div>
-        <form method="post" action="{% url 'forum-delete' post.id %}">
-          {% csrf_token %}
-          <!-- Unnamed (Rectangle) -->
-          <div id="u640" class="ax_default label">
-            <div id="u640_text" class="text "></div>
-            <input type="submit" id="u640_div" class="" value="🗑 Delete">
-          </div>
-        </form>
+        <!-- Unnamed (Rectangle) -->
+        <div id="u640" class="ax_default label" onclick="deleteComment({{ post.id }})">
+          <div id="u640_text" class="text "></div>
+          <input type="submit" id="u640_div" class="" value="🗑 Delete">
+        </div>
       {% endif  %}
 
       <!-- a line -->
@@ -215,6 +212,7 @@
         const INITIAL_TOP_POS = 185;
         const PADDING = 55;
         const MIN_TOP_POS = 275;
+        mainPostId = {{ post.id }};
         let postContentContainer = document.getElementById("post_content");
         let postContent = decode(postContentContainer.innerHTML);
 
@@ -231,7 +229,9 @@
         const COMMENT_INITIAL_TOP_POS = commentPanel.offsetTop + 200;
 
         let comments = [];
+
         {% for comment in comments %}
+            commentIds.push({{ comment.id }});
             comments.push({
                 "user": "{{ comment.user }}",
                 "content": `{{ comment.desc }}`,
@@ -245,10 +245,14 @@
         const COMMENT_PADDING = 20;
         for (let i = 0; i< comments.length; i++) {
             let comment = comments[i];
+            let editable = "{{ request.user }}" === comment.user;
             let panel = createCommentPanel(i, currentTop,
-                comment["user"], comment["content"], comment["createdAt"], comment["upvotes"]);
+                comment["user"], comment["content"], comment["createdAt"], comment["upvotes"], editable);
             currentTop += COMMENT_PANEL_DEFAULT_HEIGHT + COMMENT_PADDING;
             mainContainer.appendChild(panel);
+            if (editable) {
+                commentMarkdownBlocks[i] = document.getElementById(`comment_content_text_${i}`);
+            }
         }
 
         /* Adjust the size of the panel and positions of the components inside each panel */

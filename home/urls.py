@@ -35,6 +35,8 @@ urlpatterns = [
                   url(r'^save_code/$', views.save_code),
                   url(r'^past_paper_update_progress/$', views.past_paper_update_progress),
                   url(r'^record_current_question/$', views.record_current_question),
+                  url(r'^save_comment/$', views.save_edited_comment),
+                  url(r'^delete_comment/$', views.delete_comment),
                   url(r'^comment_detail', views.comment_detail),
                   url(r'^register_problem_vote/$', views.register_problem_vote),
                   url(r'^random_problem', views.random_problem),

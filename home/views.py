@@ -511,6 +511,24 @@ def server_error_view(request, *args, **kwargs):
     return response
 
 
+def save_edited_comment(request):
+    if request.method == "POST":
+        comment_id = request.POST["id"]
+        new_content = request.POST["content"]
+        sub_comment = QuestionComment.objects.get(id=comment_id)
+        sub_comment.desc = new_content
+        sub_comment.save()
+    return HttpResponse("", content_type="text/plain")
+
+
+def delete_comment(request):
+    if request.method == "POST":
+        comment_id = request.POST["id"]
+        comment = QuestionComment.objects.get(id=comment_id)
+        comment.delete()
+    return HttpResponse("", content_type="text/plain")
+
+
 # register problem vote
 def register_problem_vote(request):
     if request.method == "POST":

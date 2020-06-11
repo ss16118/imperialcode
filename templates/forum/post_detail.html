@@ -231,6 +231,7 @@
         const COMMENT_INITIAL_TOP_POS = commentPanel.offsetTop + 200;
 
         let comments = [];
+        let commentContents = {};
         {% for comment in comments %}
             comments.push({
                 "user": "{{ comment.user }}",
@@ -238,6 +239,7 @@
                 "createdAt": "{{ comment.created_at | naturaltime }}",
                 "upvotes": {{ comment.upvotes }}
             });
+            commentContents[{{ forloop.counter0 }}] = `{{ comment.desc }}`;
         {% endfor %}
 
         let currentTop = COMMENT_INITIAL_TOP_POS;
