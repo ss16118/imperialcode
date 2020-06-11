@@ -1,7 +1,7 @@
 ﻿let initialTopPos = 95;
 const DEFAULT_POST_PANEL_HEIGHT = 42;
 const PANEL_PADDING = 5;
-function createPostPanel(link, index, postTitle, postUpvotes, postCommentNum) {
+function createPostPanel(link, index, postTitle, postUpvotes, postCommentNum, isComment) {
     let topPos = initialTopPos + (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) * index + "px";
     let panelHTML = [
         `<a href="${link}">`,
@@ -19,17 +19,18 @@ function createPostPanel(link, index, postTitle, postUpvotes, postCommentNum) {
                   `<p><span>▲ ${postUpvotes}</span></p>`,
                 '</div>',
               '</div>',
-              '<div id="" class="ax_default heading_1 post_comments">',
-                '<div id="" class="post_comments_div"></div>',
-                '<div id="" class="text post_comments_text">',
-                  `<p><span>🗨 ${postCommentNum}</span></p>`,
-                '</div>',
-              '</div>',
+    ];
+    panelHTML = !isComment ? panelHTML.concat([
+        '<div id="" class="ax_default heading_1 post_comments">',
+            '<div id="" class="post_comments_div"></div>',
+            '<div id="" class="text post_comments_text">',
+              `<p><span>🗨 ${postCommentNum}</span></p>`,
             '</div>',
           '</div>',
-        '</a>'
-    ].join("\n");
+        '</div>']) :
+        panelHTML.concat(['</div>', '</a>']);
+
     let postPanel = document.createElement("div");
-    postPanel.innerHTML = panelHTML;
+    postPanel.innerHTML = panelHTML.join("\n");
     return postPanel;
 }
