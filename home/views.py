@@ -1,9 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 import logging
-from django.contrib.auth import authenticate, login as loginuser
+from django.contrib.auth import authenticate, login as loginuser, update_session_auth_hash
+from django.contrib.auth.views import PasswordResetForm
 from django.contrib.auth.models import User as Authuser
 
-from forum.models import Post
+from forum.models import Post, Comment
 from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
@@ -144,13 +147,13 @@ def index(request):
     all_problems = Problem.objects.all()
     upvotes = []
     for problem in all_problems:
-        total = sum([uv.vote for uv in UserVotes.objects.filter(problem = problem)])
+        total = sum([uv.vote for uv in UserVotes.objects.filter(problem=problem)])
         problem.difficulty = problem.difficulty * "★"
         upvotes.append((total, problem))
-    upvotes.sort(key=lambda x:x[0], reverse=True)
-    most_upvoted = upvotes[:min(len(upvotes),9)]
-    obj = type('obj', (object,), {'language' : '','title':'', "difficulty":""})
-    for i in range (9 - len(most_upvoted)):
+    upvotes.sort(key=lambda x: x[0], reverse=True)
+    most_upvoted = upvotes[:min(len(upvotes), 9)]
+    obj = type('obj', (object,), {'language': '', 'title': '', "difficulty": ""})
+    for i in range(9 - len(most_upvoted)):
         most_upvoted.append(('', obj))
 
     if progress:
@@ -236,13 +239,13 @@ def question_comment_page(request):
     pname = request.GET.get("papername")
     qindex = int(request.GET.get("question_index"))
     qname = pname + " question " + str(qindex)
-    question = Question.objects.filter(question_index= qindex, problem__title= pname)[0]
+    question = Question.objects.filter(question_index=qindex, problem__title=pname)[0]
     question_id = question.id
     if request.method == "POST":
         comment_title = request.POST["post_title"]
         content = request.POST["post_content"]
-        comment = QuestionComment(question = question, parent_comment= None, user = request.user,
-             title= comment_title, desc = content)
+        comment = QuestionComment(question=question, parent_comment=None, user=request.user,
+                                  title=comment_title, desc=content)
         comment.save()
     comments = QuestionComment.objects.filter(question = question_id, parent_comment= None)
     context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex, "user_agent":user_agent}
@@ -265,7 +268,8 @@ def past_paper_update_progress(request):
                 user_progress.save()
         else:
             problem_id = Problem.objects.filter(title=pname)[0].id
-            new_progress = UserProgress(user_id=request.user.id, problem_id=problem_id, stopped_at=0, progress=[q_index])
+            new_progress = UserProgress(user_id=request.user.id, problem_id=problem_id, stopped_at=0,
+                                        progress=[q_index])
             new_progress.save()
 
     return HttpResponse("", content_type="text/plain")
@@ -353,7 +357,7 @@ def question_solving_page(request):
         "code_segments": code_segments_clean,
         "stopped_at": progress[0].stopped_at if progress else 0,
         "finished_subquestions": progress[0].progress if progress else [],
-        "is_empty" : len(questions) == 0
+        "is_empty": len(questions) == 0
     }
     return render(request, "home/question_solving_page.html", context)
 
@@ -361,12 +365,12 @@ def question_solving_page(request):
 def comment_detail(request):
     user_agent = get_user_agent(request)
     comment_id = int(request.GET.get("id"))
-    comment = QuestionComment.objects.filter(id= comment_id)[0]
+    comment = QuestionComment.objects.filter(id=comment_id)[0]
     comment.views += 1
     comment.save()
     if request.method == "POST":
-        new_comment = QuestionComment(question= comment.question, parent_comment=comment,
-        user= comment.user,title="", desc= request.POST["comment_content"])
+        new_comment = QuestionComment(question=comment.question, parent_comment=comment,
+                                      user=comment.user, title="", desc=request.POST["comment_content"])
         new_comment.save()
     prev_page = request.META.get('HTTP_REFERER')
     comments = QuestionComment.objects.filter(parent_comment= comment)
@@ -375,7 +379,7 @@ def comment_detail(request):
 
 
 def random_problem(request):
-    results = Problem.objects.filter(~Q(type = Problem.Type.EXAM), category=Problem.Category.NONE)
+    results = Problem.objects.filter(~Q(type=Problem.Type.EXAM), category=Problem.Category.NONE)
     if len(results) == 0:
         return redirect("/")
     r = random.randint(0, len(results) - 1)
@@ -398,10 +402,23 @@ def user_info_page(request):
     user_agent = get_user_agent(request)
     user = request.user
     post_set = Post.objects.filter(user=user)
-
+    comment_set = Comment.objects.filter(user=user)
+    comments = []
+    for comment in comment_set.iterator():
+        corresponding_post = Post.objects.get(id=comment.forum_id)
+        comments.append({
+            "post_slug": corresponding_post.slug,
+            "post_title": corresponding_post.title,
+            "upvotes": 0,
+            "created_at": comment.created_at
+        })
+    question_comment_set = QuestionComment.objects.filter(user=user)
     context = {
         "current_user": user,
-        "user_posts": post_set, "user_agent":user_agent
+        "user_posts": post_set,
+        "user_comments": comments,
+        "question_comments": question_comment_set,
+        "user_agent":user_agent
         # tried to add a new model for activity but decided to hold it for now
     }
     return render(request, "home/user_info_page.html", context)
@@ -463,4 +480,19 @@ def register_problem_vote(request):
 def __get_problem_votes(problem_id):
     total_votes = UserVotes.objects.filter(problem_id=problem_id).aggregate(Sum("vote"))["vote__sum"]
     return total_votes if total_votes else 0
-    
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'home/user_info_page.html', {
+        'form': form
+    })

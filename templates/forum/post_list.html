@@ -52,7 +52,6 @@
     <div id="base" class="">
 
       {% include "home/../global_components/navbar.html" %}
-      {% include "home/../global_components/navbar_multidevice.html" %}
       <div id="u403" style="display:none; visibility:hidden;"></div>
 
       <!-- Unnamed (Rectangle) -->
@@ -81,7 +80,7 @@
       <!-- Unnamed (Text Field) -->
       <div id="u430" class="ax_default text_field">
         <div id="u430_div" class=""></div>
-        <input id="u430_input" type="search" value="" class="u430_input"/>
+        <input id="u430_input" type="search" value="" class="u430_input" placeholder="Search post title, description, or IDs"/>
       </div>
 
       <!-- Unnamed (Shape) -->
@@ -124,10 +123,12 @@
         </div>
       </div>
       <script>
-          let panelsHTML = []
+          let panelsHTML = [];
+
           {% for post in posts %}
-              panelsHTML.push(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
+              panelsHTML.push(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, {{ post.num_comments }}, {{ post.views }}));
           {% endfor %}
+
           panelsHTML.forEach(panelHTML => {
               let html = document.createElement("div");
               html.innerHTML = panelHTML;

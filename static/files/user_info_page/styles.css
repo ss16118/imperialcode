@@ -1460,12 +1460,12 @@
   width:1px;
   height:1px;
 }
-#u112_div {
+div.post_container_div {
   border-width:0px;
   position:absolute;
   left:0px;
   top:0px;
-  width:602px;
+  width:603px;
   height:513px;
   background:inherit;
   background-color:rgba(255, 255, 255, 1);
@@ -1477,30 +1477,31 @@
   -moz-box-shadow:none;
   -webkit-box-shadow:none;
   box-shadow:none;
+  overflow: auto;
 }
-#u112 {
+div.post_container {
   border-width:0px;
   position:absolute;
-  left:1px;
+  left:0px;
   top:0px;
-  width:602px;
+  width:603px;
   height:513px;
   display:flex;
 }
-#u112 .text {
+div.post_container .text {
   position:absolute;
   align-self:center;
   padding:2px 2px 2px 2px;
   box-sizing:border-box;
   width:100%;
 }
-#u112_text {
+div.post_container_text {
   border-width:0px;
   word-wrap:break-word;
   text-transform:none;
   visibility:hidden;
 }
-#u113_div {
+div.u113_div {
   border-width:0px;
   position:absolute;
   left:0px;
@@ -1519,7 +1520,7 @@
   font-style:normal;
   font-size:20px;
 }
-#u113 {
+div.u113 {
   border-width:0px;
   position:absolute;
   left:49px;
@@ -1532,14 +1533,14 @@
   font-style:normal;
   font-size:20px;
 }
-#u113 .text {
+div.u113 .text {
   position:absolute;
   align-self:flex-start;
   padding:0px 0px 0px 0px;
   box-sizing:border-box;
   width:100%;
 }
-#u113_text {
+div.u113_text {
   border-width:0px;
   white-space:nowrap;
   text-transform:none;
@@ -3649,5 +3650,329 @@
 #u165_text {
   border-width:0px;
   word-wrap:break-word;
+  text-transform:none;
+}
+* {box-sizing: border-box}
+
+/* Style the tab */
+.tab {
+  float: left;
+  background-color: #f1f1f1;
+  border-width:0px;
+  position:absolute;
+  left:96px;
+  top:136px;
+  width:255px;
+  height:40px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: white;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: lightskyblue;
+}
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: lightskyblue;
+}
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  position: absolute;
+  padding: 0px 12px;
+  left:401px;
+  top:136px;
+  width:603px;
+  height:513px;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  background-color: lightskyblue;
+  color: black;
+  padding: 3px 5px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: absolute;
+  left: 151px;
+  top: 216px;
+  height: 25px;
+  width: 150px;
+  z-index: 8;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: absolute;
+  top: 255px;
+  left: 49px;
+  width: 400px;
+  height: auto;
+  border: 3px solid dimgray;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 600px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  max-height: 10px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: cornflowerblue;
+  color: black;
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 2px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: lightgray;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+.modal-backdrop {
+  /* bug fix - no overlay */
+  display: none;
+}
+div.post_panel_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:505px;
+  height:42px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(215, 215, 215, 1);
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+div.post_panel {
+  border-width:0px;
+  position:absolute;
+  left:49px;
+  top:95px;
+  width:505px;
+  height:42px;
+  display:flex;
+}
+div.post_panel .text {
+  position:absolute;
+  align-self:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
+}
+div.post_panel_div.mouseOver {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:505px;
+  height:42px;
+  background:inherit;
+  background-color:rgba(242, 242, 242, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(215, 215, 215, 1);
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+div.post_panel.mouseOver {
+}
+div.post_panel_text {
+  border-width:0px;
+  word-wrap:break-word;
+  text-transform:none;
+  visibility:hidden;
+}
+div.post_title_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:300px;
+  height:23px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:12px;
+}
+div.post_title {
+  border-width:0px;
+  position:absolute;
+  left:26px;
+  top:13px;
+  width:300px;
+  height:23px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:12px;
+  overflow:auto;
+}
+div.post_title .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+div.post_title_text {
+  border-width:0px;
+  white-space:nowrap;
+  text-transform:none;
+}
+div.post_upvotes_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:32px;
+  height:18px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:15px;
+}
+div.post_upvotes {
+  border-width:0px;
+  position:absolute;
+  left:350px;
+  top:13px;
+  width:32px;
+  height:18px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:15px;
+}
+div.post_upvotes .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+div.post_upvotes_text {
+  border-width:0px;
+  white-space:nowrap;
+  text-transform:none;
+}
+div.post_comments_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:34px;
+  height:18px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:15px;
+}
+div.post_comments {
+  border-width:0px;
+  position:absolute;
+  left:436px;
+  top:13px;
+  width:34px;
+  height:18px;
+  display:flex;
+  font-family:'SF Pro Text Light', 'SF Pro Text', sans-serif;
+  font-weight:300;
+  font-style:normal;
+  font-size:15px;
+}
+div.post_comments .text {
+  position:absolute;
+  align-self:flex-start;
+  padding:0px 0px 0px 0px;
+  box-sizing:border-box;
+  width:100%;
+}
+div.post_comments {
+  border-width:0px;
+  white-space:nowrap;
   text-transform:none;
 }

@@ -4,10 +4,10 @@ from django.urls import path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
-
-urlpatterns = [   
-                  url(r'^sign_up/',views.sign_up),
+urlpatterns = [
+                  url(r'^sign_up/', views.sign_up),
                   url(r'^landing_page', views.landing, name="landing_page"),
                   url(r'^all_problems_page', views.all_problems_page, name="all_problems_page"),
                   url(r'^forum_page', views.forum_page, name="forum_page"),
@@ -37,7 +37,9 @@ urlpatterns = [
                   url(r'^record_current_question/$', views.record_current_question),
                   url(r'^comment_detail', views.comment_detail),
                   url(r'^register_problem_vote/$', views.register_problem_vote),
-                  url(r'^random_problem', views.random_problem)
+                  url(r'^random_problem', views.random_problem),
+                  url(r'^password/$', views.change_password, name='change_password'),
+                  # path('change-password/', auth_views.PasswordChangeView.as_view(template_name='home/user_info_page.html')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'home.views.page_not_found_view'

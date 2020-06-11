@@ -1,4 +1,4 @@
-let newPostContent = "";
+let postContent = "";
 let tempTextArea = null;
 
 function expandNewPostButtonOnClick() {
