@@ -110,7 +110,8 @@ def all_problems_page(request):
     selected_title = request.GET.get("p") if request.GET.get("p") else ""
     selected_problems = Problem.objects.filter(title=selected_title)
     user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)
-    num_subquestions = len(Question.objects.filter(problem__title=selected_title))
+    subquestions = Question.objects.filter(problem__title=selected_title)
+    user_vote = UserVotes.objects.filter(user=request.user, problem__title=selected_title)
     selected_problem_info = {}
     if len(selected_problems) == 0:
         selected_problem_info["title"] = ""
@@ -119,14 +120,21 @@ def all_problems_page(request):
         selected_problem_info["difficulty"] = 0
         selected_problem_info["upvotes"] = 0
         selected_problem_info["progress"] = 0
+        selected_problem_info["user_vote"] = 0
+        selected_problem_info["comment_num"] = 0
     else:
+        comment_num = 0
+        for subquestion in subquestions.iterator():
+            comment_num += len(QuestionComment.objects.filter(question_id=subquestion.id))
         selected_problem_info["title"] = selected_problems[0].title
         selected_problem_info["desc"] = selected_problems[0].desc
         selected_problem_info["year"] = selected_problems[0].year
         selected_problem_info["difficulty"] = selected_problems[0].difficulty
         selected_problem_info["upvotes"] = __get_problem_votes(selected_problems[0].id)
-        selected_problem_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
+        selected_problem_info["progress"] = int((len(user_progress[0].progress) / len(subquestions)) * 100) \
             if user_progress else 0
+        selected_problem_info["user_vote"] = user_vote[0].vote if user_vote else 0
+        selected_problem_info["comment_num"] = comment_num
     selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
     context = {"display_problems": results,
                "selected_problem": selected_problem_info,
@@ -214,7 +222,7 @@ def past_papers_page(request):
     selected_title = request.GET.get("p") if request.GET.get("p") is not None else ""
     selected_paper = Problem.objects.filter(title=selected_title)
     user_progress = UserProgress.objects.filter(user_id=request.user.id, problem__title=selected_title)
-    num_subquestions = len(Question.objects.filter(problem__title=selected_title))
+    subquestions = Question.objects.filter(problem__title=selected_title)
     selected_paper_info = {}
     user_vote = UserVotes.objects.filter(user_id=request.user.id, problem__title=selected_title)
     if len(selected_paper) == 0:
@@ -226,16 +234,21 @@ def past_papers_page(request):
         selected_paper_info["upvotes"] = 0
         selected_paper_info["progress"] = 0
         selected_paper_info["user_vote"] = 0
+        selected_paper_info["comment_num"] = 0
     else:
+        comment_num = 0
+        for subquestion in subquestions.iterator():
+            comment_num += len(QuestionComment.objects.filter(question_id=subquestion.id))
         selected_paper_info["title"] = selected_paper[0].title
         selected_paper_info["desc"] = selected_paper[0].desc
         selected_paper_info["year"] = selected_paper[0].year
         selected_paper_info["status"] = ""
         selected_paper_info["difficulty"] = selected_paper[0].difficulty
         selected_paper_info["upvotes"] = __get_problem_votes(selected_paper[0].id)
-        selected_paper_info["progress"] = int((len(user_progress[0].progress) / num_subquestions) * 100) \
+        selected_paper_info["progress"] = int((len(user_progress[0].progress) / len(subquestions)) * 100) \
             if user_progress else 0
         selected_paper_info["user_vote"] = user_vote[0].vote if user_vote else 0
+        selected_paper_info["comment_num"] = comment_num
 
     selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
     context = {"display_papers": results, "selected_paper": selected_paper_info, "user_agent": user_agent}

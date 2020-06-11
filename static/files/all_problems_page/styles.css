@@ -1981,6 +1981,10 @@
   font-style:normal;
   font-size:19px;
 }
+#u247:hover {
+  cursor:pointer;
+  background-color:rgba(129, 211, 248, 0.705882352941177);
+}
 #u247 .text {
   position:absolute;
   align-self:center;
@@ -2184,6 +2188,10 @@
   height:17px;
   display:flex;
 }
+#u251:hover {
+  cursor:pointer;
+  background-color: lightgrey;
+}
 #u251 .text {
   position:absolute;
   align-self:center;
@@ -2204,6 +2212,10 @@
   top:0px;
   width:18px;
   height:20px;
+}
+#u252:hover {
+  cursor:pointer;
+  background-color: lightgrey;
 }
 #u252 {
   border-width:0px;

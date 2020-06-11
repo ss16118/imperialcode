@@ -6,7 +6,7 @@
     <link rel="icon" href="{% static 'resources/favicon.ico' %}" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/>
+    <!-- <link href={% static "resources/css/axure_rp_page.css" %} type="text/css" rel="stylesheet"/> -->
     <link href={% static "data/styles.css" %} type="text/css" rel="stylesheet"/>
     <link href={% static "files/past_papers_page/styles.css" %} type="text/css" rel="stylesheet"/>
     <script src={% static "resources/scripts/jquery-3.2.1.min.js" %}></script>
@@ -282,7 +282,7 @@
 
       <!-- Unnamed (Image) -->
       {% if selected_paper.title != "" %}
-      <div id="u206" class="ax_default image" onclick="register_vote(UP)">
+      <div id="u206" class="ax_default image" onclick="registerVote(UP)">
         <img id="u206_img" class="img " src={% static "images/past_papers_page/default_upvote.png" %}
                 onmouseover="this.src='{% static 'images/past_papers_page/u206.png' %}';"
                 onmouseout="this.src='{% static 'images/past_papers_page/default_upvote.png' %}';"/>
@@ -292,7 +292,7 @@
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u207" class="ax_default image" onclick="register_vote(DOWN)">
+      <div id="u207" class="ax_default image" onclick="registerVote(DOWN)">
         <img id="u207_img" class="img " src={% static "images/past_papers_page/default_downvote.png" %}
                 onmouseover="this.src='{% static 'images/past_papers_page/u207.png' %}';"
                 onmouseout="this.src='{% static 'images/past_papers_page/default_downvote.png' %}';"/>
@@ -308,8 +308,6 @@
           {{selected_paper.upvotes}}
         </div>
       </div>
-      {% endif %}
-
       <!-- Unnamed (Image) -->
       <div id="u209" class="ax_default image">
         <img id="u209_img" class="img " src={% static "images/past_papers_page/u209.png" %}/>
@@ -317,6 +315,14 @@
           <p></p>
         </div>
       </div>
+
+      <div id="comment_num_label" class="ax_default heading_1">
+        <div id="comment_num_label_div" class=""></div>
+        <div id="comment_num_label_text" class="text ">
+          {{selected_paper.comment_num}}
+        </div>
+      </div>
+      {% endif %}
     </div>
     <script>
         window.CSRF_TOKEN = "{{ csrf_token }}";
@@ -384,7 +390,30 @@
                 toggleUpvoteButton(false);
             }
         }
-        displayVote();
+        {% if selected_paper.title != "" %}
+          displayVote();
+        {% endif %}
+
+        function registerVote(type) {
+            type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
+            let diff = type - userVote;
+            let upvoteLabel = document.getElementById("u208_text");
+            upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
+            userVote = type;
+            displayVote();
+            $.ajax({
+                type: "POST",
+                url: "/register_problem_vote/",
+                async: false,
+                data: {
+                    "pname": "{{ selected_paper.title }}",
+                    "type": type,
+                    "csrfmiddlewaretoken": window.CSRF_TOKEN
+                },
+                success: function(_) {
+                }
+            });
+        }
         /* Vote display */
 
         function displayInfo(title) {
@@ -425,28 +454,6 @@
                 alert("Please select a paper to start!");
             }
         }
-
-        function register_vote(type) {
-            type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
-            diff = type - userVote;
-            let upvoteLabel = document.getElementById("u208_text");
-            upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
-            userVote = type;
-            displayVote()
-            $.ajax({
-                type: "POST",
-                url: "/register_problem_vote/",
-                async: false,
-                data: {
-                    "pname": "{{ selected_paper.title }}",
-                    "type": type,
-                    "csrfmiddlewaretoken": window.CSRF_TOKEN
-                },
-                success: function(_) {
-                }
-            });
-        }
-
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>
   </body>

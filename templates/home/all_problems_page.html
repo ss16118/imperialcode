@@ -45,7 +45,6 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -277,26 +276,37 @@
         </div>
       </div>
 
-      <!-- Bootstrap progress bar -->
-      <div class="progress" style="position:absolute; left:1342px; top:570px; width:124px; height:18px">
-        <div id="paper_progress_bar" class="progress-bar progress-bar-striped bg-info" role="progressbar"
-             aria-valuenow="{{ selected_problem.progress }}" aria-valuemin="0" aria-valuemax="100"
-             style="width:{{ selected_problem.progress }}%; color:black">
-            {{ selected_problem.progress }}%
+      <div id="u256" class="ax_default heading_1">
+        <div id="u256_div" class=""></div>
+        <div id="u256_text" class="text ">
+          <p><span>Completion: </span></p>
         </div>
       </div>
-      <!-- Unnamed (Image) -->
+      <!-- Bootstrap progress bar -->
+      {% if selected_problem.title != "" %}
+          <div class="progress" style="position:absolute; left:1342px; top:570px; width:124px; height:18px">
+            <div id="paper_progress_bar" class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                 aria-valuenow="{{ selected_problem.progress }}" aria-valuemin="0" aria-valuemax="100"
+                 style="width:{{ selected_problem.progress }}%; color:black">
+                {{ selected_problem.progress }}%
+            </div>
+          </div>
 
-      <div id="u251" class="ax_default image">
-        <img id="u251_img" class="img " src={% static "images/past_papers_page/u206.png" %}/>
+
+      <div id="u251" class="ax_default image" onclick="registerVote(UP)">
+        <img id="u251_img" class="img " src={% static "images/past_papers_page/default_upvote.png" %}
+                onmouseover="this.src='{% static 'images/past_papers_page/u206.png' %}';"
+                onmouseout="this.src='{% static 'images/past_papers_page/default_upvote.png' %}';"/>
         <div id="u251_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u252" class="ax_default image">
-        <img id="u252_img" class="img " src={% static "images/past_papers_page/u207.png" %}/>
+      <div id="u252" class="ax_default image" onclick="registerVote(DOWN)">
+        <img id="u252_img" class="img " src={% static "images/past_papers_page/default_downvote.png" %}
+                onmouseover="this.src='{% static 'images/past_papers_page/u207.png' %}';"
+                onmouseout="this.src='{% static 'images/past_papers_page/default_downvote.png' %}';"/>
         <div id="u252_text" class="text " style="display:none; visibility: hidden">
           <p></p>
         </div>
@@ -306,7 +316,7 @@
       <div id="u253" class="ax_default heading_1">
         <div id="u253_div" class=""></div>
         <div id="u253_text" class="text ">
-          <p><span>80</span></p>
+          {{ selected_problem.upvotes }}
         </div>
       </div>
 
@@ -318,41 +328,15 @@
         </div>
       </div>
 
-      <!-- Unnamed (Image) -->
-      <!--
-      <div id="u255" class="ax_default image">
-        <img id="u255_img" class="img " src={% static "images/past_papers_page/u203.png" %}/>
-        <div id="u255_text" class="text " style="display:none; visibility: hidden">
-          <p></p>
-        </div>
-      </div>
-      -->
-
-      <!-- Unnamed (Rectangle) -->
-      <div id="u256" class="ax_default heading_1">
-        <div id="u256_div" class=""></div>
-        <div id="u256_text" class="text ">
-          <p><span>Completion: </span></p>
-        </div>
-      </div>
-
       <!-- Unnamed (Rectangle) -->
       <div id="u257" class="ax_default heading_1">
         <div id="u257_div" class=""></div>
         <div id="u257_text" class="text ">
-          <p><span>42</span></p>
+          <p><span>{{ selected_problem.comment_num }}</span></p>
         </div>
       </div>
+      {% endif %}
 
-      <!-- Unnamed (Image) -->
-        <!--
-      <div id="u258" class="ax_default image">
-        <img id="u258_img" class="img " src={% static "images/all_problems_page/u258.png" %}/>
-        <div id="u258_text" class="text " style="display:none; visibility: hidden">
-          <p></p>
-        </div>
-      </div>
-      -->
       <div id="overall_progress">
         <canvas id="progress_chart" width="200" height="97"></canvas>
       </div>
@@ -389,15 +373,6 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <!--
-      <div id="u263" class="ax_default button">
-        <div id="u263_div" class=""></div>
-        <div id="u263_text" class="text ">
-          <p><span>I want to leave a comment / solution</span></p>
-        </div>
-      </div>
-      -->
-      <!-- Unnamed (Rectangle) -->
       <div id="u264" class="ax_default button">
         <div id="u264_div" class=""></div>
         <div id="u264_text" class="text ">
@@ -406,6 +381,76 @@
       </div>
     </div>
     <script>
+        window.CSRF_TOKEN = "{{ csrf_token }}";
+        /* Vote display */
+        const UP = 1;
+        const NO_VOTE = 0;
+        const DOWN = -1;
+        let userVote = {{ selected_problem.user_vote }};
+        let upvoteButton = document.getElementById("u251_img");
+        let downvoteButton = document.getElementById("u252_img");
+
+        let toggleUpvoteButton = function(activate) {
+            let defaultPath = "{% static 'images/past_papers_page/default_upvote.png' %}";
+            let activatePath = "{% static 'images/past_papers_page/u206.png' %}";
+            upvoteButton.src = activate ? activatePath : defaultPath;
+            upvoteButton.onmouseover = function () {
+                upvoteButton.src = activate ? defaultPath : activatePath;
+            };
+            upvoteButton.onmouseout = function () {
+                upvoteButton.src = activate ? activatePath : defaultPath;
+            }
+        }
+        let toggleDownvoteButton = function(activate) {
+            let defaultPath = "{% static 'images/past_papers_page/default_downvote.png' %}";
+            let activatePath = "{% static 'images/past_papers_page/u207.png' %}";
+            downvoteButton.src = activate ? activatePath : defaultPath;
+            downvoteButton.onmouseover = function () {
+                downvoteButton.src = activate ? defaultPath : activatePath;
+            };
+            downvoteButton.onmouseout = function () {
+                downvoteButton.src = activate ? activatePath : defaultPath;
+            }
+        }
+
+
+        function displayVote() {
+            if (userVote == UP) {
+                toggleDownvoteButton(false);
+                toggleUpvoteButton(true);
+            } else if (userVote == DOWN) {
+                toggleDownvoteButton(true);
+                toggleUpvoteButton(false);
+            } else {
+                toggleDownvoteButton(false);
+                toggleUpvoteButton(false);
+            }
+        }
+        {% if selected_problem.title != "" %}
+          displayVote();
+        {% endif %}
+        function registerVote(type) {
+            type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
+            let diff = type - userVote;
+            let upvoteLabel = document.getElementById("u253_text");
+            upvoteLabel.innerHTML = parseInt(upvoteLabel.innerHTML) + diff;
+            userVote = type;
+            displayVote();
+            $.ajax({
+                type: "POST",
+                url: "/register_problem_vote/",
+                async: false,
+                data: {
+                    "pname": "{{ selected_problem.title }}",
+                    "type": type,
+                    "csrfmiddlewaretoken": window.CSRF_TOKEN
+                },
+                success: function(_) {
+                }
+            });
+        }
+        /* Vote display */
+
         var ctx = document.getElementById("progress_chart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'doughnut',
