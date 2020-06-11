@@ -2381,7 +2381,7 @@
   top:0px;
   width:670px;
   height:133px;
-  padding:3px 2px 3px 2px;
+  padding:0.7em;
   font-family:'Arial Normal', 'Arial', sans-serif;
   font-weight:400;
   font-style:normal;
@@ -2640,7 +2640,7 @@ div.u624_text {
   word-wrap:break-word;
   text-transform:none;
 }
-#u625_div {
+div.u625_div {
   border-width:0px;
   position:absolute;
   left:0px;

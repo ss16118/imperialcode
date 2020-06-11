@@ -2,6 +2,7 @@
 const COMMENT_CONTENT_DEFAULT_HEIGHT = 30;
 const COMPONENT_DEFAULT_TOP = 74;
 let tempEditPostContent = "";
+let tempEditCommentContent = "";
 function createCommentPanel(index, topPos, author, commentContent, createdAt, upvotes) {
     let panelHTML = [
         `<div id="comment_${index}" class="ax_default box_2 u622" style="top: ${topPos}px;">`,
@@ -18,10 +19,10 @@ function createCommentPanel(index, topPos, author, commentContent, createdAt, up
                 `<p><span>Created at: ${createdAt}</span></p>`,
               '</div>',
             '</div>',
-            '<div id="" class="ax_default paragraph u624">',
+            `<div id="comment_content_container_${index}" class="ax_default paragraph u624">`,
               '<div id="" class="u624_div "></div>',
-              '<div id="" class="text u624_text">',
-                `<p id="comment_content_${index}">${commentContent}</p>`,
+              `<div id="comment_content_text_${index}" class="text u624_text">`,
+                `<p id="comment_content_${index}"></p>`,
               '</div>',
             '</div>',
             `<div id="comment_upvote_${index}" class="ax_default paragraph u625">`,
@@ -53,6 +54,12 @@ function createCommentPanel(index, topPos, author, commentContent, createdAt, up
     ].join("\n");
     let commentPanel = document.createElement("div");
     commentPanel.innerHTML = panelHTML;
+    let descendants = commentPanel.querySelectorAll("*");
+    for (let i = 0; i < descendants.length; i++) {
+        if (descendants[i].id === `comment_content_${index}`) {
+            descendants[i].innerHTML = marked(commentContent);
+        }
+    }
     return commentPanel;
 }
 
@@ -65,14 +72,7 @@ function togglePostPreview() {
       let contentArea = document.getElementById("post_content_area");
       tempEditPostContent = contentArea.value;
       tempTextArea = contentArea;
-      let displayBlock = document.createElement("div");
-      displayBlock.id = "temp_post";
-
-      displayBlock.style.padding = "1em";
-      displayBlock.style.zIndex = 1000;
-      displayBlock.style.height = postTextHeight + "px";
-      displayBlock.style.overflow = "auto";
-      displayBlock.innerHTML = marked(tempEditPostContent);
+      let displayBlock = createMarkdownBlock("temp_post", tempEditPostContent, contentArea.style.height);
       contentAreaContainer.removeChild(contentArea);
       contentAreaContainer.appendChild(displayBlock);
       previewButtonText.innerHTML = "Edit";
@@ -83,6 +83,38 @@ function togglePostPreview() {
       contentAreaContainer.appendChild(tempTextArea);
       previewButtonText.innerHTML = "Preview";
   }
+}
+
+function toggleCommentPreview() {
+  let previewButtonText = document.getElementById("u641_text");
+  let contentAreaContainer = document.getElementById("u618");
+  let isEditMode = previewButtonText.innerText.localeCompare("Preview") == 0;
+
+  if (isEditMode) {
+      let contentArea = document.getElementById("u618_input");
+      tempEditCommentContent = contentArea.value;
+      tempTextArea = contentArea;
+      let displayBlock = createMarkdownBlock("temp_comment", tempEditCommentContent, contentArea.style.height);
+      contentAreaContainer.removeChild(contentArea);
+      contentAreaContainer.appendChild(displayBlock);
+      previewButtonText.innerHTML = "Edit";
+  } else {
+      let displayBlock = document.getElementById("temp_comment");
+      tempTextArea.value = tempEditCommentContent;
+      contentAreaContainer.removeChild(displayBlock);
+      contentAreaContainer.appendChild(tempTextArea);
+      previewButtonText.innerHTML = "Preview";
+  }
+}
+function createMarkdownBlock(id, textContent, blockHeight) {
+    let displayBlock = document.createElement("div");
+    displayBlock.id = id;
+    displayBlock.style.padding = "1em";
+    displayBlock.style.zIndex = "1000";
+    displayBlock.style.height = blockHeight;
+    displayBlock.style.overflow = "auto";
+    displayBlock.innerHTML = marked(textContent);
+    return displayBlock;
 }
 
 function activateTab() {
