@@ -27,7 +27,7 @@ class ForumListView(SuccessMessageMixin, ListView):
                 "num_comments": num_comments,
                 "views": post.views
             })
-        context = {"posts": posts, "num_comments": num_comments}
+        context = {"posts": posts}
         return render(request, "forum/post_list.html", context)
 
     def post(self, request):
