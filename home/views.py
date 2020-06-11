@@ -357,7 +357,8 @@ def question_solving_page(request):
         "code_segments": code_segments_clean,
         "stopped_at": progress[0].stopped_at if progress else 0,
         "finished_subquestions": progress[0].progress if progress else [],
-        "is_empty": len(questions) == 0
+        "is_empty": len(questions) == 0,
+        "user_agent":user_agent
     }
     return render(request, "home/question_solving_page.html", context)
 
