@@ -196,8 +196,11 @@
         </div>
 
         <!-- Navigation Bar -->
+        {% if user_agent.is_mobile == False %}
         {% include "home/../global_components/navbar.html" %}
-      {% include "home/../global_components/navbar_multidevice.html" %}
+        {% else %}
+        {% include "home/../global_components/navbar_multidevice.html" %}
+        {% endif %}
         <!-- Navigation Bar -->
         <div id="u311" style="display:none; visibility:hidden;">/div>
       </div>

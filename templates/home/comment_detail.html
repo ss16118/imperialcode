@@ -52,9 +52,11 @@
   <body style="width: 95%">
   {% load humanize %}
     <div id="base" class="">
-
+      {% if user_agent.is_mobile == False %}
       {% include "home/../global_components/navbar.html" %}
+      {% else %}
       {% include "home/../global_components/navbar_multidevice.html" %}
+      {% endif %}
       <div id="u553" style="display:none; visibility:hidden;"></div>
 
       <!-- Unnamed (Rectangle) -->
