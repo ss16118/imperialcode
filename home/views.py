@@ -130,7 +130,7 @@ def all_problems_page(request):
     selected_problem_info["difficulty"] = "★" * selected_problem_info["difficulty"];
     context = {"display_problems": results,
                "selected_problem": selected_problem_info,
-               "overall_progress": overall_progress, "user_agent":user_agent}
+               "overall_progress": overall_progress, "user_agent": user_agent}
     return render(request, "home/all_problems_page.html", context)
 
 
@@ -156,11 +156,26 @@ def index(request):
     for i in range(9 - len(most_upvoted)):
         most_upvoted.append(('', obj))
 
+    haskell_problems = Problem.objects.filter(language="Haskell")
+    haskell_completed = 0
+    for problem in haskell_problems.iterator():
+        total_question_num = len(Question.objects.filter(problem_id=problem.id))
+        user_progress = UserProgress.objects.filter(user=request.user, problem_id=problem.id)
+        finished_subquestions = len(user_progress[0].progress) if user_progress else 0
+        print("{} / {}".format(finished_subquestions, total_question_num))
+        if finished_subquestions == total_question_num and (not total_question_num == 0):
+            haskell_completed += 1
+    haskell_progress = round(haskell_completed / len(haskell_problems), 2)
+
     if progress:
         progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
-        print("Last modified {}".format(problem_title))
-    context = {"last_modified_problem": problem_title, "most_upvoted": most_upvoted, "user_agent":user_agent}
+
+    context = {
+        "last_modified_problem": problem_title,
+        "most_upvoted": most_upvoted,
+        "haskell_progress": haskell_progress,
+        "user_agent": user_agent}
     return render(request, "home/index.html", context)
 
 
@@ -223,7 +238,7 @@ def past_papers_page(request):
         selected_paper_info["user_vote"] = user_vote[0].vote if user_vote else 0
 
     selected_paper_info["difficulty"] = "★" * selected_paper_info["difficulty"]
-    context = {"display_papers": results, "selected_paper": selected_paper_info, "user_agent":user_agent}
+    context = {"display_papers": results, "selected_paper": selected_paper_info, "user_agent": user_agent}
     return render(request, "home/past_papers_page.html", context)
 
 
@@ -247,7 +262,7 @@ def question_comment_page(request):
         comment = QuestionComment(question=question, parent_comment=None, user=request.user,
                                   title=comment_title, desc=content)
         comment.save()
-    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None)
+    comments = QuestionComment.objects.filter(question = question_id, parent_comment= None).order_by('-created_at')
     context = {"qname":qname, "posts": comments, "pname":pname, "qindex" : qindex, "user_agent":user_agent}
 
     return render(request, "home/question_comment_page.html", context)
@@ -291,7 +306,6 @@ def record_current_question(request):
         pname = request.POST.get("pname")
         index = int(request.POST.get("index"))
         progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
-        print("Stopped at question {} for paper {}".format(index, pname))
         if progress:
             user_progress = progress[0]
             user_progress.stopped_at = index
@@ -329,7 +343,7 @@ def run_code(request):
 def question_solving_page(request):
     user_agent = get_user_agent(request)
     pname = request.GET.get("papername")
-    if len(Problem.objects.filter(title=pname))==0:
+    if len(Problem.objects.filter(title=pname)) == 0:
         return redirect('/')
     paper = Problem.objects.filter(title=pname)[0]
     questions = Question.objects.filter(problem__title=pname).order_by("question_index")
@@ -358,7 +372,7 @@ def question_solving_page(request):
         "stopped_at": progress[0].stopped_at if progress else 0,
         "finished_subquestions": progress[0].progress if progress else [],
         "is_empty": len(questions) == 0,
-        "user_agent":user_agent
+        "user_agent": user_agent
     }
     return render(request, "home/question_solving_page.html", context)
 
@@ -368,14 +382,19 @@ def comment_detail(request):
     comment_id = int(request.GET.get("id"))
     comment = QuestionComment.objects.filter(id=comment_id)[0]
     comment.views += 1
+    new_title = request.GET.get("new_title")
+    new_content = request.GET.get("new_content")
+    if new_title is not None and new_content is not None:
+        comment.title = new_title
+        comment.desc = new_content
     comment.save()
     if request.method == "POST":
         new_comment = QuestionComment(question=comment.question, parent_comment=comment,
                                       user=comment.user, title="", desc=request.POST["comment_content"])
         new_comment.save()
     prev_page = request.META.get('HTTP_REFERER')
-    comments = QuestionComment.objects.filter(parent_comment= comment)
-    context = {"post":comment, "prev_page" : str(prev_page), "comments":comments, "user_agent":user_agent}
+    sub_comments = QuestionComment.objects.filter(parent_comment=comment)
+    context = {"post": comment, "prev_page": str(prev_page), "comments": sub_comments, "user_agent": user_agent}
     return render(request, "home/comment_detail.html", context)
 
 
@@ -413,13 +432,24 @@ def user_info_page(request):
             "upvotes": 0,
             "created_at": comment.created_at
         })
-    question_comment_set = QuestionComment.objects.filter(user=user)
+    question_comment_set = QuestionComment.objects.filter(user=user, parent_comment__isnull=True)
+    question_reply_set = QuestionComment.objects.filter(user=user, parent_comment__isnull=False)
+    question_comment_replies = []
+    for reply in question_reply_set.iterator():
+        corresponding_comment = QuestionComment.objects.get(id=reply.parent_comment.id)
+        question_comment_replies.append({
+            "comment_id": corresponding_comment.id,
+            "comment_title": corresponding_comment.title,
+            "upvotes": 0,
+            "created_at": reply.created_at
+        })
     context = {
         "current_user": user,
         "user_posts": post_set,
         "user_comments": comments,
         "question_comments": question_comment_set,
-        "user_agent":user_agent
+        "question_comment_replies": question_comment_replies,
+        "user_agent": user_agent
         # tried to add a new model for activity but decided to hold it for now
     }
     return render(request, "home/user_info_page.html", context)
@@ -481,6 +511,7 @@ def register_problem_vote(request):
 def __get_problem_votes(problem_id):
     total_votes = UserVotes.objects.filter(problem_id=problem_id).aggregate(Sum("vote"))["vote__sum"]
     return total_votes if total_votes else 0
+
 
 def change_password(request):
     if request.method == 'POST':

@@ -221,13 +221,15 @@
           <div id="u99_state1_content" class="panel_state_content">
             <!-- Unnamed (Rectangle) -->
             <div id="" class="ax_default box_1 post_container ">
-              <div id="" class="post_container_div ">
-                <div id="u113" class="ax_default heading_1">
-                  <div id="u113_div" class=""></div>
-                  <div id="u113_text" class="text ">
+              <div id="question_comments_container" class="post_container_div ">
+
+                <div id="" class="ax_default heading_1 u113">
+                  <div id="" class="u113_div"></div>
+                  <div id="" class="text u113_text">
                     <p><span>My Question Comments</span></p>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -480,10 +482,12 @@
       </div>
 
       <script>
-
-        let container = document.getElementById("post_comments_container");
+        const DEFAULT_PANEL_START_TOP_POS = 95;
+        /* Forum posts panel */
+        let forumPostsContainer = document.getElementById("post_comments_container");
         {% for post in user_posts %}
-            container.appendChild(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }}, "{{ post.title }}", {{ post.upvotes }}, 0));
+            forumPostsContainer.appendChild(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }},
+                "{{ post.title }}", {{ post.upvotes }}, 0, false));
         {% endfor %}
 
         initialTopPos += {{ user_posts|length }} * (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) + 15;
@@ -499,13 +503,45 @@
 
         let tempLabel = document.createElement("div");
         tempLabel.innerHTML = forumCommentLabelHTML;
-        container.appendChild(tempLabel.firstChild);
+        forumPostsContainer.appendChild(tempLabel.firstChild);
 
         initialTopPos += DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING;
 
         {% for comment in  user_comments %}
-            container.appendChild(createPostPanel("{% url 'forum-detail' comment.post_slug %}", {{ forloop.counter0 }}, "Comment on {{ comment.post_title }}", "{{ comment.upvotes }}", 0));
+            forumPostsContainer.appendChild(createPostPanel("{% url 'forum-detail' comment.post_slug %}", {{ forloop.counter0 }},
+                "Comment on {{ comment.post_title }}", {{ comment.upvotes }}, 0, true));
         {% endfor %}
+
+        /* Question comment panel */
+        initialTopPos = DEFAULT_PANEL_START_TOP_POS;
+        let questionCommentsContainer = document.getElementById("question_comments_container");
+        {% for question_comment in question_comments %}
+            questionCommentsContainer.appendChild(createPostPanel("comment_detail?id={{ question_comment.id }}",
+                {{ forloop.counter0 }}, "{{ question_comment.title }}", {{ question_comment.upvotes }}, 0, false));
+        {% endfor %}
+
+        initialTopPos += {{ question_comments|length }} * (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) + 15;
+
+        let questionReplyLabelHTML = [
+            `<div id="" class="ax_default heading_1 u113" style="top:${initialTopPos}px">`,
+              '<div id="" class="u113_div"></div>',
+              '<div id="" class="text u113_text">',
+                '<p><span>My Question Comment Replies</span></p>',
+              '</div>',
+            '</div>'
+        ].join("\n");
+
+        tempLabel = document.createElement("div");
+        tempLabel.innerHTML = questionReplyLabelHTML;
+        questionCommentsContainer.appendChild(tempLabel.firstChild);
+
+        initialTopPos += DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING;
+
+        {% for reply in question_comment_replies %}
+            questionCommentsContainer.appendChild(createPostPanel("comment_detail?id={{ reply.comment_id }}",
+                {{ forloop.counter0 }}, "Comment on {{ reply.comment_title }}", {{ reply.upvotes }}, 0, true));
+        {% endfor %}
+
         function openTab(evt, tabName) {
           // clean the active class
           var tabs = ['My Account', 'Posts', 'Question Comments', 'Activities', 'Notifications'];

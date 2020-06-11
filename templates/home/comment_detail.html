@@ -52,11 +52,8 @@
   <body style="width: 95%">
   {% load humanize %}
     <div id="base" class="">
-      {% if user_agent.is_mobile == False %}
+
       {% include "home/../global_components/navbar.html" %}
-      {% else %}
-      {% include "home/../global_components/navbar_multidevice.html" %}
-      {% endif %}
       <div id="u553" style="display:none; visibility:hidden;"></div>
 
       <!-- Unnamed (Rectangle) -->
@@ -70,6 +67,7 @@
       <!-- Post Title -->
       <div id="u571" class="ax_default heading_1">
         <div id="u571_div" class=""></div>
+        <!-- <input id="u571_input" name="post_title" type="text" value="{{ post.title }}"/> -->
         <div id="u571_text" class="text ">
           <p><span>{{ post.title }}</span></p>
         </div>
@@ -102,7 +100,7 @@
       <div id="u584" class="ax_default heading_1">
         <div id="u584_div" class=""></div>
         <div id="u584_text" class="text ">
-          <p><span>🗨 {{comments | length}}</span></p>
+          <p><span>🗨 {{ comments|length }}</span></p>
         </div>
       </div>
 
@@ -142,22 +140,34 @@
       <!-- post content:(desc) -->
       <div id="u579" class="ax_default paragraph">
         <div id="u579_div" class=""></div>
+          <!-- <textarea id="post_content_area"></textarea> -->
         <div id="u579_text" class="text ">
             <p id="post_content">{{post.desc}}</p>
         </div>
       </div>
 
       {% if request.user == post.user %}
-        <!--  only can edit when the browsing user is the one who created the post  -->
-        <a href="{% url 'comment-edit' post.id %}">
-          <div id="u639" class="ax_default label">
-            <div id="u639_div" class=""></div>
-            <div id="u639_text" class="text ">
-              <p><span>✒️ Edit</span></p>
-            </div>
+        <!-- PreviewButton (Rectangle) -->
+        <div id="post_content_preview" class="ax_default button" data-label="PreviewButton" onclick="togglePostPreview()">
+          <div id="post_content_preview_div" class=""></div>
+          <div id="post_content_preview_text" class="text ">
+            <p><span>Preview</span></p>
           </div>
-        </a>
-        <form method="post" action="{% url 'comment-delete' post.id %}">
+        </div>
+        <!--  only can edit when the browsing user is the one who created the post  -->
+        <div id="u639" class="ax_default label" onclick="togglePostEdit()">
+          <div id="u639_div" class=""></div>
+          <div id="u639_text" class="text ">
+            <p><span>✒️Edit</span></p>
+          </div>
+        </div>
+        <div id="save_post" class="ax_default label" onclick="saveModifiedPost()">
+          <div id="save_post_div" class=""></div>
+          <div id="save_post_text" class="text ">
+            <p><span>Save</span></p>
+          </div>
+        </div>
+        <form method="post" action="{% url 'forum-delete' post.id %}">
           {% csrf_token %}
           <!-- Unnamed (Rectangle) -->
           <div id="u640" class="ax_default label">
@@ -177,7 +187,7 @@
       <!-- Unnamed (Rectangle) -->
       <div id="u581" class="ax_default box_1">
         <div id="u581_div" class=""></div>
-          <div id="u641" class="ax_default button">
+          <div id="u641" class="ax_default button" onclick="toggleCommentPreview()">
             <div id="u641_text" class="text ">
               <p><span>Preview</span></p>
             </div>
@@ -201,12 +211,18 @@
       </div>
     <div id="u621" class="ax_default" data-left="203" data-top="785" data-width="670" data-height="103"></div>
     <script>
-        const INITIAL_TOP_POS = 165;
+        window.CSRF_TOKEN = "{{ csrf_token }}";
+        const INITIAL_TOP_POS = 185;
         const PADDING = 55;
         const MIN_TOP_POS = 275;
-        let postContent = document.getElementById("post_content");
-        postContent.innerHTML = marked(postContent.innerHTML);
-        let postTextHeight = postContent.getBoundingClientRect().height;
+        let postContentContainer = document.getElementById("post_content");
+        let postContent = postContentContainer.innerHTML;
+
+        let tempTitleText = document.getElementById("u571_text");
+        let tempPostContent = document.getElementById("u579_text");
+
+        postContentContainer.innerHTML = marked(postContentContainer.innerHTML);
+        let postTextHeight = postContentContainer.getBoundingClientRect().height;
         let bottomSeparator = document.getElementById("u580");
         let commentPanel = document.getElementById("u581");
         bottomSeparator.style.top = Math.max(INITIAL_TOP_POS + postTextHeight + PADDING, MIN_TOP_POS)  + "px";
@@ -238,6 +254,7 @@
         /* Ajust the size of the panel and positions of the components inside each panel */
         let preHeightOffset = 0;
         for (let i = 0; i < comments.length; i++) {
+            let commentContentContainer = document.getElementById(`comment_content_container_${i}`);
             let textParagraph = document.getElementById(`comment_content_${i}`);
             let textHeight = textParagraph.getBoundingClientRect().height;
             let optimalHeight = Math.max(COMMENT_CONTENT_DEFAULT_HEIGHT, textHeight);
@@ -264,6 +281,65 @@
                 componentsList.forEach(component => {
                     component.style.top = COMPONENT_DEFAULT_TOP + heightDiff + "px";
                 });
+            }
+        }
+        activateTab();
+
+        function saveModifiedPost() {
+            let currentUrl = new URL(window.location.href);
+            let titleEditor = document.getElementById("title_field");
+            let contentEditor = document.getElementById("post_content_area");
+            currentUrl.searchParams.set("new_title", titleEditor.value);
+            currentUrl.searchParams.set("new_content", contentEditor.value);
+            window.location.href = currentUrl.toString();
+        }
+
+        function togglePostEdit() {
+            let editButtonText = document.getElementById("u639_text");
+            let isPostEditMode = editButtonText.innerText.localeCompare("Cancel") == 0;
+            let previewButton = document.getElementById("post_content_preview");
+            let titleContainer = document.getElementById("u571");
+            let contentContainer = document.getElementById("u579");
+            let deleteButton = document.getElementById("u640");
+            let saveButton = document.getElementById("save_post");
+
+            if (isPostEditMode) {
+                previewButton.style.display = "none";
+                let titleEditor = document.getElementById("title_field");
+                titleContainer.removeChild(titleEditor);
+                titleContainer.appendChild(tempTitleText);
+
+                let contentEditor = document.getElementById("post_content_area");
+                contentContainer.removeChild(contentEditor);
+                contentContainer.appendChild(tempPostContent);
+
+                deleteButton.style.display = "flex";
+                saveButton.style.display = "none";
+                editButtonText.innerHTML = "✒️Edit";
+            } else {
+                previewButton.style.display = "flex";
+
+                let titleEditor = document.createElement("input");
+                titleEditor.id = "title_field";
+                titleEditor.name = "post_title";
+                titleEditor.value = tempTitleText.innerText;
+
+                titleContainer.removeChild(tempTitleText);
+                titleContainer.appendChild(titleEditor);
+
+                let contentEditor = document.createElement("textarea");
+                contentEditor.id = "post_content_area";
+                contentEditor.name = "post_content_field";
+                contentEditor.style.height = postTextHeight + 25 + "px";
+                contentEditor.value = postContent;
+
+                contentContainer.removeChild(tempPostContent);
+                contentContainer.appendChild(contentEditor);
+
+                activateTab();
+                deleteButton.style.display = "none";
+                saveButton.style.display = "flex";
+                editButtonText.innerHTML = "Cancel";
             }
         }
     </script>
