@@ -41,6 +41,7 @@
     <script src={% static "resources/scripts/axure/jquery.nicescroll.min.js" %}></script>
     <script src={% static "data/document.js" %}></script>
     <script src={% static "files/index/data.js" %}></script>
+    <script src={% static "progressbar.min.js" %}></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return "{% static 'resources/images/transparent.gif' %}"; };
       $axure.utils.getOtherPath = function() { return "{% static 'resources/Other.html' %}"; };
@@ -88,14 +89,6 @@
         </div>
       </div>
 
-      <!-- Unnamed (Image) -->
-      <div id="u32" class="ax_default image">
-        <img id="u32_img" class="img " src={% static "images/index/u32.png" %}/>
-        <div id="u32_text" class="text " style="display:none; visibility: hidden">
-          <p></p>
-        </div>
-      </div>
-
       <!-- Unnamed (Rectangle) -->
       <div id="u33" class="ax_default heading_1">
         <div id="u33_div" class=""></div>
@@ -121,12 +114,12 @@
       </div>
 
       <!-- Unnamed (Image) -->
-      <div id="u36" class="ax_default image">
-        <img id="u36_img" class="img " src={% static "images/index/u32.png" %}/>
-        <div id="u36_text" class="text " style="display:none; visibility: hidden">
-          <p></p>
-        </div>
-      </div>
+      <a href="all_problems_page?lang=Haskell">
+        <div id="haskell_progress"></div>
+      </a>
+      <a href="all_problems_page?lang=Java">
+        <div id="java_progress"></div>
+      </a>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u37" class="ax_default button selected" selectiongroup="Post order">
@@ -722,6 +715,57 @@
       </div>
     </div>
     <script>
+        let haskellProgressContainer = document.getElementById("haskell_progress");
+        let haskellProgressBar = new ProgressBar.Circle(haskellProgressContainer, {
+              color: '#027DB4',
+              // This has to be the same size as the maximum width to
+              // prevent clipping
+              strokeWidth: 6,
+              trailWidth: 6,
+              easing: 'easeInOut',
+              duration: 1400,
+              text: {
+                autoStyleContainer: false
+              },
+              from: { color: '#027DB4', width: 2 },
+              to: { color: '#027DB4', width: 6 },
+              // Set default step function for all animate calls
+              step: function(state, circle) {
+                circle.path.setAttribute('stroke', "#027DB4");
+                circle.path.setAttribute('stroke-width', state.width);
+
+                var value = Math.round(circle.value() * 100);
+                circle.setText(value + "%");
+              }
+        });
+        haskellProgressBar.animate({{ haskell_progress }});
+
+        let javaProgressContainer = document.getElementById("java_progress");
+        let javaProgressBar = new ProgressBar.Circle(javaProgressContainer, {
+              color: '#027DB4',
+              // This has to be the same size as the maximum width to
+              // prevent clipping
+              strokeWidth: 6,
+              trailWidth: 6,
+              easing: 'easeInOut',
+              duration: 1400,
+              text: {
+                autoStyleContainer: false
+              },
+              from: { color: '#027DB4', width: 2 },
+              to: { color: '#027DB4', width: 6 },
+              // Set default step function for all animate calls
+              step: function(state, circle) {
+                circle.path.setAttribute('stroke', "#027DB4");
+                circle.path.setAttribute('stroke-width', state.width);
+
+                var value = Math.round(circle.value() * 100);
+                circle.setText(value + "%");
+              }
+        });
+        javaProgressBar.animate(0.0);
+
+
         function continueQuestion() {
             window.location.href = "question_solving_page?papername={{ last_modified_problem }}";
         }

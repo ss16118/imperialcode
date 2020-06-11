@@ -3713,3 +3713,16 @@ div.category_button:hover {
   cursor: pointer;
   background-color: lightgrey;
 }
+#haskell_progress {
+  position: absolute;
+  left: 1215px;
+  top: 160px;
+  width: 122px;
+}
+
+#java_progress {
+  position: absolute;
+  left: 1215px;
+  top: 329px;
+  width: 122px;
+}

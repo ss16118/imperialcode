@@ -156,11 +156,26 @@ def index(request):
     for i in range(9 - len(most_upvoted)):
         most_upvoted.append(('', obj))
 
+    haskell_problems = Problem.objects.filter(language="Haskell")
+    haskell_completed = 0
+    for problem in haskell_problems.iterator():
+        total_question_num = len(Question.objects.filter(problem_id=problem.id))
+        user_progress = UserProgress.objects.filter(user=request.user, problem_id=problem.id)
+        finished_subquestions = len(user_progress[0].progress) if user_progress else 0
+        print("{} / {}".format(finished_subquestions, total_question_num))
+        if finished_subquestions == total_question_num and (not total_question_num == 0):
+            haskell_completed += 1
+    haskell_progress = round(haskell_completed / len(haskell_problems), 2)
+
     if progress:
         progress = progress.latest("last_modified")
         problem_title = Problem.objects.filter(id=progress.problem_id)[0].title
-        print("Last modified {}".format(problem_title))
-    context = {"last_modified_problem": problem_title, "most_upvoted": most_upvoted, "user_agent": user_agent}
+
+    context = {
+        "last_modified_problem": problem_title,
+        "most_upvoted": most_upvoted,
+        "haskell_progress": haskell_progress,
+        "user_agent": user_agent}
     return render(request, "home/index.html", context)
 
 
@@ -291,7 +306,6 @@ def record_current_question(request):
         pname = request.POST.get("pname")
         index = int(request.POST.get("index"))
         progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
-        print("Stopped at question {} for paper {}".format(index, pname))
         if progress:
             user_progress = progress[0]
             user_progress.stopped_at = index
