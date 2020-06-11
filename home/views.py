@@ -368,14 +368,19 @@ def comment_detail(request):
     comment_id = int(request.GET.get("id"))
     comment = QuestionComment.objects.filter(id=comment_id)[0]
     comment.views += 1
+    new_title = request.GET.get("new_title")
+    new_content = request.GET.get("new_content")
+    if new_title is not None and new_content is not None:
+        comment.title = new_title
+        comment.desc = new_content
     comment.save()
     if request.method == "POST":
         new_comment = QuestionComment(question=comment.question, parent_comment=comment,
                                       user=comment.user, title="", desc=request.POST["comment_content"])
         new_comment.save()
     prev_page = request.META.get('HTTP_REFERER')
-    comments = QuestionComment.objects.filter(parent_comment= comment)
-    context = {"post":comment, "prev_page" : str(prev_page), "comments":comments, "user_agent":user_agent}
+    sub_comments = QuestionComment.objects.filter(parent_comment= comment)
+    context = {"post":comment, "prev_page" : str(prev_page), "comments":sub_comments, "user_agent":user_agent}
     return render(request, "home/comment_detail.html", context)
 
 
