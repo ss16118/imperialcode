@@ -266,7 +266,7 @@ def question_comment_page(request):
     user_agent = get_user_agent(request)
     pname = request.GET.get("papername")
     qindex = int(request.GET.get("question_index"))
-    qname = pname + " question " + str(qindex)
+    qname = pname + " question " + str(qindex + 1)
     question = Question.objects.filter(question_index=qindex, problem__title=pname)[0]
     question_id = question.id
     if request.method == "POST":

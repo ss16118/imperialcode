@@ -3,6 +3,7 @@ const COMMENT_CONTENT_DEFAULT_HEIGHT = 30;
 const COMPONENT_DEFAULT_TOP = 74;
 let tempEditPostContent = "";
 let tempEditCommentContent = "";
+let tempTextArea = null;
 function createCommentPanel(index, topPos, author, commentContent, createdAt, upvotes) {
     let panelHTML = [
         `<div id="comment_${index}" class="ax_default box_2 u622" style="top: ${topPos}px;">`,
@@ -137,6 +138,60 @@ function activateTab() {
       return false;
     }
   });
+}
+
+function togglePostEdit() {
+    let editButtonText = document.getElementById("u639_text");
+    let isPostEditMode = editButtonText.innerText.localeCompare("Cancel") == 0;
+    let previewButton = document.getElementById("post_content_preview");
+    let titleContainer = document.getElementById("u571");
+    let contentContainer = document.getElementById("u579");
+    let deleteButton = document.getElementById("u640");
+    let saveButton = document.getElementById("save_post");
+
+    if (isPostEditMode) {
+        previewButton.style.display = "none";
+        document.getElementById("post_content_preview_text").innerHTML = "Preview";
+        let titleEditor = document.getElementById("title_field");
+        titleContainer.removeChild(titleEditor);
+        titleContainer.appendChild(tempTitleText);
+
+        let contentEditor = document.getElementById("post_content_area");
+        if (contentEditor !== null) {
+            contentContainer.removeChild(contentEditor);
+        } else {
+            contentContainer.removeChild(document.getElementById("temp_post"));
+        }
+        contentContainer.appendChild(tempPostContent);
+
+        deleteButton.style.display = "flex";
+        saveButton.style.display = "none";
+        editButtonText.innerHTML = "✒️Edit";
+    } else {
+        previewButton.style.display = "flex";
+
+        let titleEditor = document.createElement("input");
+        titleEditor.id = "title_field";
+        titleEditor.name = "post_title";
+        titleEditor.value = tempTitleText.innerText;
+
+        titleContainer.removeChild(tempTitleText);
+        titleContainer.appendChild(titleEditor);
+
+        let contentEditor = document.createElement("textarea");
+        contentEditor.id = "post_content_area";
+        contentEditor.name = "post_content_field";
+        contentEditor.style.height = postTextHeight + 25 + "px";
+        contentEditor.value = postContent;
+
+        contentContainer.removeChild(tempPostContent);
+        contentContainer.appendChild(contentEditor);
+
+        activateTab();
+        deleteButton.style.display = "none";
+        saveButton.style.display = "flex";
+        editButtonText.innerHTML = "Cancel";
+    }
 }
 
 let decode = function(encodedString) {
