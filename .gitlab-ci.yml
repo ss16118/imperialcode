@@ -12,6 +12,7 @@ test:
         - pip3 install gunicorn
         - pip3 install dj_database_url
         - pip3 install django-heroku
+        - pip3 install django_user_agents
         - python3 manage.py test
 
 

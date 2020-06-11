@@ -50,8 +50,11 @@
   <body>
     <div id="base" class="">
 
+      {% if user_agent.is_mobile == False %}
       {% include "home/../global_components/navbar.html" %}
+      {% else %}
       {% include "home/../global_components/navbar_multidevice.html" %}
+      {% endif %}
       <div id="u403" style="display:none; visibility:hidden;"></div>
 
       <!-- Unnamed (Rectangle) -->
