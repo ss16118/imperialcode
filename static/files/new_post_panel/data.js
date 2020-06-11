@@ -31,7 +31,6 @@ function expandNewPostButtonOnClick() {
         resizePanelHeight("u479", 502);
         expandButton.innerHTML = "⮟";
     }
-    console.log(expanded);
 }
 
 let setCompOffsetTop = function(componentId, newTop) {

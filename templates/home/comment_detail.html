@@ -216,12 +216,12 @@
         const PADDING = 55;
         const MIN_TOP_POS = 275;
         let postContentContainer = document.getElementById("post_content");
-        let postContent = postContentContainer.innerHTML;
+        let postContent = decode(postContentContainer.innerHTML);
 
         let tempTitleText = document.getElementById("u571_text");
         let tempPostContent = document.getElementById("u579_text");
 
-        postContentContainer.innerHTML = marked(postContentContainer.innerHTML);
+        postContentContainer.innerHTML = marked(postContent);
         let postTextHeight = postContentContainer.getBoundingClientRect().height;
         let bottomSeparator = document.getElementById("u580");
         let commentPanel = document.getElementById("u581");
