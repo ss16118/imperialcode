@@ -231,7 +231,6 @@
         const COMMENT_INITIAL_TOP_POS = commentPanel.offsetTop + 200;
 
         let comments = [];
-        let commentContents = {};
         {% for comment in comments %}
             comments.push({
                 "user": "{{ comment.user }}",
