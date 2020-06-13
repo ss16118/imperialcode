@@ -193,4 +193,5 @@ LOGIN_REDIRECT_URL = '/'
 # log any email sent to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+#this line fixed the 500 error when debug set to False
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
