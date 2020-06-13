@@ -181,7 +181,7 @@ STATICFILES_DIRS = (
 )
 
 #  Add configuration for static files storage using whitenoise
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Activate Django-Heroku.
@@ -192,3 +192,5 @@ LOGIN_REDIRECT_URL = '/'
 
 # log any email sent to the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
