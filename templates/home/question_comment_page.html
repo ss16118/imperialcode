@@ -103,6 +103,12 @@
         </div>
       </div>
 
+      <div id="u570" class="ax_default button" onclick="backButtonOnClick()">
+        <div id="u570_div" class=""></div>
+        <div id="u570_text" class="text ">
+          <p><span>⮜ Back</span></p>
+        </div>
+      </div>
       <!-- Unnamed (Rectangle) -->
       <div id="u468" class="ax_default button selected" selectiongroup="Post order">
         <img id="u468_img" class="img " src={% static "images/index/u37.svg" %}/>
@@ -121,7 +127,7 @@
 
       <!-- Unnamed (Rectangle) -->
       <div id="u470" class="ax_default button" selectiongroup="Post order">
-        <img id="u470_img" class="img " src={% static "images/forum_page/u470.svg" %}/>
+        <img id="u470_img" class="img " src={% static "images/forucm_page/u470.svg" %}/>
         <div id="u470_text" class="text ">
           <p><span>Most upvotes</span></p>
         </div>
@@ -129,15 +135,42 @@
       <script>
           let panelsHTML = []
           {% for post in posts %}
-              panelsHTML.push(createPostPanel("comment_detail?id={{post.id}}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, 0, {{ post.views }}));
+              panelsHTML.push(createPostPanel("comment_detail?id={{post.id}}", {{ forloop.counter0 }}, "{{ post.user }}", "{{ post.title }}", "{{ post.created_at | naturaltime }}", {{ post.upvotes }}, {{ post.num_comments }}, {{ post.views }}));
           {% endfor %}
           panelsHTML.forEach(panelHTML => {
               let html = document.createElement("div");
               html.innerHTML = panelHTML;
               document.getElementById("u420_div").append(html);
           });
-      </script>
 
+          function activateTab() {
+              $("textarea").keydown(function (e) {
+                if (e.keyCode === 9) { // tab was pressed
+                  // get caret position/selection
+                  var start = this.selectionStart;
+                  end = this.selectionEnd;
+
+                  var $this = $(this);
+
+                  // set textarea value to: text before caret + tab + text after caret
+                  $this.val($this.val().substring(0, start)
+                      + "\t"
+                      + $this.val().substring(end));
+
+                  // put caret at right position again
+                  this.selectionStart = this.selectionEnd = start + 1;
+                  // prevent the focus lose
+                  return false;
+                }
+              });
+          }
+          function backButtonOnClick() {
+              let currentUrl = new URL(window.location.href);
+              let paperName = currentUrl.searchParams.get("papername");
+              window.location.href = `/question_solving_page?papername=${paperName}`;
+          }
+          activateTab();
+      </script>
       <!-- New Post Form -->
       {% include "home/../global_components/new_comment_panel.html" %}
     </div>

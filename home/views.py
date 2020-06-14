@@ -7,7 +7,7 @@ from django.contrib.auth.views import PasswordResetForm
 from django.contrib.auth.models import User as Authuser
 
 from forum.models import Post, Comment
-from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment
+from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment, CommentVotes
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -170,7 +170,6 @@ def index(request):
         total_question_num = len(Question.objects.filter(problem_id=problem.id))
         user_progress = UserProgress.objects.filter(user=request.user, problem_id=problem.id)
         finished_subquestions = len(user_progress[0].progress) if user_progress else 0
-        print("{} / {}".format(finished_subquestions, total_question_num))
         if finished_subquestions == total_question_num and (not total_question_num == 0):
             haskell_completed += 1
     haskell_progress = round(haskell_completed / len(haskell_problems), 2)
@@ -276,7 +275,23 @@ def question_comment_page(request):
                                   title=comment_title, desc=content)
         comment.save()
     comments = QuestionComment.objects.filter(question=question_id, parent_comment=None).order_by('-created_at')
-    context = {"qname": qname, "posts": comments, "pname": pname, "qindex": qindex, "user_agent": user_agent}
+    comments_with_extra_info = []
+    for comment in comments.iterator():
+        comments_with_extra_info.append({
+            "id": comment.id,
+            "user": comment.user,
+            "title": comment.title,
+            "create_at": comment.created_at,
+            "upvotes": comment.upvotes,
+            "views": comment.views,
+            "num_comments": __get_sub_comment_num(comment.id)
+        })
+    context = {
+        "qname": qname,
+        "posts": comments_with_extra_info,
+        "pname": pname,
+        "qindex": qindex,
+        "user_agent": user_agent}
 
     return render(request, "home/question_comment_page.html", context)
 
@@ -413,7 +428,15 @@ def comment_detail(request):
     else:
         prev_page = request.META.get('HTTP_REFERER')
     sub_comments = QuestionComment.objects.filter(parent_comment=comment).order_by("-created_at")
-    context = {"post": comment, "prev_page": str(prev_page), "comments": sub_comments, "user_agent": user_agent}
+    main_comment_vote = __get_comment_votes(comment_id)
+    context = {
+        "post": comment,
+        "main_post_upvotes": __get_comment_votes(comment_id),
+        "prev_page": str(prev_page),
+        "comments": sub_comments,
+        "user_agent": user_agent,
+        "main_comment_vote": main_comment_vote
+    }
     return render(request, "home/comment_detail.html", context)
 
 
@@ -545,9 +568,32 @@ def register_problem_vote(request):
     return HttpResponse("", content_type="text/plain")
 
 
+def register_comment_vote(request):
+    if request.method == "POST":
+        comment_id = request.POST["id"]
+        vote_type = int(request.POST["type"])
+        comment_vote = CommentVotes.objects.filter(user_id=request.user.id, comment_id=comment_id)
+        if comment_vote:
+            comment_vote[0].vote = vote_type
+            comment_vote[0].save()
+        else:
+            new_vote = CommentVotes(user=request.user, comment_id=comment_id, vote=vote_type)
+            new_vote.save()
+    return HttpResponse("", content_type="text/plain")
+
+
 def __get_problem_votes(problem_id):
     total_votes = UserVotes.objects.filter(problem_id=problem_id).aggregate(Sum("vote"))["vote__sum"]
     return total_votes if total_votes else 0
+
+
+def __get_comment_votes(comment_id):
+    total_votes = CommentVotes.objects.filter(comment_id=comment_id).aggregate(Sum("vote"))["vote__sum"]
+    return total_votes if total_votes else 0
+
+
+def __get_sub_comment_num(parent_id):
+    return len(QuestionComment.objects.filter(parent_comment_id=parent_id))
 
 
 def change_password(request):

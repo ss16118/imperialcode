@@ -62,9 +62,9 @@ function togglePreview() {
     let previewButtonText = document.getElementById("u516_text");
     let contentAreaContainer = document.getElementById("u479");
     let isEditMode = previewButtonText.innerText.localeCompare("Preview") == 0;
+    let contentArea = document.getElementById("u479_input");
 
     if (isEditMode) {
-        let contentArea = document.getElementById("u479_input");
         newPostContent = contentArea.value;
         tempTextArea = contentArea;
         let displayBlock = document.createElement("div");
@@ -72,14 +72,14 @@ function togglePreview() {
         displayBlock.style.padding = "1em";
         displayBlock.style.zIndex = 1500;
         displayBlock.innerHTML = marked(newPostContent);
-        contentAreaContainer.removeChild(contentArea);
+        contentArea.style.display = "none";
         contentAreaContainer.appendChild(displayBlock);
         previewButtonText.innerHTML = "Edit";
     } else {
         let displayBlock = document.getElementById("temp");
         tempTextArea.value = newPostContent;
         contentAreaContainer.removeChild(displayBlock);
-        contentAreaContainer.appendChild(tempTextArea);
+        contentArea.style.display = "flex";
         previewButtonText.innerHTML = "Preview";
     }
 }

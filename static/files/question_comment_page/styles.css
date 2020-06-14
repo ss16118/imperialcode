@@ -2960,3 +2960,51 @@
   text-transform:none;
   visibility:hidden;
 }
+#u570_div {
+  border-width:0px;
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:93px;
+  height:40px;
+  background:inherit;
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-size:15px;
+  color:#7F7F7F;
+}
+#u570 {
+  border-width:0px;
+  position:absolute;
+  left:80px;
+  top:85px;
+  width:93px;
+  height:40px;
+  display:flex;
+  font-size:15px;
+  color:#7F7F7F;
+}
+#u570 .text {
+  position:absolute;
+  align-self:center;
+  padding:2px 2px 2px 2px;
+  box-sizing:border-box;
+  width:100%;
+}
+#u570:hover {
+  cursor:pointer;
+  background-color:rgba(242, 242, 242, 1);
+}
+#u570.mouseOver {
+}
+#u570_text {
+  border-width:0px;
+  word-wrap:break-word;
+  text-transform:none;
+}

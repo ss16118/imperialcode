@@ -336,3 +336,96 @@ function togglePostEdit() {
 let decode = function(encodedString) {
     return $("<p/>").html(encodedString).text();
 };
+
+/* Display Votes */
+const UP = 1;
+const NO_VOTE = 0;
+const DOWN = -1;
+let mainCommentVote = NO_VOTE;
+
+let toggleUpvoteButton = function(button, activate) {
+    button.style.color = activate ? "black" : "gray";
+    let buttonDiv = document.getElementById(`${button.id}_div`);
+    buttonDiv.style.backgroundColor = activate ? "salmon" : "transparent";
+    if (activate) {
+        button.onmouseover = function () {
+            button.style.color = "gray";
+            buttonDiv.style.backgroundColor = "transparent";
+        }
+        button.onmouseout = function () {
+            button.style.color = "black";
+            buttonDiv.style.backgroundColor = "salmon";
+        }
+    } else {
+        button.onmouseover = function () {
+            button.style.color = "black";
+            buttonDiv.style.backgroundColor = "salmon";
+        }
+        button.onmouseout = function () {
+            button.style.color = "gray";
+            buttonDiv.style.backgroundColor = "transparent";
+        }
+    }
+}
+let toggleDownvoteButton = function(button, activate) {
+    button.style.color = activate ? "black" : "gray";
+    let buttonDiv = document.getElementById(`${button.id}_div`);
+    buttonDiv.style.backgroundColor = activate ? "lightblue" : "transparent";
+    if (activate) {
+        button.onmouseover = function () {
+            button.style.color = "gray";
+            buttonDiv.style.backgroundColor = "transparent";
+        }
+        button.onmouseout = function () {
+            button.style.color = "black";
+            buttonDiv.style.backgroundColor = "lightblue";
+        }
+    } else {
+        button.onmouseover = function () {
+            button.style.color = "black";
+            buttonDiv.style.backgroundColor = "lightblue";
+        }
+        button.onmouseout = function () {
+            button.style.color = "gray";
+            buttonDiv.style.backgroundColor = "transparent";
+        }
+    }
+}
+
+function displayVote(buttonGroupName, userVote) {
+    let buttonGroup = document.getElementsByClassName(buttonGroupName);
+    let upvoteButton = buttonGroup[0];
+    let downvoteButton = buttonGroup[1];
+
+    if (userVote == UP) {
+        toggleDownvoteButton(downvoteButton, false);
+        toggleUpvoteButton(upvoteButton, true);
+    } else if (userVote == DOWN) {
+        toggleDownvoteButton(downvoteButton, true);
+        toggleUpvoteButton(upvoteButton, false);
+    } else {
+        toggleDownvoteButton(downvoteButton, false);
+        toggleUpvoteButton(upvoteButton, false);
+    }
+}
+
+function registerVote(buttonGroupName, commentId, type, labelId) {
+    type = Math.abs(type - mainCommentVote) < 2 ? (mainCommentVote + type) % 2 : type;
+    let diff = type - mainCommentVote;
+    let upvoteLabel = document.getElementById(labelId);
+    upvoteLabel.innerHTML = parseInt(upvoteLabel.innerText) + diff;
+    mainCommentVote = type;
+    displayVote(buttonGroupName, mainCommentVote);
+    $.ajax({
+        type: "POST",
+        url: "/register_comment_vote/",
+        async: false,
+        data: {
+            "id": commentId,
+            "type": type,
+            "csrfmiddlewaretoken": window.CSRF_TOKEN
+        },
+        success: function(_) {
+        }
+    });
+}

@@ -107,6 +107,22 @@ class UserVotes(models.Model):
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)
 
+
+class CommentVotes(models.Model):
+    UP = 1
+    NO_VOTE = 0
+    DOWN = -1
+    VOTE_OPTIONS = (
+        (UP, 1),
+        (NO_VOTE, 0),
+        (DOWN, -1)
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.ForeignKey(QuestionComment, on_delete=models.CASCADE)
+    vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)
+
+
+
 '''
 class ActionLog(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

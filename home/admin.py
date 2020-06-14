@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment, UserVotes
+from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment, UserVotes, CommentVotes
 
 
 # Register your models here.
@@ -31,3 +31,6 @@ class QuestionCommentAdmin(admin.ModelAdmin):
 class UserVotesAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "problem", "vote"]
 
+@admin.register(CommentVotes)
+class CommentVotesAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "comment", "vote"]
