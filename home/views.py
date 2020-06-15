@@ -3,7 +3,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser, update_session_auth_hash
-from django.contrib.auth.views import PasswordResetForm
 from django.contrib.auth.models import User as Authuser
 
 from forum.models import Post, Comment

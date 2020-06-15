@@ -34,9 +34,21 @@ class ForumListView(SuccessMessageMixin, ListView):
     def post(self, request):
         post_title = request.POST['post_title']
         post_desc = request.POST['post_content']
-        new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc, upvotes=0, views=0)
+        new_post = Post(user_id=request.user.id, title=post_title, desc=post_desc, views=0)
         new_post.save()
-        context = {"posts": Post.objects.order_by('-created_at')}
+        posts = []
+        for post in Post.objects.order_by('-created_at').iterator():
+            num_comments = len(Comment.objects.filter(forum_id=post.id))
+            posts.append({
+                "slug": post.slug,
+                "title": post.title,
+                "user": post.user,
+                "created_at": post.created_at,
+                "upvotes": get_post_votes(post.id),
+                "num_comments": num_comments,
+                "views": post.views
+            })
+        context = {"posts": posts}
         return render(request, "forum/post_list.html", context)
 
 
