@@ -4,11 +4,12 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
-from .models import Post, Comment
+from .models import Post, Comment, PostVotes, PostCommentVotes
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.db.models import Q, Sum
 
 @method_decorator(login_required, name='dispatch')  # Protected the class, must be logged in to access.
 class ForumListView(SuccessMessageMixin, ListView):
@@ -23,7 +24,7 @@ class ForumListView(SuccessMessageMixin, ListView):
                 "title": post.title,
                 "user": post.user,
                 "created_at": post.created_at,
-                "upvotes": post.upvotes,
+                "upvotes": get_post_votes(post.id),
                 "num_comments": num_comments,
                 "views": post.views
             })
@@ -57,6 +58,16 @@ class ForumUserListView(ListView):
         return Post.objects.filter(user=self.user)
 
 
+def get_post_votes(post_id):
+    total_votes = PostVotes.objects.filter(post_id=post_id).aggregate(Sum("vote"))["vote__sum"]
+    return total_votes if total_votes else 0
+
+
+def get_comment_votes(comment_id):
+    total_votes = PostCommentVotes.objects.filter(comment_id=comment_id).aggregate(Sum("vote"))["vote__sum"]
+    return total_votes if total_votes else 0
+
+
 class ForumDetailView(DetailView):
     '''
     def get_context_data(self, **kwargs):
@@ -66,7 +77,6 @@ class ForumDetailView(DetailView):
     '''
 
     def post(self, request, slug):
-        context = {}
         if request.method == "POST":
             pk = request.POST["pk"]
             post_title = request.POST["title"]
@@ -82,7 +92,20 @@ class ForumDetailView(DetailView):
         post.views += 1
         post.save()
         comments = Comment.objects.filter(forum_id=post.id).order_by("-created_at")
-        context = {"post": post, "comments": comments}
+        comments_with_extra_info = []
+        for comment in comments.iterator():
+            comments_with_extra_info.append({
+                "id": comment.id,
+                "user": comment.user,
+                "desc": comment.desc,
+                "created_at": comment.created_at,
+                "upvotes": get_comment_votes(comment.id)
+            })
+        context = {
+            "post": post,
+            "post_votes": get_post_votes(post.id),
+            "comments": comments_with_extra_info
+        }
         return render(request, "forum/post_detail.html", context=context)
 
 
@@ -149,3 +172,49 @@ class CommentDeleteView(SuccessMessageMixin, OwnerProtectMixin, DeleteView):
 
 def home(request):
     return render(request, "home/forum_page.html")
+
+
+class VoteRegisterView(CreateView):
+    def post(self, request):
+        if request.method == "POST":
+            if request.POST['is_post'] == 'true':
+                post_id = request.POST["id"]
+                vote_type = int(request.POST["type"])
+                post_vote = PostVotes.objects.filter(user_id=request.user.id, post_id=post_id)
+                if post_vote:
+                    post_vote[0].vote = vote_type
+                    post_vote[0].save()
+                else:
+                    new_vote = PostVotes(user=request.user, post_id=post_id, vote=vote_type)
+                    new_vote.save()
+            else:
+                comment_id = request.POST["id"]
+                vote_type = int(request.POST["type"])
+                comment_vote = PostCommentVotes.objects.filter(user_id=request.user.id, comment_id=comment_id)
+                if comment_vote:
+                    comment_vote[0].vote = vote_type
+                    comment_vote[0].save()
+                else:
+                    new_vote = PostCommentVotes(user=request.user, comment_id=comment_id, vote=vote_type)
+                    new_vote.save()
+        return HttpResponse("", content_type="text/plain")
+
+
+class SaveCommentView(UpdateView):
+    def post(self, request):
+        if request.method == "POST":
+            comment_id = request.POST["id"]
+            new_content = request.POST["content"]
+            sub_comment = Comment.objects.get(id=comment_id)
+            sub_comment.desc = new_content
+            sub_comment.save()
+        return HttpResponse("", content_type="text/plain")
+
+
+class DeleteCommentView(DeleteView):
+    def post(self, request):
+        if request.method == "POST":
+            comment_id = request.POST["id"]
+            comment = Comment.objects.get(id=comment_id)
+            comment.delete()
+        return HttpResponse("", content_type="text/plain")

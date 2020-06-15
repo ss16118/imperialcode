@@ -17,7 +17,6 @@ class Post(models.Model):
     desc = models.TextField(default="")
     slug = models.SlugField(max_length=255, unique=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    upvotes = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
 
     def __str__(self):
@@ -34,7 +33,6 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     forum = models.ForeignKey(Post, on_delete=models.CASCADE)
     desc = models.TextField(default="")
-    upvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -42,3 +40,31 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('forum-list')
+
+
+class PostVotes(models.Model):
+    UP = 1
+    NO_VOTE = 0
+    DOWN = -1
+    VOTE_OPTIONS = (
+        (UP, 1),
+        (NO_VOTE, 0),
+        (DOWN, -1)
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)
+
+
+class PostCommentVotes(models.Model):
+    UP = 1
+    NO_VOTE = 0
+    DOWN = -1
+    VOTE_OPTIONS = (
+        (UP, 1),
+        (NO_VOTE, 0),
+        (DOWN, -1)
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)

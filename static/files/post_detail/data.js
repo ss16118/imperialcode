@@ -33,13 +33,13 @@ function createCommentPanel(index, commentId, topPos, author, commentContent, cr
                 `<p id="comment_content_${index}"></p>`,
               '</div>',
             '</div>',
-            `<div id="comment_upvote_${index}" class="ax_default paragraph comment_vote_${commentId} u625" onclick="registerVote('comment_vote_${commentId}', ${commentId}, UP, 'comment_upvotes_label_text_${index}')">`,
+            `<div id="comment_upvote_${index}" class="ax_default paragraph comment_vote_${commentId} u625" onclick="registerVote('comment_vote_${commentId}', ${commentId}, UP, 'comment_upvotes_label_text_${index}', false)">`,
               `<div id="comment_upvote_${index}_div" class="u625_div "></div>`,
               '<div id="" class="text u625_text">',
                 '<p><span>⯅</span></p>',
               '</div>',
             '</div>',
-            `<div id="comment_downvote_${index}" class="ax_default paragraph comment_vote_${commentId} u626" onclick="registerVote('comment_vote_${commentId}', ${commentId}, DOWN, 'comment_upvotes_label_text_${index}')">`,
+            `<div id="comment_downvote_${index}" class="ax_default paragraph comment_vote_${commentId} u626" onclick="registerVote('comment_vote_${commentId}', ${commentId}, DOWN, 'comment_upvotes_label_text_${index}', false)">`,
               `<div id="comment_downvote_${index}_div" class="u626_div "></div>`,
               '<div id="" class="text u626_text">',
                 '<p><span>⯆</span></p>',
@@ -100,9 +100,10 @@ function createCommentPanel(index, commentId, topPos, author, commentContent, cr
 }
 
 let deleteComment = function(id) {
+    let url = window.location.href.includes("/forum/") ? "/forum/delete_comment/" : "/delete_comment/";
     $.ajax({
         type: "POST",
-        url: "/delete_comment/",
+        url: url,
         async: false, // Just to be safe
         data: {
             "id": id,
@@ -120,9 +121,10 @@ let deleteComment = function(id) {
 }
 
 let saveCommentContent = function(index) {
+    let url = window.location.href.includes("/forum/") ? "/forum/save_comment/" : "/save_comment/";
     $.ajax({
         type: "POST",
-        url: "/save_comment/",
+        url: url,
         async: false, // Just to be safe
         data: {
             "id": commentIds[index],
@@ -409,7 +411,7 @@ function displayVote(buttonGroupName, userVote) {
     }
 }
 
-function registerVote(buttonGroupName, commentId, type, labelId) {
+function registerVote(buttonGroupName, commentId, type, labelId, isPost) {
     let userVote = commentIdToVote[commentId]
     type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
     let diff = type - userVote;
@@ -417,12 +419,15 @@ function registerVote(buttonGroupName, commentId, type, labelId) {
     upvoteLabel.innerHTML = parseInt(upvoteLabel.innerText) + diff;
     commentIdToVote[commentId] = type;
     displayVote(buttonGroupName, type);
+    let url = window.location.href.includes("/forum/") ?
+        `/forum/register_${isPost ? 'post' : 'comment'}_vote/` : `/register_comment_vote/`;
     $.ajax({
         type: "POST",
-        url: "/register_comment_vote/",
+        url: url,
         async: false,
         data: {
             "id": commentId,
+            "is_post": isPost,
             "type": type,
             "csrfmiddlewaretoken": window.CSRF_TOKEN
         },
