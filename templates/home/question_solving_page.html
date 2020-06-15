@@ -394,7 +394,7 @@
         let funcNames = [];
         
         codeSegments.forEach(seg => {
-            funcNames.push(seg.substr(0, seg.indexOf(" ")));
+            funcNames.push(getFuncName(seg));
         });
 
         /* Editor Settings */
@@ -436,7 +436,7 @@
         for (i = 0; i < questions.length; i++) {
             let html = document.createElement("div");
             let seg = codeSegments[i + 1];
-            let title = seg.substr(0, seg.indexOf(" "));
+            let title = funcNames[i + 1];
             html.innerHTML = createNavigationLabel(i, title);
             document.getElementById("u329_div").append(html);
 

@@ -324,7 +324,7 @@ def save_code(request):
         pname = request.POST.get("pname")
         q_index = int(request.POST.get("index"))
         code = request.POST.get("code")
-        code_cache.add(pname, q_index, request.user.id, code)
+        code_cache.add(pname, q_index + 1, request.user.id, code)
     return HttpResponse("", content_type="text/plain")
 
 
@@ -378,6 +378,7 @@ def question_solving_page(request):
     code_segments_stored = CodeSegment.objects.filter(problem__title=pname).order_by("index")
     code_segments = []
     progress = UserProgress.objects.filter(problem__title=pname, user_id=request.user.id)
+    code_cache.dump()
     for i in range(len(code_segments_stored)):
         cached_segment = code_cache.get(pname, code_segments_stored[i].index, request.user.id)
         if cached_segment is not None:

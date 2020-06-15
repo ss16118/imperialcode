@@ -207,3 +207,14 @@ function saveEditorSettings() {
     });
     editorSettingsCancelButtonOnClick();
 }
+
+let getFuncName = function(segment) {
+    let lines = segment.match(/[^\r\n]+/g);
+    for (line of lines) {
+        let firstWord = line.substr(0, line.indexOf(" "));
+        if (firstWord.localeCompare("--") != 0 && firstWord.localeCompare("") != 0) {
+            return firstWord;
+        }
+    }
+    return "";
+};
