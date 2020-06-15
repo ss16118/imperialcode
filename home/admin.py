@@ -1,5 +1,6 @@
 from django.contrib import admin
-from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment, UserVotes, CommentVotes
+from home.models import Problem, Question, CodeSegment, UserProgress, QuestionComment, UserVotes, CommentVotes, \
+    UserEditorSettings
 
 
 # Register your models here.
@@ -36,3 +37,8 @@ class UserVotesAdmin(admin.ModelAdmin):
 @admin.register(CommentVotes)
 class CommentVotesAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "comment", "vote"]
+
+
+@admin.register(UserEditorSettings)
+class UserEditorSettingsAdmin(admin.ModelAdmin):
+    list_display = ["id", "user", "font_size", "theme", "key_binding"]

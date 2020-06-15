@@ -40,6 +40,7 @@ urlpatterns = [
                   url(r'^comment_detail', views.comment_detail),
                   url(r'^register_problem_vote/$', views.register_problem_vote),
                   url(r'^register_comment_vote/$', views.register_comment_vote),
+                  url(r'^save_editor_settings/$', views.save_editor_settings),
                   url(r'^random_problem', views.random_problem),
                   url(r'^password/$', views.change_password, name='change_password'),
                   # path('change-password/', auth_views.PasswordChangeView.as_view(template_name='home/user_info_page.html')),

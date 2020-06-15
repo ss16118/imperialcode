@@ -4859,6 +4859,11 @@
   word-wrap:break-word;
   text-transform:none;
 }
+#u362:hover {
+  cursor:pointer;
+  background-color:rgba(242, 242, 242, 1);
+  font-family:'SF Pro Display', 'SF Pro Text', sans-serif;
+}
 #u363_div {
   border-width:0px;
   position:absolute;

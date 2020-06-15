@@ -178,3 +178,32 @@ function finishedPrevSubquestions(finishedSubquestions, currentSubquestion) {
     }
     return true;
 }
+
+function saveEditorSettings() {
+    let fontSizeField = document.getElementById("u359_input");
+    let themeField = document.getElementById("u357_input");
+    let keyBindingField = document.getElementById("u355_input");
+
+    let fontSize = fontSizeField.value;
+    let theme = themeField.value;
+    let keyBinding = keyBindingField.value;
+
+    let editor = $('.CodeMirror')[0].CodeMirror;
+    editor.getWrapperElement().style["font-size"] = fontSize;
+    editor.setOption("keyMap", keyBinding);
+    editor.setOption("theme", theme);
+
+    $.ajax({
+        type: "POST",
+        url: "/save_editor_settings/",
+        async: false,
+        data: {
+            "font_size": fontSize,
+            "theme": theme,
+            "key_binding": keyBinding,
+            "csrfmiddlewaretoken": window.CSRF_TOKEN
+        },
+        success: function (_) {}
+    });
+    editorSettingsCancelButtonOnClick();
+}

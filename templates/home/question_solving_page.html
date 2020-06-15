@@ -8,7 +8,15 @@
     <script src={% static "codemirror/lib/codemirror.js" %}></script>
     <link rel="stylesheet" href={% static "codemirror/lib/codemirror.css" %}>
     <link rel="stylesheet" href={% static "codemirror/theme/dracula.css" %}>
+    <link rel="stylesheet" href={% static "codemirror/theme/eclipse.css" %}>
+    <link rel="stylesheet" href={% static "codemirror/theme/monokai.css" %}>
+    <link rel="stylesheet" href={% static "codemirror/theme/the-matrix.css" %}>
     <script src={% static "codemirror/mode/haskell/haskell.js" %}></script>
+    <script src={% static "codemirror/keymap/vim.js" %}></script>
+    <script src={% static "codemirror/keymap/emacs.js" %}></script>
+    <script src={% static "codemirror/keymap/sublime.js" %}></script>
+    <script src={% static "codemirror/addon/edit/matchbrackets.js" %}></script>
+    <script src={% static "codemirror/addon/search/searchcursor.js" %}></script>
     <!-- Codemirror -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -103,10 +111,14 @@
                 <textarea id="u278_input"></textarea>
                   <script>
                       let editor = CodeMirror.fromTextArea(document.getElementById("u278_input"), {
-                          theme: "dracula",
-                          lineNumbers: true
+                          theme: "{{ editor_settings.theme }}",
+                          lineNumbers: true,
+                          keyMap: "{{ editor_settings.key_binding }}",
+                          matchBrackets: true,
+                          showCursorWhenSelecting: true
                       });
                       editor.setSize("1268", "357");
+                      editor.getWrapperElement().style["font-size"] = {{ editor_settings.font_size }} + "px";
                       editor.getWrapperElement().style["font-family"] = "JetBrains Mono Medium";
                       editor.on("change", function(cm, change) {
                           codeSegments[currentQuestionIndex + 1] = editor.getValue();
@@ -269,9 +281,9 @@
       <div id="u355" class="ax_default droplist">
         <div id="u355_div" class=""></div>
         <select id="u355_input" class="u355_input">
-          <option class="u355_input_option" value="Vim">Vim</option>
-          <option class="u355_input_option" value="Emacs">Emacs</option>
-          <option class="u355_input_option" selected value="Sublime">Sublime</option>
+          <option class="u355_input_option" value="vim">Vim</option>
+          <option class="u355_input_option" value="emacs">Emacs</option>
+          <option class="u355_input_option" selected value="sublime">Sublime</option>
         </select>
       </div>
 
@@ -306,10 +318,11 @@
       <div id="u359" class="ax_default droplist">
         <div id="u359_div" class=""></div>
         <select id="u359_input" class="u359_input">
+          <option class="u359_input_option" value="12px">11px</option>
           <option class="u359_input_option" value="12px">12px</option>
-          <option class="u359_input_option" value="13px">13px</option>
+          <option class="u359_input_option" selected value="13px">13px</option>
           <option class="u359_input_option" value="14px">14px</option>
-          <option class="u359_input_option" selected value="15px">15px</option>
+          <option class="u359_input_option" value="15px">15px</option>
           <option class="u359_input_option" value="16px">16px</option>
         </select>
       </div>
@@ -331,7 +344,7 @@
       </div>
 
       <!-- Unnamed (Rectangle) -->
-      <div id="u362" class="ax_default button">
+      <div id="u362" class="ax_default button" onclick="saveEditorSettings()">
         <div id="u362_div" class=""></div>
         <div id="u362_text" class="text ">
           <p><span>Save</span></p>
@@ -383,6 +396,16 @@
         codeSegments.forEach(seg => {
             funcNames.push(seg.substr(0, seg.indexOf(" ")));
         });
+
+        /* Editor Settings */
+        let fontSizeField = document.getElementById("u359_input");
+        let themeField = document.getElementById("u357_input");
+        let keyBindingField = document.getElementById("u355_input");
+
+        fontSizeField.value = {{ editor_settings.font_size }} + "px";
+        themeField.value = "{{ editor_settings.theme }}";
+        keyBindingField.value = "{{ editor_settings.key_binding }}";
+        /* Editor Settings */
 
         let displaySubquestion = function(index) {
             index = index >= questions.length ? questions.length - 1 : index;

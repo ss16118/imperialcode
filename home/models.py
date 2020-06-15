@@ -121,6 +121,32 @@ class CommentVotes(models.Model):
     vote = models.IntegerField(default=NO_VOTE, choices=VOTE_OPTIONS)
 
 
+class UserEditorSettings(models.Model):
+    class Theme:
+        DRACULA = "dracula"
+        ECLIPSE = "eclipse"
+        MONOKAI = "monokai"
+        THE_MATRIX = "the-matrix"
+        OPTIONS = (
+            (DRACULA, "dracula"),
+            (ECLIPSE, "eclipse"),
+            (MONOKAI, "monokai"),
+            (THE_MATRIX, "the-matrix")
+        )
+    class KeyBinding:
+        SUBLIME = "sublime"
+        EMACS = "emacs"
+        VIM = "vim"
+        OPTIONS = (
+            (SUBLIME, "sublime"),
+            (EMACS, "emacs"),
+            (VIM, "vim")
+        )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    font_size = models.IntegerField(default=13)
+    theme = models.CharField(max_length=20, choices=Theme.OPTIONS, default=Theme.DRACULA)
+    key_binding = models.CharField(max_length=20, choices=KeyBinding.OPTIONS, default=KeyBinding.SUBLIME)
+
 
 '''
 class ActionLog(models.Model):

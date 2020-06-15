@@ -6,7 +6,8 @@ from django.contrib.auth import authenticate, login as loginuser, update_session
 from django.contrib.auth.models import User as Authuser
 import forum.views as forum
 from forum.models import Post, Comment
-from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment, CommentVotes
+from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment, CommentVotes, \
+    UserEditorSettings
 from django.contrib.auth.decorators import login_required
 from home.codeCache import CodeCache
 import requests
@@ -392,12 +393,19 @@ def question_solving_page(request):
     code_segments_clean = []
     for code_segment in code_segments:
         code_segments_clean.append(code_segment.replace("\\", "\\\\").replace("`", "\`"))
+    editor_setting = UserEditorSettings.objects.filter(user=request.user)
+    if editor_setting:
+        user_setting = editor_setting[0]
+    else:
+        user_setting = UserEditorSettings(user=request.user)
+        user_setting.save()
     context = {
         "paper": paper,
         "questions": questions_clean,
         "code_segments": code_segments_clean,
         "stopped_at": progress[0].stopped_at if progress else 0,
         "finished_subquestions": progress[0].progress if progress else [],
+        "editor_settings": user_setting,
         "is_empty": len(questions) == 0,
         "user_agent": user_agent
     }
@@ -601,6 +609,19 @@ def register_comment_vote(request):
         else:
             new_vote = CommentVotes(user=request.user, comment_id=comment_id, vote=vote_type)
             new_vote.save()
+    return HttpResponse("", content_type="text/plain")
+
+
+def save_editor_settings(request):
+    if request.method == "POST":
+        font_size = int(request.POST["font_size"][:2])
+        theme = request.POST["theme"]
+        key_binding = request.POST["key_binding"]
+        user_settings = UserEditorSettings.objects.get(user=request.user)
+        user_settings.font_size = font_size
+        user_settings.theme = theme
+        user_settings.key_binding = key_binding
+        user_settings.save()
     return HttpResponse("", content_type="text/plain")
 
 
