@@ -82,7 +82,6 @@ class ForumDetailView(DetailView):
         post.views += 1
         post.save()
         comments = Comment.objects.filter(forum_id=post.id).order_by("-created_at")
-        main_post_vote =
         context = {"post": post, "comments": comments}
         return render(request, "forum/post_detail.html", context=context)
 
