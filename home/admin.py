@@ -10,12 +10,12 @@ class ProblemAdmin(admin.ModelAdmin):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ["id",'question_desc', "question_index",'code_segment', 'test_script']
+    list_display = ["id", 'question_desc', "question_index", 'code_segment', 'test_script']
 
 
 @admin.register(CodeSegment)
 class CodeSegmentAdmin(admin.ModelAdmin):
-    list_display = ["id",'index', 'code', 'problem']
+    list_display = ["id", 'index', 'code', 'problem']
 
 
 @admin.register(UserProgress)
@@ -25,11 +25,13 @@ class UserProgressAdmin(admin.ModelAdmin):
 
 @admin.register(QuestionComment)
 class QuestionCommentAdmin(admin.ModelAdmin):
-    list_display = ["id", "question", "parent_comment","user" , "upvotes", "created_at"]
+    list_display = ["id", "question", "parent_comment", "user", "created_at"]
+
 
 @admin.register(UserVotes)
 class UserVotesAdmin(admin.ModelAdmin):
     list_display = ["id", "user", "problem", "vote"]
+
 
 @admin.register(CommentVotes)
 class CommentVotesAdmin(admin.ModelAdmin):

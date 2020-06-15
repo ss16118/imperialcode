@@ -233,11 +233,13 @@
         {% for comment in comments %}
             commentIds.push({{ comment.id }});
             comments.push({
+                "id": {{ comment.id }},
                 "user": "{{ comment.user }}",
                 "content": `{{ comment.desc }}`,
                 "createdAt": "{{ comment.created_at | naturaltime }}",
                 "upvotes": {{ comment.upvotes }}
             });
+            commentIdToVote[{{ comment.id }}] = {{ comment.upvotes }};
         {% endfor %}
 
         let currentTop = COMMENT_INITIAL_TOP_POS;
@@ -246,7 +248,7 @@
         for (let i = 0; i< comments.length; i++) {
             let comment = comments[i];
             let editable = "{{ request.user }}" === comment.user;
-            let panel = createCommentPanel(i, currentTop,
+            let panel = createCommentPanel(i, comment["id"], currentTop,
                 comment["user"], comment["content"], comment["createdAt"], comment["upvotes"], editable);
             currentTop += COMMENT_PANEL_DEFAULT_HEIGHT + COMMENT_PADDING;
             mainContainer.appendChild(panel);
@@ -298,8 +300,13 @@
             window.location.href = currentUrl.toString();
         }
         /* Display Votes */
-        mainCommentVote = {{ main_comment_vote }};
-        displayVote("main_comment", mainCommentVote);
+        commentIdToVote[{{ post.id }}] = {{ main_comment_vote }};
+        displayVote("main_comment", {{ main_comment_vote }});
+        for (let [commentId, userVote] of Object.entries(commentIdToVote)) {
+            if (commentId != {{ post.id }}) {
+                displayVote(`comment_vote_${commentId}`, commentIdToVote[commentId]);
+            }
+        }
         /* Display Votes */
     </script>
     <script src={% static "resources/scripts/axure/ios.js" %}></script>

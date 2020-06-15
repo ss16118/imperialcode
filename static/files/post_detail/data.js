@@ -10,7 +10,8 @@ let editCommentContents = {};
 let commentContentEditors = {};
 let commentIds = [];
 let mainPostId = 0;
-function createCommentPanel(index, topPos, author, commentContent, createdAt, upvotes, editable) {
+let commentIdToVote = {};
+function createCommentPanel(index, commentId, topPos, author, commentContent, createdAt, upvotes, editable) {
     let panelHTML = [
         `<div id="comment_${index}" class="ax_default box_2 u622" style="top: ${topPos}px;">`,
           `<div id="comment_div_${index}" class="u622_div ">`,
@@ -32,21 +33,21 @@ function createCommentPanel(index, topPos, author, commentContent, createdAt, up
                 `<p id="comment_content_${index}"></p>`,
               '</div>',
             '</div>',
-            `<div id="comment_upvote_${index}" class="ax_default paragraph u625">`,
-              '<div id="" class="u625_div "></div>',
+            `<div id="comment_upvote_${index}" class="ax_default paragraph comment_vote_${commentId} u625" onclick="registerVote('comment_vote_${commentId}', ${commentId}, UP, 'comment_upvotes_label_text_${index}')">`,
+              `<div id="comment_upvote_${index}_div" class="u625_div "></div>`,
               '<div id="" class="text u625_text">',
                 '<p><span>⯅</span></p>',
               '</div>',
             '</div>',
-            `<div id="comment_downvote_${index}" class="ax_default paragraph u626">`,
-              '<div id="" class="u626_div "></div>',
+            `<div id="comment_downvote_${index}" class="ax_default paragraph comment_vote_${commentId} u626" onclick="registerVote('comment_vote_${commentId}', ${commentId}, DOWN, 'comment_upvotes_label_text_${index}')">`,
+              `<div id="comment_downvote_${index}_div" class="u626_div "></div>`,
               '<div id="" class="text u626_text">',
                 '<p><span>⯆</span></p>',
               '</div>',
             '</div>',
             `<div id="comment_upvotes_label_${index}" class="ax_default heading_1 u627">`,
               '<div id="" class="u627_div "></div>',
-              '<div id="" class="text u627_text">',
+              `<div id="comment_upvotes_label_text_${index}" class="text u627_text">`,
                 `<p><span>${upvotes}</span></p>`,
               '</div>',
             '</div>',
@@ -341,7 +342,6 @@ let decode = function(encodedString) {
 const UP = 1;
 const NO_VOTE = 0;
 const DOWN = -1;
-let mainCommentVote = NO_VOTE;
 
 let toggleUpvoteButton = function(button, activate) {
     button.style.color = activate ? "black" : "gray";
@@ -410,12 +410,13 @@ function displayVote(buttonGroupName, userVote) {
 }
 
 function registerVote(buttonGroupName, commentId, type, labelId) {
-    type = Math.abs(type - mainCommentVote) < 2 ? (mainCommentVote + type) % 2 : type;
-    let diff = type - mainCommentVote;
+    let userVote = commentIdToVote[commentId]
+    type = Math.abs(type - userVote) < 2 ? (userVote + type) % 2 : type;
+    let diff = type - userVote;
     let upvoteLabel = document.getElementById(labelId);
     upvoteLabel.innerHTML = parseInt(upvoteLabel.innerText) + diff;
-    mainCommentVote = type;
-    displayVote(buttonGroupName, mainCommentVote);
+    commentIdToVote[commentId] = type;
+    displayVote(buttonGroupName, type);
     $.ajax({
         type: "POST",
         url: "/register_comment_vote/",

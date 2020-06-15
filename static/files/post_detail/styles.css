@@ -2688,6 +2688,9 @@ div.u625_text {
   white-space:nowrap;
   text-transform:none;
 }
+div.u625:hover{
+  cursor:pointer;
+}
 div.u626_div {
   border-width:0px;
   position:absolute;
@@ -2723,6 +2726,9 @@ div.u626 {
   font-size:15px;
   color:#7F7F7F;
   text-align:center;
+}
+div.u626:hover{
+  cursor:pointer;
 }
 div.u626 .text {
   position:absolute;

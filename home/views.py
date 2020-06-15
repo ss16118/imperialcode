@@ -428,12 +428,21 @@ def comment_detail(request):
     else:
         prev_page = request.META.get('HTTP_REFERER')
     sub_comments = QuestionComment.objects.filter(parent_comment=comment).order_by("-created_at")
+    sub_comments_with_extra_info = []
+    for sub_comment in sub_comments.iterator():
+        sub_comments_with_extra_info.append({
+            "id": sub_comment.id,
+            "user": sub_comment.user,
+            "desc": sub_comment.desc,
+            "created_at": sub_comment.created_at,
+            "upvotes": __get_comment_votes(sub_comment.id)
+        })
     main_comment_vote = __get_comment_votes(comment_id)
     context = {
         "post": comment,
         "main_post_upvotes": __get_comment_votes(comment_id),
         "prev_page": str(prev_page),
-        "comments": sub_comments,
+        "comments": sub_comments_with_extra_info,
         "user_agent": user_agent,
         "main_comment_vote": main_comment_vote
     }
