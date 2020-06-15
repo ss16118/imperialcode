@@ -487,7 +487,7 @@
         let forumPostsContainer = document.getElementById("post_comments_container");
         {% for post in user_posts %}
             forumPostsContainer.appendChild(createPostPanel("{% url 'forum-detail' post.slug %}", {{ forloop.counter0 }},
-                "{{ post.title }}", {{ post.upvotes }}, 0, false));
+                "{{ post.title }}", {{ post.upvotes }}, {{ post.num_comments }}, false));
         {% endfor %}
 
         initialTopPos += {{ user_posts|length }} * (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) + 15;
@@ -517,7 +517,7 @@
         let questionCommentsContainer = document.getElementById("question_comments_container");
         {% for question_comment in question_comments %}
             questionCommentsContainer.appendChild(createPostPanel("comment_detail?id={{ question_comment.id }}",
-                {{ forloop.counter0 }}, "{{ question_comment.title }}", {{ question_comment.upvotes }}, 0, false));
+                {{ forloop.counter0 }}, "{{ question_comment.title }}", {{ question_comment.upvotes }}, {{ question_comment.num_comments }}, false));
         {% endfor %}
 
         initialTopPos += {{ question_comments|length }} * (DEFAULT_POST_PANEL_HEIGHT + PANEL_PADDING) + 15;

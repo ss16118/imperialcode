@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 import logging
 from django.contrib.auth import authenticate, login as loginuser, update_session_auth_hash
 from django.contrib.auth.models import User as Authuser
-
+import forum.views as forum
 from forum.models import Post, Comment
 from home.models import Problem, Question, CodeSegment, UserProgress, UserVotes, QuestionComment, CommentVotes
 from django.contrib.auth.decorators import login_required
@@ -471,7 +471,14 @@ def single_post_page(request):
 def user_info_page(request):
     user_agent = get_user_agent(request)
     user = request.user
-    post_set = Post.objects.filter(user=user)
+    post_set = []
+    for post in Post.objects.filter(user=user).iterator():
+        post_set.append({
+            "slug": post.slug,
+            "title": post.title,
+            "upvotes": forum.get_post_votes(post.id),
+            "num_comments": len(Comment.objects.filter(forum_id=post.id))
+        })
     comment_set = Comment.objects.filter(user=user)
     comments = []
     for comment in comment_set.iterator():
@@ -479,10 +486,18 @@ def user_info_page(request):
         comments.append({
             "post_slug": corresponding_post.slug,
             "post_title": corresponding_post.title,
-            "upvotes": 0,
+            "upvotes": forum.get_comment_votes(comment.id),
             "created_at": comment.created_at
         })
-    question_comment_set = QuestionComment.objects.filter(user=user, parent_comment__isnull=True)
+    question_comment_set = []
+    for question_comment in QuestionComment.objects.filter(user=user, parent_comment__isnull=True).iterator():
+        question_comment_set.append({
+            "id": question_comment.id,
+            "title": question_comment.title,
+            "upvotes": __get_comment_votes(question_comment.id),
+            "num_comments": __get_sub_comment_num(question_comment.id)
+        })
+
     question_reply_set = QuestionComment.objects.filter(user=user, parent_comment__isnull=False)
     question_comment_replies = []
     for reply in question_reply_set.iterator():
@@ -490,7 +505,7 @@ def user_info_page(request):
         question_comment_replies.append({
             "comment_id": corresponding_comment.id,
             "comment_title": corresponding_comment.title,
-            "upvotes": 0,
+            "upvotes": __get_comment_votes(reply.id),
             "created_at": reply.created_at
         })
     context = {
@@ -500,7 +515,6 @@ def user_info_page(request):
         "question_comments": question_comment_set,
         "question_comment_replies": question_comment_replies,
         "user_agent": user_agent
-        # tried to add a new model for activity but decided to hold it for now
     }
     return render(request, "home/user_info_page.html", context)
 
