@@ -274,7 +274,7 @@ def question_comment_page(request):
         comment = QuestionComment(question=question, parent_comment=None, user=request.user,
                                   title=comment_title, desc=content)
         comment.save()
-    comments = QuestionComment.objects.filter(question=question_id, parent_comment=None).order_by('-created_at')
+    comments = QuestionComment.objects.filter(question=question_id, parent_comment=None).order_by('-views')
     comments_with_extra_info = []
     for comment in comments.iterator():
         comments_with_extra_info.append({
@@ -324,7 +324,6 @@ def save_code(request):
         pname = request.POST.get("pname")
         q_index = int(request.POST.get("index"))
         code = request.POST.get("code")
-        print("Saved {} {} {}".format(pname, q_index, code))
         code_cache.add(pname, q_index, request.user.id, code)
     return HttpResponse("", content_type="text/plain")
 
