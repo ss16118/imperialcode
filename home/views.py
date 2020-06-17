@@ -282,7 +282,7 @@ def question_comment_page(request):
             "user": comment.user,
             "title": comment.title,
             "create_at": comment.created_at,
-            "upvotes": comment.upvotes,
+            "upvotes": 0,
             "views": comment.views,
             "num_comments": __get_sub_comment_num(comment.id)
         })
