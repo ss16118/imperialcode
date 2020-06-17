@@ -105,6 +105,7 @@ class ForumDetailView(DetailView):
         post.save()
         comments = Comment.objects.filter(forum_id=post.id).order_by("-created_at")
         comments_with_extra_info = []
+        user_comment_votes = []
         for comment in comments.iterator():
             comments_with_extra_info.append({
                 "id": comment.id,
@@ -113,9 +114,13 @@ class ForumDetailView(DetailView):
                 "created_at": comment.created_at,
                 "upvotes": get_comment_votes(comment.id)
             })
+            user_comment_votes.append(get_user_vote(request.user, comment.id))
+        post_vote = PostVotes.objects.filter(user=request.user, post_id=post.id)
         context = {
             "post": post,
             "post_votes": get_post_votes(post.id),
+            "user_post_vote": post_vote[0].vote if post_vote else 0,
+            "user_comment_votes": user_comment_votes,
             "comments": comments_with_extra_info
         }
         return render(request, "forum/post_detail.html", context=context)
@@ -230,3 +235,7 @@ class DeleteCommentView(DeleteView):
             comment = Comment.objects.get(id=comment_id)
             comment.delete()
         return HttpResponse("", content_type="text/plain")
+
+def get_user_vote(user, comment_id):
+    vote = PostCommentVotes.objects.filter(user=user, comment_id=comment_id)
+    return vote[0].vote if vote else 0

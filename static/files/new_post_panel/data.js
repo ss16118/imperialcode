@@ -71,6 +71,7 @@ function togglePreview() {
         displayBlock.id = "temp";
         displayBlock.style.padding = "1em";
         displayBlock.style.zIndex = 1500;
+        displayBlock.style.overflow = "auto";
         displayBlock.innerHTML = marked(newPostContent);
         contentArea.style.display = "none";
         contentAreaContainer.appendChild(displayBlock);

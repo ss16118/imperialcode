@@ -17,6 +17,9 @@ class CodeCache:
     def add(self, paper_name, question_index, userid, code_segment):
         self.__data[(paper_name, question_index, userid)] = (code_segment, time.time())
 
+    def clear(self):
+        self.__data.clear()
+
     def dump(self):
         print('--------- Code Cache ---------')
         for key in self.__data:

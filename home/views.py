@@ -324,7 +324,8 @@ def save_code(request):
         pname = request.POST.get("pname")
         q_index = int(request.POST.get("index"))
         code = request.POST.get("code")
-        code_cache.add(pname, q_index + 1, request.user.id, code)
+        print("Saved {} {} {}".format(pname, q_index, code))
+        code_cache.add(pname, q_index, request.user.id, code)
     return HttpResponse("", content_type="text/plain")
 
 
@@ -437,6 +438,7 @@ def comment_detail(request):
         prev_page = request.META.get('HTTP_REFERER')
     sub_comments = QuestionComment.objects.filter(parent_comment=comment).order_by("-created_at")
     sub_comments_with_extra_info = []
+    user_comment_votes = [__get_user_vote(request.user, comment_id)]
     for sub_comment in sub_comments.iterator():
         sub_comments_with_extra_info.append({
             "id": sub_comment.id,
@@ -445,14 +447,15 @@ def comment_detail(request):
             "created_at": sub_comment.created_at,
             "upvotes": __get_comment_votes(sub_comment.id)
         })
-    main_comment_vote = __get_comment_votes(comment_id)
+        user_comment_votes.append(__get_user_vote(request.user, sub_comment.id))
+
     context = {
         "post": comment,
         "main_post_upvotes": __get_comment_votes(comment_id),
         "prev_page": str(prev_page),
         "comments": sub_comments_with_extra_info,
         "user_agent": user_agent,
-        "main_comment_vote": main_comment_vote
+        "user_votes": user_comment_votes
     }
     return render(request, "home/comment_detail.html", context)
 
@@ -638,6 +641,11 @@ def __get_comment_votes(comment_id):
 
 def __get_sub_comment_num(parent_id):
     return len(QuestionComment.objects.filter(parent_comment_id=parent_id))
+
+
+def __get_user_vote(user, comment_id):
+    vote = CommentVotes.objects.filter(user=user, comment_id=comment_id)
+    return vote[0].vote if vote else 0
 
 
 def change_password(request):

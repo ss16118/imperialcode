@@ -70,7 +70,7 @@
           <div id="u267_state0" class="panel_state" data-label="Default" style="">
             <div id="u267_state0_content" class="panel_state_content">
 
-              <!-- Console panel (Group) -->
+              <!-- Consolec panel (Group) -->
               <div id="u268" class="ax_default" data-label="Console panel" data-left="713" data-top="374" data-width="574" data-height="208">
 
                 <!-- Unnamed (Shape) -->
@@ -508,6 +508,7 @@
         // Save changed code on page unload
         window.onbeforeunload = function(e) {
             document.getElementById("loader").style.display = "flex";
+            console.log(changed);
             changed.forEach(i => {
                 $.ajax({
                     type: "POST",
